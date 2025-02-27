@@ -1,0 +1,4 @@
+/home/sudhan/V6/build/CMakeFiles/qt_simple_interface.dir
+/home/sudhan/V6/build/CMakeFiles/edit_cache.dir
+/home/sudhan/V6/build/CMakeFiles/rebuild_cache.dir
+/home/sudhan/V6/build/CMakeFiles/qt_simple_interface_autogen.dir
