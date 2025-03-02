@@ -7,14 +7,12 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QWidget>
-#include <QMenuBar>
-#include <QStatusBar>
-#include <QDockWidget>
-#include <QTreeView>
-#include <QStandardItemModel>
-#include <QTextEdit>
 #include <QToolBar>
 #include <QStackedWidget>
+#include <QDockWidget>
+#include <QLineEdit>
+#include <QTimer>
+#include <QDateTime>
 
 class MainWindow : public QMainWindow
 {
@@ -25,29 +23,48 @@ public:
     ~MainWindow();
 
 private slots:
-    void handleSidebarButton(int index);
+    void handleLeftSidebarButton(int index);
+    void handleRightSidebarButton();
+    void updateDateTime();
 
 private:
-    void createMenuBar();
-    void createSideToolBar();
-    void createStatusBar();
+    void createTopBar();
+    void createLeftSideBar();
+    void createRightSideBar();
+    void createLeftPanels();
+    void createRightPanel();
     void setupMainArea();
     void applyStyles();
-    void createSidePanels();
 
 private:
+    // Main widgets
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
-    QTextEdit *editor;
-    QToolBar *sideToolBar;
-    QDockWidget *sidePanelDock;
-    QStackedWidget *stackedWidget;
-    QStatusBar *bottomBar;
+
+    // Top bar widgets
+    QToolBar *topBar;
+    QLabel *logoLabel;
+    QLineEdit *searchBox;
+    QLabel *userIcon;
+    QLabel *dateTimeLabel;
+    QLabel *statusLabel;
+    QTimer *dateTimeTimer;
+
+    // Left sidebar
+    QToolBar *leftToolBar;
+    QDockWidget *leftPanelDock;
+    QStackedWidget *leftStackedWidget;
     QAction *missionAction;
     QAction *configAction;
     QAction *simulationAction;
     QAction *settingsAction;
-    int currentPanelIndex;
+    int currentLeftPanelIndex;
+
+    // Right sidebar
+    QToolBar *rightToolBar;
+    QDockWidget *rightPanelDock;
+    QAction *taskDetailsAction;
+    bool isRightPanelVisible;
 };
 
-#endif // MAINWINDOW_H 
+#endif // MAINWINDOW_H

@@ -1,137 +1,198 @@
 #include "mainwindow.h"
-#include <QMenu>
 #include <QApplication>
 #include <QScreen>
 #include <QFont>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), currentPanelIndex(-1)
+    : QMainWindow(parent), currentLeftPanelIndex(-1), isRightPanelVisible(false)
 {
     // Set up the main window to be fullscreen
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
     resize(screenGeometry.width(), screenGeometry.height());
     setWindowState(Qt::WindowMaximized);
-    setWindowTitle("Dark Theme Editor");
+    setWindowTitle("UAV Aerial Systems");
 
     // Create UI components
-    createMenuBar();
-    createSideToolBar();
-    createSidePanels();
+    createTopBar();
+    createLeftSideBar();
+    createRightSideBar();
+    createLeftPanels();
+    createRightPanel();
     setupMainArea();
-    createStatusBar();
     applyStyles();
+
+    // Initialize and start the date/time timer
+    dateTimeTimer = new QTimer(this);
+    connect(dateTimeTimer, &QTimer::timeout, this, &MainWindow::updateDateTime);
+    dateTimeTimer->start(1000); // Update every second
+    updateDateTime(); // Initial update
 }
 
 MainWindow::~MainWindow()
 {
 }
 
-void MainWindow::createMenuBar()
+void MainWindow::createTopBar()
 {
-    QMenuBar *menuBar = new QMenuBar(this);
-    setMenuBar(menuBar);
+    topBar = new QToolBar(this);
+    topBar->setMovable(false);
+    addToolBar(Qt::TopToolBarArea, topBar);
 
-    // File menu
-    QMenu *fileMenu = menuBar->addMenu("File");
-    fileMenu->addAction("New");
-    fileMenu->addAction("Open");
-    fileMenu->addAction("Save");
-    fileMenu->addSeparator();
-    fileMenu->addAction("Exit");
+    // Left: Logo
+    logoLabel = new QLabel("UAV LOGO");
+    logoLabel->setMinimumWidth(100);
+    topBar->addWidget(logoLabel);
 
-    // Edit menu
-    QMenu *editMenu = menuBar->addMenu("Edit");
-    editMenu->addAction("Undo");
-    editMenu->addAction("Redo");
-    editMenu->addSeparator();
-    editMenu->addAction("Cut");
-    editMenu->addAction("Copy");
-    editMenu->addAction("Paste");
+    // Add spacer
+    QWidget* spacer1 = new QWidget();
+    spacer1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    topBar->addWidget(spacer1);
 
-    // View menu
-    QMenu *viewMenu = menuBar->addMenu("View");
-    viewMenu->addAction("Toggle Sidebar");
+    // Center: Search
+    searchBox = new QLineEdit();
+    searchBox->setPlaceholderText("Search...");
+    searchBox->setFixedWidth(300);
+    topBar->addWidget(searchBox);
+
+    // Add spacer
+    QWidget* spacer2 = new QWidget();
+    spacer2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    topBar->addWidget(spacer2);
+
+    // Right: User info, date/time, status
+    userIcon = new QLabel("👤");
+    dateTimeLabel = new QLabel();
+    statusLabel = new QLabel("● Online");
+    
+    topBar->addWidget(userIcon);
+    topBar->addWidget(dateTimeLabel);
+    topBar->addWidget(statusLabel);
 }
 
-void MainWindow::createSideToolBar()
+void MainWindow::createLeftSideBar()
 {
-    sideToolBar = new QToolBar(this);
-    sideToolBar->setMovable(false);
-    sideToolBar->setOrientation(Qt::Vertical);
-    addToolBar(Qt::LeftToolBarArea, sideToolBar);
+    leftToolBar = new QToolBar(this);
+    leftToolBar->setMovable(false);
+    leftToolBar->setOrientation(Qt::Vertical);
+    addToolBar(Qt::LeftToolBarArea, leftToolBar);
 
-    // Create actions with temporary text instead of icons
-    missionAction = new QAction("M", this);
-    configAction = new QAction("C", this);
-    simulationAction = new QAction("S", this);
-    settingsAction = new QAction("⚙", this);
+    // Create actions with icons
+    missionAction = new QAction("🎯", this);
+    configAction = new QAction("⚙️", this);
+    simulationAction = new QAction("🚁", this);
+    settingsAction = new QAction("🔧", this);
 
     // Set fixed size for the toolbar buttons
-    sideToolBar->setIconSize(QSize(40, 40));
+    leftToolBar->setIconSize(QSize(40, 40));
     
     // Add actions to toolbar
-    sideToolBar->addAction(missionAction);
-    sideToolBar->addAction(configAction);
-    sideToolBar->addAction(simulationAction);
-    sideToolBar->addAction(settingsAction);
+    leftToolBar->addAction(missionAction);
+    leftToolBar->addAction(configAction);
+    leftToolBar->addAction(simulationAction);
+    leftToolBar->addAction(settingsAction);
 
     // Connect signals
-    connect(missionAction, &QAction::triggered, this, [this]() { handleSidebarButton(0); });
-    connect(configAction, &QAction::triggered, this, [this]() { handleSidebarButton(1); });
-    connect(simulationAction, &QAction::triggered, this, [this]() { handleSidebarButton(2); });
-    connect(settingsAction, &QAction::triggered, this, [this]() { handleSidebarButton(3); });
+    connect(missionAction, &QAction::triggered, this, [this]() { handleLeftSidebarButton(0); });
+    connect(configAction, &QAction::triggered, this, [this]() { handleLeftSidebarButton(1); });
+    connect(simulationAction, &QAction::triggered, this, [this]() { handleLeftSidebarButton(2); });
+    connect(settingsAction, &QAction::triggered, this, [this]() { handleLeftSidebarButton(3); });
 }
 
-void MainWindow::createSidePanels()
+void MainWindow::createRightSideBar()
 {
-    sidePanelDock = new QDockWidget(this);
-    sidePanelDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
-    sidePanelDock->setAllowedAreas(Qt::LeftDockWidgetArea);
-    addDockWidget(Qt::LeftDockWidgetArea, sidePanelDock);
+    rightToolBar = new QToolBar(this);
+    rightToolBar->setMovable(false);
+    rightToolBar->setOrientation(Qt::Vertical);
+    addToolBar(Qt::RightToolBarArea, rightToolBar);
+
+    taskDetailsAction = new QAction("📋", this);
+    rightToolBar->setIconSize(QSize(40, 40));
+    rightToolBar->addAction(taskDetailsAction);
+
+    connect(taskDetailsAction, &QAction::triggered, this, &MainWindow::handleRightSidebarButton);
+}
+
+void MainWindow::createLeftPanels()
+{
+    leftPanelDock = new QDockWidget(this);
+    leftPanelDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
+    leftPanelDock->setAllowedAreas(Qt::LeftDockWidgetArea);
+    addDockWidget(Qt::LeftDockWidgetArea, leftPanelDock);
     
-    stackedWidget = new QStackedWidget(sidePanelDock);
+    leftStackedWidget = new QStackedWidget(leftPanelDock);
     
-    // Create panels with labels
+    // Create panels with content
     QWidget* missionPanel = new QWidget();
-    QLabel* missionLabel = new QLabel("Mission Panel");
+    QLabel* missionLabel = new QLabel("Mission Control Panel\n\n- Flight Planning\n- Waypoint Management\n- Mission Parameters\n- Emergency Protocols");
     QVBoxLayout* missionLayout = new QVBoxLayout(missionPanel);
     missionLayout->addWidget(missionLabel);
     
     QWidget* configPanel = new QWidget();
-    QLabel* configLabel = new QLabel("Configuration Panel");
+    QLabel* configLabel = new QLabel("Configuration Panel\n\n- UAV Settings\n- Sensor Calibration\n- Communication Setup\n- Flight Parameters");
     QVBoxLayout* configLayout = new QVBoxLayout(configPanel);
     configLayout->addWidget(configLabel);
     
     QWidget* simulationPanel = new QWidget();
-    QLabel* simulationLabel = new QLabel("Simulation Panel");
+    QLabel* simulationLabel = new QLabel("Simulation Panel\n\n- Flight Simulation\n- Weather Conditions\n- Scenario Testing\n- Performance Analysis");
     QVBoxLayout* simulationLayout = new QVBoxLayout(simulationPanel);
     simulationLayout->addWidget(simulationLabel);
     
     QWidget* settingsPanel = new QWidget();
-    QLabel* settingsLabel = new QLabel("Settings Panel");
+    QLabel* settingsLabel = new QLabel("Settings Panel\n\n- System Settings\n- User Preferences\n- Security Settings\n- Updates");
     QVBoxLayout* settingsLayout = new QVBoxLayout(settingsPanel);
     settingsLayout->addWidget(settingsLabel);
     
-    stackedWidget->addWidget(missionPanel);
-    stackedWidget->addWidget(configPanel);
-    stackedWidget->addWidget(simulationPanel);
-    stackedWidget->addWidget(settingsPanel);
+    leftStackedWidget->addWidget(missionPanel);
+    leftStackedWidget->addWidget(configPanel);
+    leftStackedWidget->addWidget(simulationPanel);
+    leftStackedWidget->addWidget(settingsPanel);
     
-    sidePanelDock->setWidget(stackedWidget);
-    sidePanelDock->hide();
+    leftPanelDock->setWidget(leftStackedWidget);
+    leftPanelDock->hide();
 }
 
-void MainWindow::handleSidebarButton(int index)
+void MainWindow::createRightPanel()
 {
-    if (currentPanelIndex == index && sidePanelDock->isVisible()) {
-        sidePanelDock->hide();
-        currentPanelIndex = -1;
+    rightPanelDock = new QDockWidget(this);
+    rightPanelDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
+    rightPanelDock->setAllowedAreas(Qt::RightDockWidgetArea);
+    addDockWidget(Qt::RightDockWidgetArea, rightPanelDock);
+
+    QWidget* taskPanel = new QWidget();
+    QLabel* taskLabel = new QLabel("Task Details Panel\n\n- Current Tasks\n- Task Progress\n- Task History\n- Performance Metrics\n- Alerts and Notifications");
+    QVBoxLayout* taskLayout = new QVBoxLayout(taskPanel);
+    taskLayout->addWidget(taskLabel);
+
+    rightPanelDock->setWidget(taskPanel);
+    rightPanelDock->hide();
+}
+
+void MainWindow::handleLeftSidebarButton(int index)
+{
+    if (currentLeftPanelIndex == index && leftPanelDock->isVisible()) {
+        leftPanelDock->hide();
+        currentLeftPanelIndex = -1;
     } else {
-        stackedWidget->setCurrentIndex(index);
-        sidePanelDock->show();
-        currentPanelIndex = index;
+        leftStackedWidget->setCurrentIndex(index);
+        leftPanelDock->show();
+        currentLeftPanelIndex = index;
     }
+}
+
+void MainWindow::handleRightSidebarButton()
+{
+    if (rightPanelDock->isVisible()) {
+        rightPanelDock->hide();
+    } else {
+        rightPanelDock->show();
+    }
+}
+
+void MainWindow::updateDateTime()
+{
+    QDateTime current = QDateTime::currentDateTime();
+    dateTimeLabel->setText(current.toString("dd/MM/yyyy hh:mm:ss"));
 }
 
 void MainWindow::setupMainArea()
@@ -141,48 +202,21 @@ void MainWindow::setupMainArea()
     mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
-    editor = new QTextEdit();
-    editor->setPlaceholderText("Type your code here...");
+    QLabel* mainLabel = new QLabel("UAV Control Center");
+    mainLabel->setAlignment(Qt::AlignCenter);
+    QFont font = mainLabel->font();
+    font.setPointSize(24);
+    mainLabel->setFont(font);
     
-    // Set font size for the editor
-    QFont font = editor->font();
-    font.setPointSize(12);
-    editor->setFont(font);
-    
-    mainLayout->addWidget(editor);
-}
-
-void MainWindow::createStatusBar()
-{
-    bottomBar = new QStatusBar();
-    setStatusBar(bottomBar);
-    bottomBar->showMessage("Ready");
+    mainLayout->addWidget(mainLabel);
 }
 
 void MainWindow::applyStyles()
 {
-    // Dark theme styling
     QString styleSheet = R"(
         QMainWindow {
             background-color: #1e1e1e;
             color: #d4d4d4;
-        }
-        QMenuBar {
-            background-color: #333333;
-            color: #d4d4d4;
-            font-size: 14px;
-        }
-        QMenuBar::item:selected {
-            background-color: #505050;
-        }
-        QMenu {
-            background-color: #252526;
-            color: #d4d4d4;
-            border: 1px solid #454545;
-            font-size: 14px;
-        }
-        QMenu::item:selected {
-            background-color: #04395e;
         }
         QToolBar {
             background-color: #333333;
@@ -197,6 +231,8 @@ void MainWindow::applyStyles()
             border-radius: 5px;
             padding: 5px;
             font-size: 20px;
+            min-width: 40px;
+            min-height: 40px;
         }
         QToolBar QToolButton:hover {
             background-color: #404040;
@@ -204,27 +240,29 @@ void MainWindow::applyStyles()
         QToolBar QToolButton:pressed {
             background-color: #505050;
         }
-        QDockWidget {
+        QLineEdit {
+            background-color: #252526;
             color: #d4d4d4;
+            border: 1px solid #454545;
+            border-radius: 4px;
+            padding: 5px;
             font-size: 14px;
         }
         QLabel {
             color: #d4d4d4;
             font-size: 14px;
         }
-        QTextEdit {
-            background-color: #1e1e1e;
+        QDockWidget {
             color: #d4d4d4;
-            border: none;
-            selection-background-color: #264f78;
-            font-size: 12pt;
-        }
-        QStatusBar {
-            background-color: #007acc;
-            color: #ffffff;
             font-size: 14px;
+            background-color: #252526;
+            border: 1px solid #454545;
+        }
+        QDockWidget QLabel {
+            padding: 10px;
+            line-height: 1.5;
         }
     )";
 
     qApp->setStyleSheet(styleSheet);
-} 
+}
