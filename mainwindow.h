@@ -13,6 +13,7 @@
 #include <QLineEdit>
 #include <QTimer>
 #include <QDateTime>
+#include <QWebEngineView>
 
 class MainWindow : public QMainWindow
 {
@@ -35,11 +36,13 @@ private:
     void createRightPanel();
     void setupMainArea();
     void applyStyles();
+    void initializeMap();
 
 private:
     // Main widgets
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
+    QWebEngineView *m_webView;
 
     // Top bar widgets
     QToolBar *topBar;

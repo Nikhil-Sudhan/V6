@@ -51,6 +51,7 @@
 #define __INT_LEAST8_WIDTH__ 8
 #define __cpp_variadic_using 201611L
 #define __UINT_LEAST64_MAX__ 0xffffffffffffffffUL
+#define QT_OPENGL_LIB 1
 #define __INT_LEAST8_MAX__ 0x7f
 #define __cpp_capture_star_this 201603L
 #define __SHRT_MAX__ 0x7fff

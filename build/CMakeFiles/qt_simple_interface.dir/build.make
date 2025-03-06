@@ -124,11 +124,18 @@ qt_simple_interface: CMakeFiles/qt_simple_interface.dir/qt_simple_interface_auto
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/main.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/build.make
-qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt6Widgets.so.6.2.4
-qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.2.4
-qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.2.4
-qt_simple_interface: /usr/lib/x86_64-linux-gnu/libGLX.so
-qt_simple_interface: /usr/lib/x86_64-linux-gnu/libOpenGL.so
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so.5.15.9
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.so.5.15.9
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebChannel.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Positioning.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Quick.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5QmlModels.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Qml.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5PrintSupport.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable qt_simple_interface"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qt_simple_interface.dir/link.txt --verbose=$(VERBOSE)

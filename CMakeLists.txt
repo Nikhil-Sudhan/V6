@@ -8,12 +8,17 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets WebEngineWidgets REQUIRED)
 
-add_executable(qt_simple_interface
+add_executable(${PROJECT_NAME}
     main.cpp
     mainwindow.h
     mainwindow.cpp
 )
 
-target_link_libraries(qt_simple_interface PRIVATE Qt6::Widgets) 
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    Qt5::WebEngineWidgets
+) 
