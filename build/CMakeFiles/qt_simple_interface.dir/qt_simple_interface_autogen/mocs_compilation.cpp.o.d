@@ -1,7 +1,7 @@
 CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o: \
  /home/sudhan/V6/build/qt_simple_interface_autogen/mocs_compilation.cpp \
  /usr/include/stdc-predef.h \
- /home/sudhan/V6/build/qt_simple_interface_autogen/EWIEGA46WW/moc_mainwindow.cpp \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/6YEA5652QU/moc_MainWindow.cpp \
  /usr/include/c++/11/memory /usr/include/c++/11/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -117,7 +117,7 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
  /usr/include/c++/11/backward/auto_ptr.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
  /usr/include/c++/11/pstl/execution_defs.h \
- /home/sudhan/V6/build/qt_simple_interface_autogen/EWIEGA46WW/../../../mainwindow.h \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/6YEA5652QU/../../../include/MainWindow.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -281,21 +281,19 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_LeftSidebar.cpp \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/LeftSidebar.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QToolBar \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtoolbar.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h \
@@ -303,24 +301,20 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h \
  /usr/include/c++/11/variant \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QAction \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDockWidget \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdockwidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextcursor.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextformat.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_MapViewer.cpp \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/MapViewer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineView \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineview.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
  /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qnetworkaccessmanager.h \
  /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetworkglobal.h \
  /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetwork-config.h \
@@ -368,4 +362,24 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/qwebenginehttprequest.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagelayout.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_RightSidebar.cpp \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/RightSidebar.h \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_TopBar.cpp \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/TopBar.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextcursor.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextformat.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_VehicleInfoWidget.cpp \
+ /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/VehicleInfoWidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFrame \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h

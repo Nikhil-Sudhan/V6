@@ -1,4 +1,4 @@
-#include "mapviewer.h"
+#include "../include/MainWindow.h"
 #include <QApplication>
 #include <QWebEngineSettings>
 #include <QDir>
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
     
     QApplication app(argc, argv);
     
-    MapViewer viewer;
-    viewer.show();
+    MainWindow window;
+    window.show();
     return app.exec();
 } 

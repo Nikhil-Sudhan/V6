@@ -1,0 +1,25 @@
+{
+	"BUILD_DIR" : "/home/sudhan/V6/build/qt_simple_interface_autogen",
+	"CMAKE_BINARY_DIR" : "/home/sudhan/V6/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/sudhan/V6/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/sudhan/V6",
+	"CMAKE_SOURCE_DIR" : "/home/sudhan/V6",
+	"INCLUDE_DIR" : "/home/sudhan/V6/build/qt_simple_interface_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/sudhan/V6/icons/menu.svg",
+		"/home/sudhan/V6/icons/eye.svg",
+		"/home/sudhan/V6/icons/back.svg",
+		"/home/sudhan/V6/icons/star.svg"
+	],
+	"LOCK_FILE" : "/home/sudhan/V6/build/CMakeFiles/qt_simple_interface_autogen.dir/AutoRcc_resources_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "resources" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_resources.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib/qt5/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/sudhan/V6/build/CMakeFiles/qt_simple_interface_autogen.dir/AutoRcc_resources_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/sudhan/V6/resources.qrc",
+	"VERBOSITY" : 0
+}

@@ -116,9 +116,39 @@
 	"HEADERS" : 
 	[
 		[
-			"/home/sudhan/V6/mainwindow.h",
+			"/home/sudhan/V6/include/MainWindow.h",
 			"MU",
-			"EWIEGA46WW/moc_mainwindow.cpp",
+			"6YEA5652QU/moc_MainWindow.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/components/LeftSidebar.h",
+			"MU",
+			"B37CIN4C3K/moc_LeftSidebar.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/components/MapViewer.h",
+			"MU",
+			"B37CIN4C3K/moc_MapViewer.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/components/RightSidebar.h",
+			"MU",
+			"B37CIN4C3K/moc_RightSidebar.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/components/TopBar.h",
+			"MU",
+			"B37CIN4C3K/moc_TopBar.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/components/VehicleInfoWidget.h",
+			"MU",
+			"B37CIN4C3K/moc_VehicleInfoWidget.cpp",
 			null
 		]
 	],
@@ -150,6 +180,7 @@
 	],
 	"MOC_INCLUDES" : 
 	[
+		"/home/sudhan/V6/include",
 		"/usr/include/x86_64-linux-gnu/qt5",
 		"/usr/include/x86_64-linux-gnu/qt5/QtCore",
 		"/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++",
@@ -196,8 +227,13 @@
 	"SETTINGS_FILE" : "/home/sudhan/V6/build/CMakeFiles/qt_simple_interface_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "/home/sudhan/V6/main.cpp", "MU", null ],
-		[ "/home/sudhan/V6/mainwindow.cpp", "MU", null ]
+		[ "/home/sudhan/V6/src/MainWindow.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/components/LeftSidebar.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/components/MapViewer.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/components/RightSidebar.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/components/TopBar.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/components/VehicleInfoWidget.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

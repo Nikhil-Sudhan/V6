@@ -142,54 +142,6 @@ qt_simple_interface_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface_autogen.dir/build.make CMakeFiles/qt_simple_interface_autogen.dir/build
 .PHONY : qt_simple_interface_autogen/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/main.cpp.s
-.PHONY : main.cpp.s
-
-mainwindow.o: mainwindow.cpp.o
-.PHONY : mainwindow.o
-
-# target to build an object file
-mainwindow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o
-.PHONY : mainwindow.cpp.o
-
-mainwindow.i: mainwindow.cpp.i
-.PHONY : mainwindow.i
-
-# target to preprocess a source file
-mainwindow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.i
-.PHONY : mainwindow.cpp.i
-
-mainwindow.s: mainwindow.cpp.s
-.PHONY : mainwindow.s
-
-# target to generate assembly for a file
-mainwindow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.s
-.PHONY : mainwindow.cpp.s
-
 qt_simple_interface_autogen/mocs_compilation.o: qt_simple_interface_autogen/mocs_compilation.cpp.o
 .PHONY : qt_simple_interface_autogen/mocs_compilation.o
 
@@ -214,6 +166,174 @@ qt_simple_interface_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.s
 .PHONY : qt_simple_interface_autogen/mocs_compilation.cpp.s
 
+src/MainWindow.o: src/MainWindow.cpp.o
+.PHONY : src/MainWindow.o
+
+# target to build an object file
+src/MainWindow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o
+.PHONY : src/MainWindow.cpp.o
+
+src/MainWindow.i: src/MainWindow.cpp.i
+.PHONY : src/MainWindow.i
+
+# target to preprocess a source file
+src/MainWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.i
+.PHONY : src/MainWindow.cpp.i
+
+src/MainWindow.s: src/MainWindow.cpp.s
+.PHONY : src/MainWindow.s
+
+# target to generate assembly for a file
+src/MainWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.s
+.PHONY : src/MainWindow.cpp.s
+
+src/components/LeftSidebar.o: src/components/LeftSidebar.cpp.o
+.PHONY : src/components/LeftSidebar.o
+
+# target to build an object file
+src/components/LeftSidebar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o
+.PHONY : src/components/LeftSidebar.cpp.o
+
+src/components/LeftSidebar.i: src/components/LeftSidebar.cpp.i
+.PHONY : src/components/LeftSidebar.i
+
+# target to preprocess a source file
+src/components/LeftSidebar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.i
+.PHONY : src/components/LeftSidebar.cpp.i
+
+src/components/LeftSidebar.s: src/components/LeftSidebar.cpp.s
+.PHONY : src/components/LeftSidebar.s
+
+# target to generate assembly for a file
+src/components/LeftSidebar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.s
+.PHONY : src/components/LeftSidebar.cpp.s
+
+src/components/MapViewer.o: src/components/MapViewer.cpp.o
+.PHONY : src/components/MapViewer.o
+
+# target to build an object file
+src/components/MapViewer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o
+.PHONY : src/components/MapViewer.cpp.o
+
+src/components/MapViewer.i: src/components/MapViewer.cpp.i
+.PHONY : src/components/MapViewer.i
+
+# target to preprocess a source file
+src/components/MapViewer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.i
+.PHONY : src/components/MapViewer.cpp.i
+
+src/components/MapViewer.s: src/components/MapViewer.cpp.s
+.PHONY : src/components/MapViewer.s
+
+# target to generate assembly for a file
+src/components/MapViewer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.s
+.PHONY : src/components/MapViewer.cpp.s
+
+src/components/RightSidebar.o: src/components/RightSidebar.cpp.o
+.PHONY : src/components/RightSidebar.o
+
+# target to build an object file
+src/components/RightSidebar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o
+.PHONY : src/components/RightSidebar.cpp.o
+
+src/components/RightSidebar.i: src/components/RightSidebar.cpp.i
+.PHONY : src/components/RightSidebar.i
+
+# target to preprocess a source file
+src/components/RightSidebar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.i
+.PHONY : src/components/RightSidebar.cpp.i
+
+src/components/RightSidebar.s: src/components/RightSidebar.cpp.s
+.PHONY : src/components/RightSidebar.s
+
+# target to generate assembly for a file
+src/components/RightSidebar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.s
+.PHONY : src/components/RightSidebar.cpp.s
+
+src/components/TopBar.o: src/components/TopBar.cpp.o
+.PHONY : src/components/TopBar.o
+
+# target to build an object file
+src/components/TopBar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o
+.PHONY : src/components/TopBar.cpp.o
+
+src/components/TopBar.i: src/components/TopBar.cpp.i
+.PHONY : src/components/TopBar.i
+
+# target to preprocess a source file
+src/components/TopBar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.i
+.PHONY : src/components/TopBar.cpp.i
+
+src/components/TopBar.s: src/components/TopBar.cpp.s
+.PHONY : src/components/TopBar.s
+
+# target to generate assembly for a file
+src/components/TopBar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.s
+.PHONY : src/components/TopBar.cpp.s
+
+src/components/VehicleInfoWidget.o: src/components/VehicleInfoWidget.cpp.o
+.PHONY : src/components/VehicleInfoWidget.o
+
+# target to build an object file
+src/components/VehicleInfoWidget.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o
+.PHONY : src/components/VehicleInfoWidget.cpp.o
+
+src/components/VehicleInfoWidget.i: src/components/VehicleInfoWidget.cpp.i
+.PHONY : src/components/VehicleInfoWidget.i
+
+# target to preprocess a source file
+src/components/VehicleInfoWidget.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.i
+.PHONY : src/components/VehicleInfoWidget.cpp.i
+
+src/components/VehicleInfoWidget.s: src/components/VehicleInfoWidget.cpp.s
+.PHONY : src/components/VehicleInfoWidget.s
+
+# target to generate assembly for a file
+src/components/VehicleInfoWidget.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s
+.PHONY : src/components/VehicleInfoWidget.cpp.s
+
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -224,15 +344,30 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... qt_simple_interface_autogen"
 	@echo "... qt_simple_interface"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... mainwindow.o"
-	@echo "... mainwindow.i"
-	@echo "... mainwindow.s"
 	@echo "... qt_simple_interface_autogen/mocs_compilation.o"
 	@echo "... qt_simple_interface_autogen/mocs_compilation.i"
 	@echo "... qt_simple_interface_autogen/mocs_compilation.s"
+	@echo "... src/MainWindow.o"
+	@echo "... src/MainWindow.i"
+	@echo "... src/MainWindow.s"
+	@echo "... src/components/LeftSidebar.o"
+	@echo "... src/components/LeftSidebar.i"
+	@echo "... src/components/LeftSidebar.s"
+	@echo "... src/components/MapViewer.o"
+	@echo "... src/components/MapViewer.i"
+	@echo "... src/components/MapViewer.s"
+	@echo "... src/components/RightSidebar.o"
+	@echo "... src/components/RightSidebar.i"
+	@echo "... src/components/RightSidebar.s"
+	@echo "... src/components/TopBar.o"
+	@echo "... src/components/TopBar.i"
+	@echo "... src/components/TopBar.s"
+	@echo "... src/components/VehicleInfoWidget.o"
+	@echo "... src/components/VehicleInfoWidget.i"
+	@echo "... src/components/VehicleInfoWidget.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

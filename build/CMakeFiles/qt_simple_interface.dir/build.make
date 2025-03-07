@@ -83,46 +83,126 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/build/qt_simple_interface_autogen/mocs_compilation.cpp -o CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.s
 
-CMakeFiles/qt_simple_interface.dir/main.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
-CMakeFiles/qt_simple_interface.dir/main.cpp.o: ../main.cpp
-CMakeFiles/qt_simple_interface.dir/main.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/qt_simple_interface.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/main.cpp.o -MF CMakeFiles/qt_simple_interface.dir/main.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/main.cpp.o -c /home/sudhan/V6/main.cpp
+CMakeFiles/qt_simple_interface.dir/src/main.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/main.cpp.o: ../src/main.cpp
+CMakeFiles/qt_simple_interface.dir/src/main.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/main.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/main.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/main.cpp.o -c /home/sudhan/V6/src/main.cpp
 
-CMakeFiles/qt_simple_interface.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/main.cpp > CMakeFiles/qt_simple_interface.dir/main.cpp.i
+CMakeFiles/qt_simple_interface.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/main.cpp > CMakeFiles/qt_simple_interface.dir/src/main.cpp.i
 
-CMakeFiles/qt_simple_interface.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/main.cpp -o CMakeFiles/qt_simple_interface.dir/main.cpp.s
+CMakeFiles/qt_simple_interface.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/main.cpp -o CMakeFiles/qt_simple_interface.dir/src/main.cpp.s
 
-CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
-CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o: ../mainwindow.cpp
-CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o -MF CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o -c /home/sudhan/V6/mainwindow.cpp
+CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: ../src/MainWindow.cpp
+CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o -c /home/sudhan/V6/src/MainWindow.cpp
 
-CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/mainwindow.cpp > CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.i
+CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/MainWindow.cpp > CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.i
 
-CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/mainwindow.cpp -o CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.s
+CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/MainWindow.cpp -o CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o: ../src/components/TopBar.cpp
+CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o -c /home/sudhan/V6/src/components/TopBar.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/components/TopBar.cpp > CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/components/TopBar.cpp -o CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o: ../src/components/LeftSidebar.cpp
+CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o -c /home/sudhan/V6/src/components/LeftSidebar.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/components/LeftSidebar.cpp > CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/components/LeftSidebar.cpp -o CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o: ../src/components/RightSidebar.cpp
+CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o -c /home/sudhan/V6/src/components/RightSidebar.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/components/RightSidebar.cpp > CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/components/RightSidebar.cpp -o CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: ../src/components/MapViewer.cpp
+CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o -c /home/sudhan/V6/src/components/MapViewer.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/components/MapViewer.cpp > CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/components/MapViewer.cpp -o CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o: ../src/components/VehicleInfoWidget.cpp
+CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o -c /home/sudhan/V6/src/components/VehicleInfoWidget.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/components/VehicleInfoWidget.cpp > CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/components/VehicleInfoWidget.cpp -o CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s
 
 # Object files for target qt_simple_interface
 qt_simple_interface_OBJECTS = \
 "CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o" \
-"CMakeFiles/qt_simple_interface.dir/main.cpp.o" \
-"CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o"
+"CMakeFiles/qt_simple_interface.dir/src/main.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o"
 
 # External object files for target qt_simple_interface
 qt_simple_interface_EXTERNAL_OBJECTS =
 
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o
-qt_simple_interface: CMakeFiles/qt_simple_interface.dir/main.cpp.o
-qt_simple_interface: CMakeFiles/qt_simple_interface.dir/mainwindow.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/main.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/build.make
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so.5.15.9
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.so.5.15.9
@@ -137,7 +217,7 @@ qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable qt_simple_interface"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable qt_simple_interface"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qt_simple_interface.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

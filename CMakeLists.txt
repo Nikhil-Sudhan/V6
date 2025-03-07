@@ -10,11 +10,31 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets WebEngineWidgets REQUIRED)
 
-add_executable(${PROJECT_NAME}
-    main.cpp
-    mainwindow.h
-    mainwindow.cpp
+# Include directories
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# Source files
+set(SOURCES
+    src/main.cpp
+    src/MainWindow.cpp
+    src/components/TopBar.cpp
+    src/components/LeftSidebar.cpp
+    src/components/RightSidebar.cpp
+    src/components/MapViewer.cpp
+    src/components/VehicleInfoWidget.cpp
 )
+
+# Header files
+set(HEADERS
+    include/MainWindow.h
+    include/components/TopBar.h
+    include/components/LeftSidebar.h
+    include/components/RightSidebar.h
+    include/components/MapViewer.h
+    include/components/VehicleInfoWidget.h
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Core
