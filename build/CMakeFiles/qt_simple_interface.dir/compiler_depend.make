@@ -858,7 +858,18 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: ../src/MainWindow.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QScreen \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qscreen.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QList \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QRect \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qrect.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QSize \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qsize.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QSizeF \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QTransform \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtransform.h
 
 CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o: ../src/components/LeftSidebar.cpp \
   /usr/include/stdc-predef.h \
@@ -3102,6 +3113,14 @@ CMakeFiles/qt_simple_interface.dir/src/main.cpp.o: ../src/main.cpp \
 
 ../src/components/LeftSidebar.cpp:
 
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QSize:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QRect:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qscreen.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/QScreen:
+
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h:
@@ -3332,6 +3351,8 @@ qt_simple_interface_autogen/B37CIN4C3K/moc_LeftSidebar.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtGui/QTransform:
+
 /usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 
 /usr/include/x86_64-linux-gnu/bits/local_lim.h:
@@ -3367,6 +3388,8 @@ qt_simple_interface_autogen/B37CIN4C3K/moc_LeftSidebar.cpp:
 /usr/include/c++/11/pstl/pstl_config.h:
 
 /usr/include/c++/11/bits/allocator.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QSizeF:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
@@ -3903,6 +3926,8 @@ qt_simple_interface_autogen/6YEA5652QU/moc_MainWindow.cpp:
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qgenericatomic.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QList:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qnumeric.h:
 
