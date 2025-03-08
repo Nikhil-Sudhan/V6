@@ -1,5 +1,7 @@
 #include "../../include/components/LeftSidebar.h"
 #include "../../include/components/VehicleInfoWidget.h"
+#include "../../include/api/ChatGPTClient.h"
+#include "../../include/dialogs/ResponseDialog.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QFont>
@@ -12,18 +14,14 @@
 #include <QHBoxLayout>
 #include <QFrame>
 #include <QIcon>
+#include <QMessageBox>
 
 LeftSidebar::LeftSidebar(QWidget* parent) : QObject(parent), currentPanelIndex(-1)
 {
     createToolBar(parent);
     createDockWidget(parent);
     createPanels();
-    
-    // Connect signals
-    connect(missionAction, &QAction::triggered, this, [this]() { handleButtonClick(0); });
-    connect(configAction, &QAction::triggered, this, [this]() { handleButtonClick(1); });
-    connect(simulationAction, &QAction::triggered, this, [this]() { handleButtonClick(2); });
-    connect(settingsAction, &QAction::triggered, this, [this]() { handleButtonClick(3); });
+    setupConnections();
 }
 
 void LeftSidebar::createToolBar(QWidget* parent)
@@ -33,28 +31,28 @@ void LeftSidebar::createToolBar(QWidget* parent)
     leftToolBar->setOrientation(Qt::Vertical);
     
     // Set toolbar width
-    leftToolBar->setMinimumWidth(50);
-    leftToolBar->setMaximumWidth(50);
+    leftToolBar->setMinimumWidth(90);
+    leftToolBar->setMaximumWidth(90);
     
-    // Create actions with better icons
+    // Create actions with PNG icons
     missionAction = new QAction(parent);
-    missionAction->setText("🎯");
+    missionAction->setIcon(QIcon("/home/sudhan/V6/assets/icons/mission.png"));
     missionAction->setToolTip("Mission Control");
     
     configAction = new QAction(parent);
-    configAction->setText("⚙️");
+    configAction->setIcon(QIcon("/home/sudhan/V6/assets/icons/config.png"));
     configAction->setToolTip("Vehicle Configuration");
     
     simulationAction = new QAction(parent);
-    simulationAction->setText("🚁");
+    simulationAction->setIcon(QIcon("/home/sudhan/V6/assets/icons/telemetry.png"));
     simulationAction->setToolTip("Simulation");
     
     settingsAction = new QAction(parent);
-    settingsAction->setText("🔧");
+    settingsAction->setIcon(QIcon("/home/sudhan/V6/assets/icons/settings.png"));
     settingsAction->setToolTip("Settings");
 
     // Set icon size
-    leftToolBar->setIconSize(QSize(32, 32));
+    leftToolBar->setIconSize(QSize(42, 42));
     
     // Remove spacing between items
     leftToolBar->setStyleSheet(R"(
@@ -139,7 +137,7 @@ void LeftSidebar::createPanels()
     missionTypeLabel->setStyleSheet("font-weight: bold; color: #0078d7; font-size: 14px;");
     missionLayout->addWidget(missionTypeLabel);
     
-    QComboBox* missionTypeCombo = new QComboBox();
+    missionTypeCombo = new QComboBox();
     missionTypeCombo->addItems({"Surveillance", "Emergency", "Rescue"});
     missionTypeCombo->setMinimumHeight(36);
     missionLayout->addWidget(missionTypeCombo);
@@ -151,7 +149,7 @@ void LeftSidebar::createPanels()
     vehicleLabel->setStyleSheet("font-weight: bold; color: #0078d7; font-size: 14px;");
     missionLayout->addWidget(vehicleLabel);
     
-    QComboBox* vehicleCombo = new QComboBox();
+    vehicleCombo = new QComboBox();
     vehicleCombo->addItems({"Atlas", "Bolt", "Barbarian"});
     vehicleCombo->setMinimumHeight(36);
     missionLayout->addWidget(vehicleCombo);
@@ -163,7 +161,7 @@ void LeftSidebar::createPanels()
     promptLabel->setStyleSheet("font-weight: bold; color: #0078d7; font-size: 14px;");
     missionLayout->addWidget(promptLabel);
     
-    QTextEdit* promptTextEdit = new QTextEdit();
+    promptTextEdit = new QTextEdit();
     promptTextEdit->setPlaceholderText("Enter your mission details here...");
     promptTextEdit->setMinimumHeight(100);
     promptTextEdit->setMaximumHeight(100);
@@ -172,7 +170,7 @@ void LeftSidebar::createPanels()
     missionLayout->addSpacing(10);
 
     // Assign Task Button with better styling
-    QPushButton* assignTaskButton = new QPushButton("Assign Task");
+    assignTaskButton = new QPushButton("Assign Task");
     assignTaskButton->setMinimumHeight(40);
     assignTaskButton->setText("✓ Assign Task");
     assignTaskButton->setIconSize(QSize(16, 16));
@@ -192,7 +190,7 @@ void LeftSidebar::createPanels()
     QScrollArea* configScrollArea = new QScrollArea();
     configScrollArea->setWidgetResizable(true);
     configScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    configScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    configScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     configScrollArea->setStyleSheet("QScrollArea { background-color: #1a1a1a; border: none; }");
     
     QWidget* scrollContent = new QWidget();
@@ -309,6 +307,61 @@ void LeftSidebar::createPanels()
         }
     )";
     missionPanel->setStyleSheet(missionStyle);
+}
+
+void LeftSidebar::setupConnections()
+{
+    // Connect toolbar buttons
+    connect(missionAction, &QAction::triggered, this, [this]() { handleButtonClick(0); });
+    connect(configAction, &QAction::triggered, this, [this]() { handleButtonClick(1); });
+    connect(simulationAction, &QAction::triggered, this, [this]() { handleButtonClick(2); });
+    connect(settingsAction, &QAction::triggered, this, [this]() { handleButtonClick(3); });
+    
+    // Connect mission panel signals
+    connect(assignTaskButton, &QPushButton::clicked, this, &LeftSidebar::handleAssignTask);
+    
+    // Connect ChatGPT client signals
+    connect(&ChatGPTClient::instance(), &ChatGPTClient::responseReceived, 
+            this, &LeftSidebar::handleChatGPTResponse);
+    connect(&ChatGPTClient::instance(), &ChatGPTClient::errorOccurred,
+            this, &LeftSidebar::handleApiError);
+}
+
+void LeftSidebar::handleAssignTask()
+{
+    // Validate inputs
+    if (promptTextEdit->toPlainText().trimmed().isEmpty()) {
+        QMessageBox::warning(nullptr, "Missing Information", "Please enter a prompt for the mission.");
+        return;
+    }
+    
+    // Get values from UI
+    QString missionType = missionTypeCombo->currentText();
+    QString vehicle = vehicleCombo->currentText();
+    QString prompt = promptTextEdit->toPlainText().trimmed();
+    
+    // Emit signal for mission assignment
+    emit missionAssigned(missionType, vehicle, prompt);
+    
+    // Send to ChatGPT API
+    ChatGPTClient::instance().sendPrompt(missionType, vehicle, prompt);
+    
+    // Show loading indicator or message
+    QMessageBox::information(nullptr, "Task Assigned", 
+        "Task has been assigned and sent to ChatGPT. Please wait for the response.");
+}
+
+void LeftSidebar::handleChatGPTResponse(int missionId, const QString& response, const QString& functions)
+{
+    // Show response dialog
+    ResponseDialog dialog;
+    dialog.setResponse(response, functions);
+    dialog.exec();
+}
+
+void LeftSidebar::handleApiError(const QString& errorMessage)
+{
+    QMessageBox::critical(nullptr, "API Error", errorMessage);
 }
 
 void LeftSidebar::handleButtonClick(int index)

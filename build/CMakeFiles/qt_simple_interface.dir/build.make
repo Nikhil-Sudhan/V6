@@ -181,6 +181,48 @@ CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s: cmake
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/components/VehicleInfoWidget.cpp -o CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s
 
+CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o: ../src/database/DatabaseManager.cpp
+CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o -c /home/sudhan/V6/src/database/DatabaseManager.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/database/DatabaseManager.cpp > CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/database/DatabaseManager.cpp -o CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o: ../src/api/ChatGPTClient.cpp
+CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o -c /home/sudhan/V6/src/api/ChatGPTClient.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/api/ChatGPTClient.cpp > CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/api/ChatGPTClient.cpp -o CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o: ../src/dialogs/ResponseDialog.cpp
+CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o -c /home/sudhan/V6/src/dialogs/ResponseDialog.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/dialogs/ResponseDialog.cpp > CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/dialogs/ResponseDialog.cpp -o CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s
+
 # Object files for target qt_simple_interface
 qt_simple_interface_OBJECTS = \
 "CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o" \
@@ -190,7 +232,10 @@ qt_simple_interface_OBJECTS = \
 "CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o" \
 "CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o" \
 "CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o" \
-"CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o"
+"CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o"
 
 # External object files for target qt_simple_interface
 qt_simple_interface_EXTERNAL_OBJECTS =
@@ -203,21 +248,25 @@ qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/LeftSideb
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/build.make
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so.5.15.9
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.so.5.15.9
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebChannel.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Positioning.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Quick.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5QmlModels.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Qml.so.5.15.3
+qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5PrintSupport.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.3
-qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable qt_simple_interface"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable qt_simple_interface"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qt_simple_interface.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

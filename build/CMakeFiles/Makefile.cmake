@@ -77,6 +77,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5QmlModels/Qt5QmlModelsConfigVersion.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfigVersion.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt5Sql/Qt5SqlConfig.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/Qt5Sql/Qt5SqlConfigVersion.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5WebChannel/Qt5WebChannelConfig.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5WebChannel/Qt5WebChannelConfigVersion.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5WebEngineCore/Qt5WebEngineCoreConfig.cmake"

@@ -10,11 +10,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/sudhan/V6/build/qt_simple_interface_autogen/mocs_compilation.cpp" "CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o.d"
   "/home/sudhan/V6/src/MainWindow.cpp" "CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o.d"
+  "/home/sudhan/V6/src/api/ChatGPTClient.cpp" "CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o.d"
   "/home/sudhan/V6/src/components/LeftSidebar.cpp" "CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o.d"
   "/home/sudhan/V6/src/components/MapViewer.cpp" "CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o.d"
   "/home/sudhan/V6/src/components/RightSidebar.cpp" "CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o.d"
   "/home/sudhan/V6/src/components/TopBar.cpp" "CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o.d"
   "/home/sudhan/V6/src/components/VehicleInfoWidget.cpp" "CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o.d"
+  "/home/sudhan/V6/src/database/DatabaseManager.cpp" "CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o.d"
+  "/home/sudhan/V6/src/dialogs/ResponseDialog.cpp" "CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o.d"
   "/home/sudhan/V6/src/main.cpp" "CMakeFiles/qt_simple_interface.dir/src/main.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/main.cpp.o.d"
   )
 

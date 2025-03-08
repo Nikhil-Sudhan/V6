@@ -3,13 +3,24 @@
 #include "../include/components/LeftSidebar.h"
 #include "../include/components/RightSidebar.h"
 #include "../include/components/MapViewer.h"
+#include "../include/database/DatabaseManager.h"
 #include <QDebug>
 #include <QApplication>
+#include <QScreen>
+#include <QDockWidget>
+#include <QStatusBar>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    setWindowTitle("UAV Control Interface");
+    // Initialize database
+    if (!DatabaseManager::instance().initialize()) {
+        QMessageBox::warning(this, "Database Error", "Failed to initialize the database. Some features may not work correctly.");
+    }
+    
+    // Set window properties
+    setWindowTitle("UAV Control System");
     resize(1280, 800);
     
     // Create central widget
@@ -25,24 +36,15 @@ MainWindow::MainWindow(QWidget *parent)
     topBar = new TopBar(this);
     leftSidebar = new LeftSidebar(this);
     rightSidebar = new RightSidebar(this);
+    mapViewer = new MapViewer(this);
     
-    // Add toolbars
-    addToolBar(Qt::TopToolBarArea, topBar);
-    addToolBar(Qt::LeftToolBarArea, leftSidebar->getToolBar());
-    addToolBar(Qt::RightToolBarArea, rightSidebar->getToolBar());
+    // Add top bar to main layout
+    mainLayout->addWidget(topBar);
     
-    // Setup main area with map first
+    // Set up main area
     setupMainArea();
     
-    // Add dock widgets on top of the map
-    addDockWidget(Qt::LeftDockWidgetArea, leftSidebar->getDockWidget());
-    addDockWidget(Qt::RightDockWidgetArea, rightSidebar->getDockWidget());
-    
-    // Make dock widgets float on top of the map
-    leftSidebar->getDockWidget()->setFloating(false);
-    rightSidebar->getDockWidget()->setFloating(false);
-    
-    // Apply global styles
+    // Apply styles
     applyStyles();
     
     // Connect signals
@@ -55,141 +57,68 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupMainArea()
 {
-    qDebug() << "Setting up map in main area...";
-    mapViewer = new MapViewer(this);
+    // Add left toolbar
+    addToolBar(Qt::LeftToolBarArea, leftSidebar->getToolBar());
+    
+    // Add right toolbar
+    addToolBar(Qt::RightToolBarArea, rightSidebar->getToolBar());
+    
+    // Add left dock widget
+    addDockWidget(Qt::LeftDockWidgetArea, leftSidebar->getDockWidget());
+    
+    // Add right dock widget
+    addDockWidget(Qt::RightDockWidgetArea, rightSidebar->getDockWidget());
+    
+    // Add map viewer to main layout
     mainLayout->addWidget(mapViewer);
 }
 
 void MainWindow::applyStyles()
 {
-    // Set modern dark theme with better styling
-    QString styleSheet = R"(
-        QMainWindow, QWidget {
-            background-color: #1a1a1a;
-            color: #f0f0f0;
+    // Set application style
+    setStyleSheet(R"(
+        QMainWindow {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
         }
-        
-        QToolBar {
-            background-color: #2d2d30;
-            border: none;
-            spacing: 0px;
-            padding: 0px;
-        }
-        
-        QToolButton {
-            background-color: transparent;
-            border: none;
-            color: #f0f0f0;
-            padding: 8px 0px;
-            margin: 0px;
-            font-size: 22px;
-        }
-        
-        QToolButton:hover {
-            background-color: #3e3e42;
-        }
-        
-        QToolButton:pressed, QToolButton:checked {
-            background-color: #0078d7;
-        }
-        
         QDockWidget {
             background-color: #252526;
-            color: #f0f0f0;
+            color: #d4d4d4;
             border: none;
-            border-right: 1px solid #3e3e42;
-            border-left: 1px solid #3e3e42;
         }
-        
         QDockWidget::title {
-            background-color: #252526;
+            background-color: #333333;
             padding: 5px;
-            border: none;
+            color: #d4d4d4;
         }
-        
-        QLabel {
-            color: #f0f0f0;
-            font-size: 13px;
-        }
-        
-        QLineEdit {
-            background-color: #333337;
-            color: #f0f0f0;
-            border: 1px solid #3e3e42;
-            border-radius: 4px;
-            padding: 5px 10px;
-            selection-background-color: #0078d7;
-        }
-        
-        QLineEdit:focus {
-            border: 1px solid #0078d7;
-        }
-        
-        QComboBox {
-            background-color: #333337;
-            color: #f0f0f0;
-            border: 1px solid #3e3e42;
-            border-radius: 4px;
-            padding: 5px 10px;
-            min-height: 25px;
-        }
-        
-        QComboBox:hover {
-            border: 1px solid #0078d7;
-        }
-        
-        QComboBox::drop-down {
-            border: none;
-            width: 20px;
-        }
-        
-        QPushButton {
-            background-color: #0078d7;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            padding: 8px 16px;
-            font-weight: bold;
-        }
-        
-        QPushButton:hover {
-            background-color: #1c86e0;
-        }
-        
-        QPushButton:pressed {
-            background-color: #005fa3;
-        }
-        
-        QScrollArea {
-            border: none;
-        }
-        
-        QTextEdit {
-            background-color: #333337;
-            color: #f0f0f0;
-            border: 1px solid #3e3e42;
-            border-radius: 4px;
-            padding: 5px;
-            selection-background-color: #0078d7;
-        }
-        
-        QTextEdit:focus {
-            border: 1px solid #0078d7;
-        }
-    )";
-    
-    QApplication::setStyle("Fusion");
-    setStyleSheet(styleSheet);
-}
-
-void MainWindow::handleAssignTask()
-{
-    qDebug() << "Task assigned!";
-    // Implementation would go here
+    )");
 }
 
 void MainWindow::handleLeftPanelChanged(int index)
 {
-    qDebug() << "Left panel changed to index:" << index;
-    // Implementation would go here
+    // Update title based on selected panel
+    switch (index) {
+        case 0:
+            leftSidebar->setTitle("Mission Control");
+            break;
+        case 1:
+            leftSidebar->setTitle("Vehicle Configuration");
+            break;
+        case 2:
+            leftSidebar->setTitle("Simulation");
+            break;
+        case 3:
+            leftSidebar->setTitle("Settings");
+            break;
+        default:
+            leftSidebar->setTitle("");
+            break;
+    }
+}
+
+void MainWindow::handleAssignTask()
+{
+    // This will be called when a task is assigned
+    // For now, just update the map or status
+    statusBar()->showMessage("Task assigned successfully", 3000);
 } 

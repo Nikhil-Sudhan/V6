@@ -190,6 +190,30 @@ src/MainWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.s
 .PHONY : src/MainWindow.cpp.s
 
+src/api/ChatGPTClient.o: src/api/ChatGPTClient.cpp.o
+.PHONY : src/api/ChatGPTClient.o
+
+# target to build an object file
+src/api/ChatGPTClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o
+.PHONY : src/api/ChatGPTClient.cpp.o
+
+src/api/ChatGPTClient.i: src/api/ChatGPTClient.cpp.i
+.PHONY : src/api/ChatGPTClient.i
+
+# target to preprocess a source file
+src/api/ChatGPTClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.i
+.PHONY : src/api/ChatGPTClient.cpp.i
+
+src/api/ChatGPTClient.s: src/api/ChatGPTClient.cpp.s
+.PHONY : src/api/ChatGPTClient.s
+
+# target to generate assembly for a file
+src/api/ChatGPTClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.s
+.PHONY : src/api/ChatGPTClient.cpp.s
+
 src/components/LeftSidebar.o: src/components/LeftSidebar.cpp.o
 .PHONY : src/components/LeftSidebar.o
 
@@ -310,6 +334,54 @@ src/components/VehicleInfoWidget.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s
 .PHONY : src/components/VehicleInfoWidget.cpp.s
 
+src/database/DatabaseManager.o: src/database/DatabaseManager.cpp.o
+.PHONY : src/database/DatabaseManager.o
+
+# target to build an object file
+src/database/DatabaseManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o
+.PHONY : src/database/DatabaseManager.cpp.o
+
+src/database/DatabaseManager.i: src/database/DatabaseManager.cpp.i
+.PHONY : src/database/DatabaseManager.i
+
+# target to preprocess a source file
+src/database/DatabaseManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.i
+.PHONY : src/database/DatabaseManager.cpp.i
+
+src/database/DatabaseManager.s: src/database/DatabaseManager.cpp.s
+.PHONY : src/database/DatabaseManager.s
+
+# target to generate assembly for a file
+src/database/DatabaseManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.s
+.PHONY : src/database/DatabaseManager.cpp.s
+
+src/dialogs/ResponseDialog.o: src/dialogs/ResponseDialog.cpp.o
+.PHONY : src/dialogs/ResponseDialog.o
+
+# target to build an object file
+src/dialogs/ResponseDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o
+.PHONY : src/dialogs/ResponseDialog.cpp.o
+
+src/dialogs/ResponseDialog.i: src/dialogs/ResponseDialog.cpp.i
+.PHONY : src/dialogs/ResponseDialog.i
+
+# target to preprocess a source file
+src/dialogs/ResponseDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.i
+.PHONY : src/dialogs/ResponseDialog.cpp.i
+
+src/dialogs/ResponseDialog.s: src/dialogs/ResponseDialog.cpp.s
+.PHONY : src/dialogs/ResponseDialog.s
+
+# target to generate assembly for a file
+src/dialogs/ResponseDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s
+.PHONY : src/dialogs/ResponseDialog.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -350,6 +422,9 @@ help:
 	@echo "... src/MainWindow.o"
 	@echo "... src/MainWindow.i"
 	@echo "... src/MainWindow.s"
+	@echo "... src/api/ChatGPTClient.o"
+	@echo "... src/api/ChatGPTClient.i"
+	@echo "... src/api/ChatGPTClient.s"
 	@echo "... src/components/LeftSidebar.o"
 	@echo "... src/components/LeftSidebar.i"
 	@echo "... src/components/LeftSidebar.s"
@@ -365,6 +440,12 @@ help:
 	@echo "... src/components/VehicleInfoWidget.o"
 	@echo "... src/components/VehicleInfoWidget.i"
 	@echo "... src/components/VehicleInfoWidget.s"
+	@echo "... src/database/DatabaseManager.o"
+	@echo "... src/database/DatabaseManager.i"
+	@echo "... src/database/DatabaseManager.s"
+	@echo "... src/dialogs/ResponseDialog.o"
+	@echo "... src/dialogs/ResponseDialog.i"
+	@echo "... src/dialogs/ResponseDialog.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

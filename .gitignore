@@ -1,0 +1,28 @@
+# Ignore actual profile file with API key
+.profile
+
+# Build directory
+build/
+
+# IDE specific files
+.vscode/
+.idea/
+*.user
+*.autosave
+
+# Compiled Object files
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out 

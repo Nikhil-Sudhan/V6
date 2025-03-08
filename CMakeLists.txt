@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Core Gui Widgets WebEngineWidgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets WebEngineWidgets Network Sql REQUIRED)
 
 # Include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -22,6 +22,9 @@ set(SOURCES
     src/components/RightSidebar.cpp
     src/components/MapViewer.cpp
     src/components/VehicleInfoWidget.cpp
+    src/database/DatabaseManager.cpp
+    src/api/ChatGPTClient.cpp
+    src/dialogs/ResponseDialog.cpp
 )
 
 # Header files
@@ -32,6 +35,9 @@ set(HEADERS
     include/components/RightSidebar.h
     include/components/MapViewer.h
     include/components/VehicleInfoWidget.h
+    include/database/DatabaseManager.h
+    include/api/ChatGPTClient.h
+    include/dialogs/ResponseDialog.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
@@ -41,4 +47,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Gui
     Qt5::Widgets
     Qt5::WebEngineWidgets
+    Qt5::Network
+    Qt5::Sql
 ) 

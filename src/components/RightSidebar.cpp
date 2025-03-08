@@ -3,6 +3,7 @@
 #include <QLabel>
 #include <QFont>
 #include <QSizePolicy>
+#include <QIcon>
 
 RightSidebar::RightSidebar(QWidget* parent) : QObject(parent)
 {
@@ -25,7 +26,7 @@ void RightSidebar::createToolBar(QWidget* parent)
     rightToolBar->setMaximumWidth(50);
     
     taskDetailsAction = new QAction(parent);
-    taskDetailsAction->setText("📋");
+    taskDetailsAction->setIcon(QIcon("/home/sudhan/V6/assets/icons/tasks.png"));
     taskDetailsAction->setToolTip("Task Details");
     
     rightToolBar->setIconSize(QSize(32, 32));

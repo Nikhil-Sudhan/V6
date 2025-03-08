@@ -108,7 +108,11 @@
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Positioning/Qt5Positioning_QGeoPositionInfoSourceFactoryPoll.cmake",
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5PrintSupport/Qt5PrintSupportConfigVersion.cmake",
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5PrintSupport/Qt5PrintSupportConfig.cmake",
-		"/usr/lib/x86_64-linux-gnu/cmake/Qt5PrintSupport/Qt5PrintSupport_QCupsPrinterSupportPlugin.cmake"
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5PrintSupport/Qt5PrintSupport_QCupsPrinterSupportPlugin.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Network/Qt5NetworkConfig.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Sql/Qt5SqlConfigVersion.cmake",
+		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Sql/Qt5SqlConfig.cmake"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/sudhan/V6",
 	"DEP_FILE" : "",
@@ -119,6 +123,12 @@
 			"/home/sudhan/V6/include/MainWindow.h",
 			"MU",
 			"6YEA5652QU/moc_MainWindow.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/api/ChatGPTClient.h",
+			"MU",
+			"2MMMJD267A/moc_ChatGPTClient.cpp",
 			null
 		],
 		[
@@ -150,6 +160,18 @@
 			"MU",
 			"B37CIN4C3K/moc_VehicleInfoWidget.cpp",
 			null
+		],
+		[
+			"/home/sudhan/V6/include/database/DatabaseManager.h",
+			"MU",
+			"CRGL2FGSXR/moc_DatabaseManager.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/dialogs/ResponseDialog.h",
+			"MU",
+			"OFTFDIG4ME/moc_ResponseDialog.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -166,6 +188,7 @@
 		"QT_QMLMODELS_LIB",
 		"QT_QML_LIB",
 		"QT_QUICK_LIB",
+		"QT_SQL_LIB",
 		"QT_WEBCHANNEL_LIB",
 		"QT_WEBENGINECORE_LIB",
 		"QT_WEBENGINEWIDGETS_LIB",
@@ -195,6 +218,7 @@
 		"/usr/include/x86_64-linux-gnu/qt5/QtWebChannel",
 		"/usr/include/x86_64-linux-gnu/qt5/QtPositioning",
 		"/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport",
+		"/usr/include/x86_64-linux-gnu/qt5/QtSql",
 		"/usr/include/c++/11",
 		"/usr/include/x86_64-linux-gnu/c++/11",
 		"/usr/include/c++/11/backward",
@@ -228,11 +252,14 @@
 	"SOURCES" : 
 	[
 		[ "/home/sudhan/V6/src/MainWindow.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/api/ChatGPTClient.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/components/LeftSidebar.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/components/MapViewer.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/components/RightSidebar.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/components/TopBar.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/components/VehicleInfoWidget.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/database/DatabaseManager.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/dialogs/ResponseDialog.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

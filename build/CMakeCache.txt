@@ -233,6 +233,9 @@ Qt5Qml_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Qt5Qml
 //The directory containing a CMake configuration file for Qt5Quick.
 Qt5Quick_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick
 
+//The directory containing a CMake configuration file for Qt5Sql.
+Qt5Sql_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Qt5Sql
+
 //The directory containing a CMake configuration file for Qt5WebChannel.
 Qt5WebChannel_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Qt5WebChannel
 

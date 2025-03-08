@@ -48,7 +48,7 @@ MapViewer::~MapViewer()
 
 void MapViewer::initializeMap()
 {
-    qDebug() << "Initializing map with Mapbox...";
+    qDebug() << "Initializing map with Threebox and drone path...";
     const QString mapboxToken = "pk.eyJ1Ijoibmlja3lqMTIxIiwiYSI6ImNtN3N3eHFtcTB1MTkya3M4Mnc0dmQxanAifQ.gLJZYJe_zH9b9yxFxQZm6g";
     
     QString html = R"(
@@ -56,157 +56,137 @@ void MapViewer::initializeMap()
         <html>
         <head>
             <meta charset='utf-8'>
-            <title>Mapbox 3D Map</title>
+    <title>Threebox Drone</title>
             <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'>
-            <meta http-equiv='Content-Security-Policy' content="default-src * blob: data: 'unsafe-inline' 'unsafe-eval'; script-src * blob: data: 'unsafe-inline' 'unsafe-eval'; connect-src * blob: data:; img-src * blob: data:; frame-src *; style-src * 'unsafe-inline';">
-            <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet'>
-            <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet'>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/threebox-plugin@2.2.7/dist/threebox.min.js'></script>
             <style>
-                body { margin: 0; padding: 0; background-color: #1e1e1e; }
-                #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-                .mapboxgl-missing-css { display: none; }
-                .mapboxgl-canvas { outline: none; }
-                .error-message {
-                    position: absolute;
-                    top: 10px;
-                    left: 10px;
-                    z-index: 999;
-                    background: rgba(255, 0, 0, 0.8);
-                    color: white;
-                    padding: 10px;
-                    border-radius: 4px;
-                    max-width: 80%;
-                }
+        body, html { margin: 0; height: 100%; }
+        #map { width: 100%; height: 100%; }
             </style>
         </head>
         <body>
             <div id='map'></div>
             <script>
-                console.log('Initializing Mapbox...');
-                
-                // Add error handling
-                function handleMapError(err) {
-                    console.error('Mapbox Error:', err);
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'error-message';
-                    errorDiv.textContent = 'Map Error: ' + (err.message || JSON.stringify(err));
-                    document.body.appendChild(errorDiv);
-                }
-                
-                try {
                     mapboxgl.accessToken = '%1';
-                    console.log('Access token set:', mapboxgl.accessToken);
                     
                     const map = new mapboxgl.Map({
                         container: 'map',
                         style: 'mapbox://styles/mapbox/dark-v11',
-                        center: [-74.0060, 40.7128], // New York City coordinates
-                        zoom: 15.5,
-                        pitch: 60,
-                        bearing: -60,
-                        antialias: true,
-                        preserveDrawingBuffer: true,
-                        maxPitch: 85
-                    });
-                    
-                    console.log('Map instance created');
-                    
-                    map.on('error', function(e) {
-                        handleMapError(e.error || e);
-                    });
-                    
-                    // Wait for style to load before adding 3D features
-                    map.on('style.load', () => {
-                        console.log('Style loaded, adding 3D features...');
-                        
-                        try {
-                            // Add terrain source and layer
-                            map.addSource('mapbox-dem', {
-                                'type': 'raster-dem',
-                                'url': 'mapbox://mapbox.terrain-rgb',
-                                'tileSize': 512,
-                                'maxzoom': 14
-                            });
-                            
-                            // Add terrain with higher exaggeration
-                            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-                            
-                            // Add sky layer for better 3D effect
-                            map.addLayer({
-                                'id': 'sky',
-                                'type': 'sky',
-                                'paint': {
-                                    'sky-type': 'atmosphere',
-                                    'sky-atmosphere-sun': [0.0, 90.0],
-                                    'sky-atmosphere-sun-intensity': 15
-                                }
-                            });
+            center: [-3.44885, 40.49198],
+            zoom: 13.4,
+            pitch: 50,
+            bearing: -13
+        });
 
-                            // Add 3D building layer
-                            map.addLayer({
-                                'id': '3d-buildings',
-                                'source': 'composite',
-                                'source-layer': 'building',
-                                'filter': ['==', 'extrude', 'true'],
-                                'type': 'fill-extrusion',
-                                'minzoom': 15,
-                                'paint': {
-                                    'fill-extrusion-color': '#aaa',
-                                    'fill-extrusion-height': ['get', 'height'],
-                                    'fill-extrusion-base': ['get', 'min_height'],
-                                    'fill-extrusion-opacity': 0.6
-                                }
-                            });
+        let tb;
+        let drone;
 
-                            console.log('3D features added successfully');
-                        } catch (e) {
-                            console.error('Error setting up 3D features:', e);
-                            handleMapError(e);
-                        }
-                    });
-                    
-                    map.on('load', () => {
-                        console.log('Map loaded successfully');
-                        
-                        // Add navigation controls
-                        map.addControl(new mapboxgl.NavigationControl());
-                        
-                        // Add a marker for visibility testing
-                        new mapboxgl.Marker()
-                            .setLngLat([-74.0060, 40.7128])
-                            .addTo(map);
-                            
-                        // Try to switch to custom style
-                        try {
-                            map.setStyle('mapbox://styles/nickyj121/cm6tjxn1o017h01r5h9g03n5o');
-                        } catch (e) {
-                            console.error('Error setting custom style:', e);
-                            handleMapError(e);
-                        }
-                    });
-                } catch (e) {
-                    handleMapError(e);
+        map.on('style.load', function() {
+            tb = new Threebox(
+                map,
+                map.getCanvas().getContext('webgl'),
+                { defaultLights: true }
+            );
+
+            const flightPath = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [-3.459164318324355, 40.483196679459695, 0],
+                        [-3.46032158100065006, 40.48405772625512, 0],
+                        [-3.4601480276212726, 40.48464924045098, 0],
+                        [-3.4605399688768728, 40.48492144503072, 0],
+                        [-3.4544247306827174, 40.489871726679894, 0],
+                        [-3.4419511970175165, 40.49989552385142, 100],
+                        [-3.4199262740950473, 40.51776139362727, 800],
+                        [-3.4064155093898023, 40.52744748436612, 1000],
+                        [-3.394276165400413, 40.53214151673197, 1400],
+                        [-3.3774962506359145, 40.53130304189972, 1800],
+                        [-3.35977648690141, 40.523996322867305, 2000]
+                    ]
                 }
+            };
+
+            // Add the flight path line
+            map.addSource('flight-path', {
+                'type': 'geojson',
+                'data': flightPath
+            });
+
+                            map.addLayer({
+                'id': 'flight-path-line',
+                'type': 'line',
+                'source': 'flight-path',
+                                'paint': {
+                    'line-color': '#00ff00',
+                    'line-width': 4,
+                    'line-opacity': 0.8
+                }
+            });
+
+                            map.addLayer({
+                id: 'custom-layer',
+                type: 'custom',
+                renderingMode: '3d',
+                onAdd: function() {
+                    const options = {
+                        obj: '.assets/models/drone.glb',
+                        type: 'gltf',
+                        scale: 1,
+                        units: 'meters',
+                        rotation: { x: 90, y: 0, z: 0 },
+                        anchor: 'center'
+                    };
+
+                    tb.loadObj(options, function(model) {
+                        drone = model;
+                        drone.setCoords(flightPath.geometry.coordinates[0]);
+                        drone.setRotation({ x: 0, y: 0, z: 135 });
+                        tb.add(drone);
+
+                        // Animate drone along path
+                        let step = 0;
+                        const coords = flightPath.geometry.coordinates;
+                        
+                        function animate() {
+                            if (step < coords.length - 1) {
+                                const start = coords[step];
+                                const end = coords[step + 1];
+                                const progress = (Date.now() % 1000) / 1000;
+                                
+                                const currentPos = [
+                                    start[0] + (end[0] - start[0]) * progress,
+                                    start[1] + (end[1] - start[1]) * progress,
+                                    start[2] + (end[2] - start[2]) * progress
+                                ];
+                                
+                                drone.setCoords(currentPos);
+                                
+                                if (progress >= 0.99) {
+                                    step++;
+                                }
+                            } else {
+                                step = 0;
+                            }
+                            
+                            requestAnimationFrame(animate);
+                        }
+                        
+                        animate();
+                    });
+                },
+                render: function() {
+                    tb.update();
+                }
+            });
+        });
             </script>
         </body>
         </html>
     )";
 
     m_webView->setHtml(html.arg(mapboxToken), QUrl("https://api.mapbox.com"));
-    
-    // Add a timer to check if map is still white after a few seconds
-    QTimer::singleShot(5000, this, [this]() {
-        qDebug() << "Checking map status after 5 seconds...";
-        m_webView->page()->runJavaScript("document.body.innerHTML", [](const QVariant &result) {
-            qDebug() << "Current HTML:" << result.toString().left(100) + "...";
-        });
-        
-        // Try to take a screenshot of the map
-        m_webView->page()->runJavaScript(
-            "document.querySelector('.mapboxgl-canvas').toDataURL('image/png').substring(0, 100)",
-            [](const QVariant &result) {
-                qDebug() << "Canvas data:" << result.toString();
-            }
-        );
-    });
 } 

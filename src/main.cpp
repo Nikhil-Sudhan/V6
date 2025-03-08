@@ -30,6 +30,28 @@ QString findWebEngineProcess() {
     return QString();
 }
 
+void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context);
+    QString txt;
+    switch (type) {
+    case QtDebugMsg:
+        txt = QString("Debug: %1").arg(msg);
+        break;
+    case QtWarningMsg:
+        txt = QString("Warning: %1").arg(msg);
+        break;
+    case QtCriticalMsg:
+        txt = QString("Critical: %1").arg(msg);
+        break;
+    case QtFatalMsg:
+        txt = QString("Fatal: %1").arg(msg);
+        break;
+    }
+    fprintf(stderr, "%s\n", txt.toLocal8Bit().constData());
+    fflush(stderr);
+}
+
 int main(int argc, char *argv[]) {
     // Set OpenGL format
     QSurfaceFormat format;
@@ -54,6 +76,7 @@ int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
     
+    qInstallMessageHandler(messageHandler);
     QApplication app(argc, argv);
     
     MainWindow window;
