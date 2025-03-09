@@ -284,11 +284,6 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
  /home/sudhan/V6/src/../include/components/TopBar.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QToolBar \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtoolbar.h \
@@ -299,18 +294,21 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextcursor.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextformat.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /home/sudhan/V6/src/../include/components/LeftSidebar.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QAction \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDockWidget \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdockwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
@@ -338,6 +336,8 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
  /home/sudhan/V6/src/../include/components/RightSidebar.h \
  /home/sudhan/V6/src/../include/components/MapViewer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineView \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineview.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
@@ -389,6 +389,8 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
  /home/sudhan/V6/src/../include/database/DatabaseManager.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \

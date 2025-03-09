@@ -8,3 +8,4 @@
 #include "B37CIN4C3K/moc_VehicleInfoWidget.cpp"
 #include "CRGL2FGSXR/moc_DatabaseManager.cpp"
 #include "OFTFDIG4ME/moc_ResponseDialog.cpp"
+#include "3MFNMLVRLE/moc_SimulationView.cpp"

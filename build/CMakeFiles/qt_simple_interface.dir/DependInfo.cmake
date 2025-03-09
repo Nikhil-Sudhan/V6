@@ -18,7 +18,9 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/sudhan/V6/src/components/VehicleInfoWidget.cpp" "CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o.d"
   "/home/sudhan/V6/src/database/DatabaseManager.cpp" "CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o.d"
   "/home/sudhan/V6/src/dialogs/ResponseDialog.cpp" "CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o.d"
+  "/home/sudhan/V6/src/drone/DroneFunctions.cpp" "CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o.d"
   "/home/sudhan/V6/src/main.cpp" "CMakeFiles/qt_simple_interface.dir/src/main.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/main.cpp.o.d"
+  "/home/sudhan/V6/src/simulation/SimulationView.cpp" "CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o" "gcc" "CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o.d"
   )
 
 # Targets to which this target links.

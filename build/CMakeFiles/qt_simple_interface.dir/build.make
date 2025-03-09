@@ -223,6 +223,34 @@ CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/dialogs/ResponseDialog.cpp -o CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s
 
+CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o: ../src/drone/DroneFunctions.cpp
+CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o -c /home/sudhan/V6/src/drone/DroneFunctions.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/drone/DroneFunctions.cpp > CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/drone/DroneFunctions.cpp -o CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.s
+
+CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: CMakeFiles/qt_simple_interface.dir/flags.make
+CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: ../src/simulation/SimulationView.cpp
+CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: CMakeFiles/qt_simple_interface.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o -MF CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o.d -o CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o -c /home/sudhan/V6/src/simulation/SimulationView.cpp
+
+CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudhan/V6/src/simulation/SimulationView.cpp > CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.i
+
+CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudhan/V6/src/simulation/SimulationView.cpp -o CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.s
+
 # Object files for target qt_simple_interface
 qt_simple_interface_OBJECTS = \
 "CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o" \
@@ -235,7 +263,9 @@ qt_simple_interface_OBJECTS = \
 "CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o" \
 "CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o" \
 "CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o" \
-"CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o"
+"CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o" \
+"CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o"
 
 # External object files for target qt_simple_interface
 qt_simple_interface_EXTERNAL_OBJECTS =
@@ -251,6 +281,8 @@ qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/components/VehicleIn
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o
+qt_simple_interface: CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/build.make
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so.5.15.9
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.15.3
@@ -266,7 +298,7 @@ qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.3
 qt_simple_interface: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3
 qt_simple_interface: CMakeFiles/qt_simple_interface.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable qt_simple_interface"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudhan/V6/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable qt_simple_interface"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qt_simple_interface.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

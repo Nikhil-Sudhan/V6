@@ -382,6 +382,30 @@ src/dialogs/ResponseDialog.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s
 .PHONY : src/dialogs/ResponseDialog.cpp.s
 
+src/drone/DroneFunctions.o: src/drone/DroneFunctions.cpp.o
+.PHONY : src/drone/DroneFunctions.o
+
+# target to build an object file
+src/drone/DroneFunctions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o
+.PHONY : src/drone/DroneFunctions.cpp.o
+
+src/drone/DroneFunctions.i: src/drone/DroneFunctions.cpp.i
+.PHONY : src/drone/DroneFunctions.i
+
+# target to preprocess a source file
+src/drone/DroneFunctions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.i
+.PHONY : src/drone/DroneFunctions.cpp.i
+
+src/drone/DroneFunctions.s: src/drone/DroneFunctions.cpp.s
+.PHONY : src/drone/DroneFunctions.s
+
+# target to generate assembly for a file
+src/drone/DroneFunctions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.s
+.PHONY : src/drone/DroneFunctions.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -405,6 +429,30 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/simulation/SimulationView.o: src/simulation/SimulationView.cpp.o
+.PHONY : src/simulation/SimulationView.o
+
+# target to build an object file
+src/simulation/SimulationView.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o
+.PHONY : src/simulation/SimulationView.cpp.o
+
+src/simulation/SimulationView.i: src/simulation/SimulationView.cpp.i
+.PHONY : src/simulation/SimulationView.i
+
+# target to preprocess a source file
+src/simulation/SimulationView.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.i
+.PHONY : src/simulation/SimulationView.cpp.i
+
+src/simulation/SimulationView.s: src/simulation/SimulationView.cpp.s
+.PHONY : src/simulation/SimulationView.s
+
+# target to generate assembly for a file
+src/simulation/SimulationView.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.s
+.PHONY : src/simulation/SimulationView.cpp.s
 
 # Help Target
 help:
@@ -446,9 +494,15 @@ help:
 	@echo "... src/dialogs/ResponseDialog.o"
 	@echo "... src/dialogs/ResponseDialog.i"
 	@echo "... src/dialogs/ResponseDialog.s"
+	@echo "... src/drone/DroneFunctions.o"
+	@echo "... src/drone/DroneFunctions.i"
+	@echo "... src/drone/DroneFunctions.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/simulation/SimulationView.o"
+	@echo "... src/simulation/SimulationView.i"
+	@echo "... src/simulation/SimulationView.s"
 .PHONY : help
 
 

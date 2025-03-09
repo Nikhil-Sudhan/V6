@@ -172,6 +172,18 @@
 			"MU",
 			"OFTFDIG4ME/moc_ResponseDialog.cpp",
 			null
+		],
+		[
+			"/home/sudhan/V6/include/drone/DroneFunctions.h",
+			"MU",
+			"Q3VWUT2PP5/moc_DroneFunctions.cpp",
+			null
+		],
+		[
+			"/home/sudhan/V6/include/simulation/SimulationView.h",
+			"MU",
+			"3MFNMLVRLE/moc_SimulationView.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -260,7 +272,9 @@
 		[ "/home/sudhan/V6/src/components/VehicleInfoWidget.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/database/DatabaseManager.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/dialogs/ResponseDialog.cpp", "MU", null ],
-		[ "/home/sudhan/V6/src/main.cpp", "MU", null ]
+		[ "/home/sudhan/V6/src/drone/DroneFunctions.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/main.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/simulation/SimulationView.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

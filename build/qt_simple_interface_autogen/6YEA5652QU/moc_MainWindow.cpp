@@ -33,14 +33,14 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 16), // "handleAssignTask"
-QT_MOC_LITERAL(2, 28, 0), // ""
-QT_MOC_LITERAL(3, 29, 22), // "handleLeftPanelChanged"
-QT_MOC_LITERAL(4, 52, 5) // "index"
+QT_MOC_LITERAL(1, 11, 22), // "handleLeftPanelChanged"
+QT_MOC_LITERAL(2, 34, 0), // ""
+QT_MOC_LITERAL(3, 35, 5), // "index"
+QT_MOC_LITERAL(4, 41, 16) // "handleAssignTask"
 
     },
-    "MainWindow\0handleAssignTask\0\0"
-    "handleLeftPanelChanged\0index"
+    "MainWindow\0handleLeftPanelChanged\0\0"
+    "index\0handleAssignTask"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,12 +58,12 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x08 /* Private */,
-       3,    1,   25,    2, 0x08 /* Private */,
+       1,    1,   24,    2, 0x08 /* Private */,
+       4,    0,   27,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    4,
 
        0        // eod
 };
@@ -74,8 +74,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->handleAssignTask(); break;
-        case 1: _t->handleLeftPanelChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->handleLeftPanelChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->handleAssignTask(); break;
         default: ;
         }
     }
