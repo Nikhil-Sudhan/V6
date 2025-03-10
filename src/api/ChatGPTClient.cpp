@@ -99,8 +99,17 @@ void ChatGPTClient::sendPrompt(const QString& missionType, const QString& vehicl
     // System message with function definitions
     QJsonObject systemMessage;
     systemMessage["role"] = "system";
-    systemMessage["content"] = "You are a UAV control assistant. You can help with mission planning and execution. "
-                              "You have access to the following functions: land, takeoff, and turn.";
+    systemMessage["content"] = R"(You are a UAV control assistant. You help with mission planning and execution.
+Base location is at [10.3624, 77.9695].
+When given a command:
+1. Always start by arming the drone
+2. Then takeoff from the base location
+3. Execute any moves to target locations
+4. Finally land at the specified location
+5. End by disarming the drone
+
+Break down complex commands into these basic operations.
+All coordinates should be in [longitude, latitude] format.)";
     messages.append(systemMessage);
     
     // User message with mission details
@@ -118,49 +127,86 @@ void ChatGPTClient::sendPrompt(const QString& missionType, const QString& vehicl
     // Takeoff function
     QJsonObject takeoffFunction;
     takeoffFunction["name"] = "takeoff";
-    takeoffFunction["description"] = "Command the UAV to take off";
+    takeoffFunction["description"] = "Command the drone to take off from current position to specified altitude";
     QJsonObject takeoffParams;
     takeoffParams["type"] = "object";
     takeoffParams["properties"] = QJsonObject({
+        {"x", QJsonObject({
+            {"type", "number"},
+            {"description", "Longitude"}
+        })},
+        {"y", QJsonObject({
+            {"type", "number"},
+            {"description", "Latitude"}
+        })},
         {"altitude", QJsonObject({
             {"type", "number"},
-            {"description", "Target altitude in meters"}
+            {"description", "Target altitude in meters (typically between 10-500)"}
+        })},
+        {"drone", QJsonObject({
+            {"type", "string"},
+            {"description", "Name of the drone"}
         })}
     });
-    takeoffParams["required"] = QJsonArray({"altitude"});
+    takeoffParams["required"] = QJsonArray({"x", "y", "altitude", "drone"});
     takeoffFunction["parameters"] = takeoffParams;
     functions.append(takeoffFunction);
+    
+    // Move function
+    QJsonObject moveFunction;
+    moveFunction["name"] = "move";
+    moveFunction["description"] = "Command the drone to move to a specific position while maintaining altitude";
+    QJsonObject moveParams;
+    moveParams["type"] = "object";
+    moveParams["properties"] = QJsonObject({
+        {"x", QJsonObject({
+            {"type", "number"},
+            {"description", "Target longitude"}
+        })},
+        {"y", QJsonObject({
+            {"type", "number"},
+            {"description", "Target latitude"}
+        })},
+        {"z", QJsonObject({
+            {"type", "number"},
+            {"description", "Target altitude in meters"}
+        })},
+        {"drone", QJsonObject({
+            {"type", "string"},
+            {"description", "Name of the drone"}
+        })}
+    });
+    moveParams["required"] = QJsonArray({"x", "y", "z", "drone"});
+    moveFunction["parameters"] = moveParams;
+    functions.append(moveFunction);
     
     // Land function
     QJsonObject landFunction;
     landFunction["name"] = "land";
-    landFunction["description"] = "Command the UAV to land";
+    landFunction["description"] = "Command the drone to land at the current position";
     QJsonObject landParams;
     landParams["type"] = "object";
-    landParams["properties"] = QJsonObject();
-    landFunction["parameters"] = landParams;
-    functions.append(landFunction);
-    
-    // Turn function
-    QJsonObject turnFunction;
-    turnFunction["name"] = "turn";
-    turnFunction["description"] = "Command the UAV to turn";
-    QJsonObject turnParams;
-    turnParams["type"] = "object";
-    turnParams["properties"] = QJsonObject({
-        {"direction", QJsonObject({
-            {"type", "string"},
-            {"enum", QJsonArray({"left", "right"})},
-            {"description", "Direction to turn"}
-        })},
-        {"degrees", QJsonObject({
+    landParams["properties"] = QJsonObject({
+        {"x", QJsonObject({
             {"type", "number"},
-            {"description", "Degrees to turn"}
+            {"description", "Landing longitude"}
+        })},
+        {"y", QJsonObject({
+            {"type", "number"},
+            {"description", "Landing latitude"}
+        })},
+        {"z", QJsonObject({
+            {"type", "number"},
+            {"description", "Final approach altitude (typically 0)"}
+        })},
+        {"drone", QJsonObject({
+            {"type", "string"},
+            {"description", "Name of the drone"}
         })}
     });
-    turnParams["required"] = QJsonArray({"direction", "degrees"});
-    turnFunction["parameters"] = turnParams;
-    functions.append(turnFunction);
+    landParams["required"] = QJsonArray({"x", "y", "z", "drone"});
+    landFunction["parameters"] = landParams;
+    functions.append(landFunction);
     
     payload["functions"] = functions;
     payload["function_call"] = "auto";

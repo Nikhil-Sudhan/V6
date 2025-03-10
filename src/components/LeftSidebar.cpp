@@ -59,17 +59,21 @@ void LeftSidebar::createToolBar(QWidget* parent)
         QToolBar {
             spacing: 0px;
             padding: 0px;
+            background-color: #1a1a1a;
+            border-right: 1px solid #00a6ff;
         }
         QToolButton {
-            padding: 8px 0px;
+            padding: 12px 0px;
             margin: 0px;
             border: none;
+            background-color: #1a1a1a;
+            min-width: 90px;
         }
         QToolButton:hover {
-            background-color: #3e3e42;
+            background-color: #252525;
         }
         QToolButton:pressed, QToolButton:checked {
-            background-color: #0078d7;
+            background-color: #00a6ff;
         }
     )");
     
@@ -259,16 +263,19 @@ void LeftSidebar::createPanels()
 
     // Add additional styles for the mission control panel
     QString missionStyle = R"(
+        QWidget {
+            background-color: #1a1a1a;
+        }
         QComboBox {
-            background-color: #252526;
-            color: #d4d4d4;
-            border: 1px solid #454545;
+            background-color: #252525;
+            color: #e0e0e0;
+            border: 1px solid #00a6ff;
             border-radius: 4px;
-            padding: 5px;
+            padding: 8px;
             min-height: 25px;
         }
         QComboBox:hover {
-            border: 1px solid #007acc;
+            border: 2px solid #00a6ff;
         }
         QComboBox::drop-down {
             border: none;
@@ -278,32 +285,39 @@ void LeftSidebar::createPanels()
             image: url(down_arrow.png);
         }
         QTextEdit {
-            background-color: #252526;
-            color: #d4d4d4;
-            border: 1px solid #454545;
+            background-color: #252525;
+            color: #e0e0e0;
+            border: 1px solid #00a6ff;
             border-radius: 4px;
-            padding: 5px;
+            padding: 8px;
         }
         QTextEdit:focus {
-            border: 1px solid #007acc;
+            border: 2px solid #00a6ff;
         }
         QPushButton {
-            background-color: #0e639c;
-            color: #ffffff;
-            border: none;
+            background-color: #252525;
+            color: #00a6ff;
+            border: 1px solid #00a6ff;
             border-radius: 4px;
             padding: 8px 16px;
             font-weight: bold;
         }
         QPushButton:hover {
-            background-color: #1177bb;
+            background-color: #00a6ff;
+            color: #ffffff;
         }
         QPushButton:pressed {
-            background-color: #0d5289;
+            background-color: #0077cc;
+            color: #ffffff;
         }
         QLabel {
-            color: #d4d4d4;
+            color: #e0e0e0;
             font-size: 14px;
+        }
+        QFrame[frameShape="4"] {
+            color: #00a6ff;
+            background-color: #00a6ff;
+            height: 1px;
         }
     )";
     missionPanel->setStyleSheet(missionStyle);

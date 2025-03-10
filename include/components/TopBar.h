@@ -3,25 +3,22 @@
 
 #include <QToolBar>
 #include <QLabel>
-#include <QLineEdit>
 #include <QTimer>
+#include <QLineEdit>
 
 class TopBar : public QToolBar {
     Q_OBJECT
 public:
     explicit TopBar(QWidget* parent = nullptr);
-    ~TopBar();
+    ~TopBar() { if (dateTimeTimer) dateTimeTimer->stop(); }
 
 private slots:
     void updateDateTime();
 
 private:
-    QLabel* logoLabel;
-    QLineEdit* searchBox;
-    QLabel* userIcon;
     QLabel* dateTimeLabel;
-    QLabel* statusLabel;
     QTimer* dateTimeTimer;
+    QLineEdit* searchBar;
 };
 
 #endif // TOPBAR_H 

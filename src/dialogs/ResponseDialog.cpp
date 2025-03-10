@@ -1,4 +1,5 @@
 #include "../../include/dialogs/ResponseDialog.h"
+#include "../../include/drone/DroneFunctions.h"
 #include <QJsonDocument>
 #include <QMessageBox>
 #include <QDebug>
@@ -8,6 +9,50 @@ ResponseDialog::ResponseDialog(QWidget* parent)
 {
     setWindowTitle("ChatGPT Response");
     setMinimumSize(600, 400);
+    
+    // Set dialog style
+    setStyleSheet(R"(
+        QDialog {
+            background-color: #1a1a1a;
+            border: 1px solid #00a6ff;
+        }
+        QLabel {
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+        QTextEdit {
+            background-color: #252525;
+            color: #e0e0e0;
+            border: 1px solid #00a6ff;
+            border-radius: 4px;
+            padding: 8px;
+        }
+        QTextEdit:focus {
+            border: 2px solid #00a6ff;
+        }
+        QPushButton {
+            background-color: #252525;
+            color: #00a6ff;
+            border: 1px solid #00a6ff;
+            border-radius: 4px;
+            padding: 8px 16px;
+            min-width: 100px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #00a6ff;
+            color: #ffffff;
+        }
+        QPushButton:pressed {
+            background-color: #0077cc;
+            color: #ffffff;
+        }
+        QPushButton:disabled {
+            background-color: #252525;
+            color: #666666;
+            border: 1px solid #666666;
+        }
+    )");
     
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     
@@ -104,19 +149,52 @@ void ResponseDialog::executeFunctions()
     
     // Execute the function based on its name
     if (functionName == "takeoff") {
-        double altitude = arguments["altitude"].toDouble();
-        QMessageBox::information(this, "Function Executed", 
-            QString("Executing takeoff to altitude: %1 meters").arg(altitude));
+        double x = arguments["x"].toDouble();
+        double y = arguments["y"].toDouble();
+        double z = arguments["altitude"].toDouble();
+        QString drone = arguments["drone"].toString();
+        if (DroneFunctions::takeoff(x, y, z, drone)) {
+            QMessageBox::information(this, "Function Executed", 
+                QString("Executing takeoff for drone %1 to position (%2, %3, %4)")
+                .arg(drone).arg(x).arg(y).arg(z));
+        }
     } 
+    else if (functionName == "move") {
+        double x = arguments["x"].toDouble();
+        double y = arguments["y"].toDouble();
+        double z = arguments["z"].toDouble();
+        QString drone = arguments["drone"].toString();
+        if (DroneFunctions::move(x, y, z, drone)) {
+            QMessageBox::information(this, "Function Executed", 
+                QString("Moving drone %1 to position (%2, %3, %4)")
+                .arg(drone).arg(x).arg(y).arg(z));
+        }
+    }
     else if (functionName == "land") {
-        QMessageBox::information(this, "Function Executed", "Executing land command");
-    } 
-    else if (functionName == "turn") {
-        QString direction = arguments["direction"].toString();
-        double degrees = arguments["degrees"].toDouble();
-        QMessageBox::information(this, "Function Executed", 
-            QString("Executing turn %1 %2 degrees").arg(direction).arg(degrees));
-    } 
+        double x = arguments["x"].toDouble();
+        double y = arguments["y"].toDouble();
+        double z = arguments["z"].toDouble();
+        QString drone = arguments["drone"].toString();
+        if (DroneFunctions::land(x, y, z, drone)) {
+            QMessageBox::information(this, "Function Executed", 
+                QString("Landing drone %1 at position (%2, %3, %4)")
+                .arg(drone).arg(x).arg(y).arg(z));
+        }
+    }
+    else if (functionName == "arm") {
+        QString drone = arguments["drone"].toString();
+        if (DroneFunctions::arm(drone)) {
+            QMessageBox::information(this, "Function Executed", 
+                QString("Armed drone %1").arg(drone));
+        }
+    }
+    else if (functionName == "disarm") {
+        QString drone = arguments["drone"].toString();
+        if (DroneFunctions::disarm(drone)) {
+            QMessageBox::information(this, "Function Executed", 
+                QString("Disarmed drone %1").arg(drone));
+        }
+    }
     else {
         QMessageBox::warning(this, "Unknown Function", 
             QString("Unknown function: %1").arg(functionName));

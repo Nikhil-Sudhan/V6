@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 #include <QVBoxLayout>
-#include <QWidget>
-#include <QStackedWidget>
 
 // Forward declarations
 class TopBar;
@@ -21,23 +19,20 @@ public:
     ~MainWindow();
 
 private slots:
-    void handleAssignTask();
     void handleLeftPanelChanged(int index);
+    void handleAssignTask();
 
 private:
     void setupMainArea();
     void applyStyles();
 
-private:
-    // Main widgets
-    QWidget *centralWidget;
-    QVBoxLayout *mainLayout;
+    QWidget* centralWidget;
+    QVBoxLayout* mainLayout;
     
-    // Components
-    TopBar *topBar;
-    LeftSidebar *leftSidebar;
-    RightSidebar *rightSidebar;
-    MapViewer *mapViewer;
+    TopBar* topBar;
+    LeftSidebar* leftSidebar;
+    RightSidebar* rightSidebar;
+    MapViewer* mapViewer;
 };
 
 #endif // MAINWINDOW_H 

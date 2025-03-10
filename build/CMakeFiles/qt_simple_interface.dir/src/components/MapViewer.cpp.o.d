@@ -343,6 +343,13 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
  /home/sudhan/V6/src/components/../../include/simulation/SimulationView.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
@@ -350,6 +357,9 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QUrl \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
@@ -361,12 +371,9 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonArray \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonarray.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonDocument \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h

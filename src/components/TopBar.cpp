@@ -3,100 +3,88 @@
 #include <QDateTime>
 #include <QFont>
 #include <QHBoxLayout>
-#include <QPixmap>
+#include <QWidget>
+#include <QLineEdit>
+#include <QTimer>
 
 TopBar::TopBar(QWidget* parent) : QToolBar(parent)
 {
     setMovable(false);
-    setMinimumHeight(60);
-    setMaximumHeight(60);
+    setFixedHeight(50);
     
     // Create a container widget for better layout control
     QWidget* container = new QWidget();
     QHBoxLayout* layout = new QHBoxLayout(container);
-    layout->setContentsMargins(10, 0, 10, 0);
-    layout->setSpacing(10);
+    layout->setContentsMargins(20, 0, 20, 0);
+    layout->setSpacing(20);
     
-    // Left: Logo with icon
-    logoLabel = new QLabel();
-    // In a real app, you'd use a proper logo image
-    logoLabel->setText("<span style='font-weight:bold; font-size:16pt; color:#0078d7;'>UAV</span> <span style='font-weight:normal; font-size:14pt;'>CONTROL</span>");
-    logoLabel->setMinimumWidth(150);
-    logoLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    layout->addWidget(logoLabel);
+    // Left: Title
+    QLabel* titleLabel = new QLabel("UAV Control System");
+    QFont titleFont;
+    titleFont.setPointSize(14);
+    titleFont.setBold(true);
+    titleLabel->setFont(titleFont);
+    titleLabel->setStyleSheet("color: #00a6ff;");
     
-    // Add spacer
-    layout->addStretch(1);
+    // Center: Search bar
+    searchBar = new QLineEdit();
+    searchBar->setPlaceholderText("Search...");
+    searchBar->setFixedWidth(300);
+    searchBar->setStyleSheet(R"(
+        QLineEdit {
+            background-color: #252525;
+            color: #e0e0e0;
+            border: 1px solid #00a6ff;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        QLineEdit:focus {
+            border: 2px solid #00a6ff;
+        }
+    )");
     
-    // Center: Search with icon
-    QWidget* searchContainer = new QWidget();
-    QHBoxLayout* searchLayout = new QHBoxLayout(searchContainer);
-    searchLayout->setContentsMargins(0, 0, 0, 0);
-    searchLayout->setSpacing(5);
-    
-    QLabel* searchIcon = new QLabel("🔍");
-    searchIcon->setStyleSheet("font-size: 14pt;");
-    
-    searchBox = new QLineEdit();
-    searchBox->setPlaceholderText("Search...");
-    searchBox->setFixedWidth(300);
-    searchBox->setFixedHeight(36);
-    QFont searchFont = searchBox->font();
-    searchFont.setPointSize(11);
-    searchBox->setFont(searchFont);
-    
-    searchLayout->addWidget(searchIcon);
-    searchLayout->addWidget(searchBox);
-    
-    layout->addWidget(searchContainer);
-    
-    // Add spacer
-    layout->addStretch(1);
-    
-    // Right: User info, date/time, status with better styling
+    // Right: Date/time and status
     QWidget* rightContainer = new QWidget();
     QHBoxLayout* rightLayout = new QHBoxLayout(rightContainer);
     rightLayout->setContentsMargins(0, 0, 0, 0);
     rightLayout->setSpacing(15);
     
-    userIcon = new QLabel("👤");
-    QFont iconFont = userIcon->font();
-    iconFont.setPointSize(14);
-    userIcon->setFont(iconFont);
-    userIcon->setStyleSheet("color: #0078d7;");
-    
     dateTimeLabel = new QLabel();
-    QFont dateTimeFont = dateTimeLabel->font();
-    dateTimeFont.setPointSize(11);
-    dateTimeLabel->setFont(dateTimeFont);
+    dateTimeLabel->setStyleSheet("color: #e0e0e0; font-size: 12px;");
     
-    statusLabel = new QLabel();
-    statusLabel->setText("<span style='color:#4CAF50;'>●</span> <span style='color:#f0f0f0;'>Online</span>");
-    QFont statusFont = statusLabel->font();
-    statusFont.setPointSize(11);
-    statusLabel->setFont(statusFont);
+    QLabel* statusLabel = new QLabel("● Online");
+    statusLabel->setStyleSheet("color: #4CAF50; font-size: 12px;");
     
-    rightLayout->addWidget(userIcon);
     rightLayout->addWidget(dateTimeLabel);
     rightLayout->addWidget(statusLabel);
     
+    // Add to main layout
+    layout->addWidget(titleLabel);
+    layout->addStretch();
+    layout->addWidget(searchBar);
+    layout->addStretch();
     layout->addWidget(rightContainer);
     
     // Add the container to the toolbar
     addWidget(container);
+    
+    // Set styles
+    setStyleSheet(R"(
+        QToolBar {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #00a6ff;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+    )");
     
     // Setup timer for date/time updates
     dateTimeTimer = new QTimer(this);
     connect(dateTimeTimer, &QTimer::timeout, this, &TopBar::updateDateTime);
     dateTimeTimer->start(1000);
     updateDateTime();
-}
-
-TopBar::~TopBar()
-{
-    if (dateTimeTimer) {
-        dateTimeTimer->stop();
-    }
 }
 
 void TopBar::updateDateTime()

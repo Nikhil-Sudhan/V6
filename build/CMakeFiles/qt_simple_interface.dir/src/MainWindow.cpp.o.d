@@ -391,6 +391,12 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
  /home/sudhan/V6/src/../include/database/DatabaseManager.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \

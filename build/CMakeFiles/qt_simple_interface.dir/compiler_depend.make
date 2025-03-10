@@ -934,6 +934,12 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: ../src/MainWindow.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
   ../include/database/DatabaseManager.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
   /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \
@@ -2196,6 +2202,13 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: ../src/compon
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
   ../include/simulation/SimulationView.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
@@ -2203,6 +2216,9 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: ../src/compon
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QUrl \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
@@ -2214,15 +2230,12 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: ../src/compon
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonArray \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonarray.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonDocument \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h
 
 CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o: ../src/components/RightSidebar.cpp \
   /usr/include/stdc-predef.h \
@@ -4280,7 +4293,36 @@ CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o: ../src/drone/
   /usr/include/c++/11/ext/concurrence.h \
   /usr/include/c++/11/bits/shared_ptr_atomic.h \
   /usr/include/c++/11/backward/auto_ptr.h \
-  /usr/include/c++/11/pstl/glue_memory_defs.h
+  /usr/include/c++/11/pstl/glue_memory_defs.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonDocument \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonArray \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonarray.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QMap \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h
 
 CMakeFiles/qt_simple_interface.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/stdc-predef.h \
@@ -5037,6 +5079,9 @@ CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: ../src/s
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonArray \
@@ -5049,7 +5094,20 @@ CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: ../src/s
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonDocument \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDebug \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h
 
 
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qsurfaceformat.h:
@@ -5503,6 +5561,8 @@ qt_simple_interface_autogen/2MMMJD267A/moc_ChatGPTClient.cpp:
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QMap:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 

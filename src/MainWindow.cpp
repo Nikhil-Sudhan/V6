@@ -38,9 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
     rightSidebar = new RightSidebar(this);
     mapViewer = new MapViewer(this);
     
-    // Add top bar to main layout
-    mainLayout->addWidget(topBar);
-    
     // Set up main area
     setupMainArea();
     
@@ -57,6 +54,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupMainArea()
 {
+    // Add top bar at the top of the window
+    addToolBar(Qt::TopToolBarArea, topBar);
+    
     // Add left toolbar
     addToolBar(Qt::LeftToolBarArea, leftSidebar->getToolBar());
     
@@ -78,18 +78,41 @@ void MainWindow::applyStyles()
     // Set application style
     setStyleSheet(R"(
         QMainWindow {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
+            background-color: #121212;
+            color: #e0e0e0;
         }
         QDockWidget {
-            background-color: #252526;
-            color: #d4d4d4;
-            border: none;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            border: 1px solid #00a6ff;
         }
         QDockWidget::title {
-            background-color: #333333;
-            padding: 5px;
-            color: #d4d4d4;
+            background-color: #1a1a1a;
+            padding: 8px;
+            border-bottom: 1px solid #00a6ff;
+            color: #e0e0e0;
+        }
+        QToolBar {
+            background-color: #1a1a1a;
+            border: 1px solid #00a6ff;
+            spacing: 0;
+        }
+        QStatusBar {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            border-top: 1px solid #00a6ff;
+        }
+        QScrollArea {
+            background-color: #1a1a1a;
+            border: 1px solid #00a6ff;
+        }
+        QWidget#centralWidget {
+            background-color: #121212;
+        }
+        QWidget#topBar {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #00a6ff;
+            min-height: 50px;
         }
     )");
 }
@@ -118,7 +141,6 @@ void MainWindow::handleLeftPanelChanged(int index)
 
 void MainWindow::handleAssignTask()
 {
-    // This will be called when a task is assigned
     // For now, just update the map or status
     statusBar()->showMessage("Task assigned successfully", 3000);
 } 

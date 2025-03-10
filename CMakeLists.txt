@@ -25,6 +25,8 @@ set(SOURCES
     src/database/DatabaseManager.cpp
     src/api/ChatGPTClient.cpp
     src/dialogs/ResponseDialog.cpp
+    src/drone/DroneFunctions.cpp
+    src/simulation/SimulationView.cpp
 )
 
 # Header files
@@ -38,6 +40,8 @@ set(HEADERS
     include/database/DatabaseManager.h
     include/api/ChatGPTClient.h
     include/dialogs/ResponseDialog.h
+    include/drone/DroneFunctions.h
+    include/simulation/SimulationView.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})

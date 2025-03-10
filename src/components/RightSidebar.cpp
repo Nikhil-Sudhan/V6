@@ -36,17 +36,21 @@ void RightSidebar::createToolBar(QWidget* parent)
         QToolBar {
             spacing: 0px;
             padding: 0px;
+            background-color: #1a1a1a;
+            border-left: 1px solid #00a6ff;
         }
         QToolButton {
-            padding: 8px 0px;
+            padding: 12px 0px;
             margin: 0px;
             border: none;
+            background-color: #1a1a1a;
+            min-width: 50px;
         }
         QToolButton:hover {
-            background-color: #3e3e42;
+            background-color: #252525;
         }
         QToolButton:pressed, QToolButton:checked {
-            background-color: #0078d7;
+            background-color: #00a6ff;
         }
     )");
     
@@ -100,12 +104,12 @@ void RightSidebar::createPanel()
     QFrame* separator = new QFrame();
     separator->setFrameShape(QFrame::HLine);
     separator->setFrameShadow(QFrame::Sunken);
-    separator->setStyleSheet("background-color: #3e3e42;");
+    separator->setStyleSheet("background-color: #00a6ff;");
     taskLayout->addWidget(separator);
 
     // Add content with styled sections
     QLabel* currentTasksTitle = new QLabel("Current Tasks");
-    currentTasksTitle->setStyleSheet("font-weight: bold; color: #0078d7; font-size: 14px;");
+    currentTasksTitle->setStyleSheet("font-weight: bold; color: #00a6ff; font-size: 14px;");
     taskLayout->addWidget(currentTasksTitle);
     
     QLabel* currentTasksList = new QLabel(
@@ -118,7 +122,7 @@ void RightSidebar::createPanel()
     taskLayout->addSpacing(10);
     
     QLabel* progressTitle = new QLabel("Task Progress");
-    progressTitle->setStyleSheet("font-weight: bold; color: #0078d7; font-size: 14px;");
+    progressTitle->setStyleSheet("font-weight: bold; color: #00a6ff; font-size: 14px;");
     taskLayout->addWidget(progressTitle);
     
     QLabel* progressList = new QLabel(
@@ -132,7 +136,7 @@ void RightSidebar::createPanel()
     taskLayout->addSpacing(10);
     
     QLabel* alertsTitle = new QLabel("Recent Alerts");
-    alertsTitle->setStyleSheet("font-weight: bold; color: #0078d7; font-size: 14px;");
+    alertsTitle->setStyleSheet("font-weight: bold; color: #00a6ff; font-size: 14px;");
     taskLayout->addWidget(alertsTitle);
     
     QLabel* alertsList = new QLabel(
@@ -144,6 +148,16 @@ void RightSidebar::createPanel()
 
     // Add stretch to push everything to the top
     taskLayout->addStretch();
+
+    // Set panel styles
+    taskPanel->setStyleSheet(R"(
+        QWidget {
+            background-color: #1a1a1a;
+        }
+        QLabel {
+            color: #e0e0e0;
+        }
+    )");
 
     rightPanelDock->setWidget(taskPanel);
 }

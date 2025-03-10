@@ -1,54 +1,108 @@
 #include "../../include/components/MapViewer.h"
+#include "../../include/simulation/SimulationView.h"
 #include <QVBoxLayout>
-#include <QWebEngineProfile>
-#include <QWebEngineSettings>
-#include <QTimer>
+#include <QHBoxLayout>
+#include <QUrl>
+#include <QFile>
+#include <QTextStream>
 #include <QDebug>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QCoreApplication>
+
+// Custom WebEnginePage for debugging
+DebugWebEnginePage::DebugWebEnginePage(QWebEngineProfile *profile, QObject *parent)
+    : QWebEnginePage(profile, parent)
+{
+}
 
 void DebugWebEnginePage::javaScriptConsoleMessage(JavaScriptConsoleMessageLevel level, const QString &message, 
                                                 int lineNumber, const QString &sourceID) {
-    qDebug() << "JS Console:" << level << message << "Line:" << lineNumber << "Source:" << sourceID;
+    QString levelStr;
+    switch (level) {
+        case InfoMessageLevel: levelStr = "INFO"; break;
+        case WarningMessageLevel: levelStr = "WARNING"; break;
+        case ErrorMessageLevel: levelStr = "ERROR"; break;
+    }
+    
+    qDebug() << "JS:" << levelStr << message << "at line" << lineNumber << "in" << sourceID;
 }
 
-MapViewer::MapViewer(QWidget *parent) : QWidget(parent)
+MapViewer::MapViewer(QWidget* parent) : QWidget(parent), m_currentMode(MapMode)
 {
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(0);
+    setupUI();
+    loadMap();
+}
+
+void MapViewer::setupUI()
+{
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
     
-    // Create and configure profile
-    auto profile = new QWebEngineProfile("MapboxProfile", this);
-    profile->setPersistentCookiesPolicy(QWebEngineProfile::NoPersistentCookies);
-    profile->setHttpCacheType(QWebEngineProfile::MemoryHttpCache);
+    // Create stacked widget to hold map and simulation views
+    m_stackedWidget = new QStackedWidget(this);
     
-    // Create web view and page
+    // Create map view
     m_webView = new QWebEngineView(this);
+    m_stackedWidget->addWidget(m_webView);
     
-    // Configure settings
-    auto settings = m_webView->settings();
-    settings->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
-    settings->setAttribute(QWebEngineSettings::WebGLEnabled, true);
-    settings->setAttribute(QWebEngineSettings::Accelerated2dCanvasEnabled, true);
-    settings->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
-    settings->setAttribute(QWebEngineSettings::JavascriptEnabled, true);
-    settings->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, true);
+    // Create simulation view
+    m_simulationView = new SimulationView(this);
+    m_stackedWidget->addWidget(m_simulationView);
     
-    // Replace the page with our debug page
-    auto debugPage = new DebugWebEnginePage(profile, m_webView);
-    m_webView->setPage(debugPage);
+    // Create toggle button
+    m_toggleButton = new QPushButton(this);
+    m_toggleButton->setText("Switch to Simulation");
+    m_toggleButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #252525;
+            color: #00a6ff;
+            border: 1px solid #00a6ff;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        QPushButton:hover {
+            background-color: #00a6ff;
+            color: #ffffff;
+        }
+    )");
+    connect(m_toggleButton, &QPushButton::clicked, this, &MapViewer::toggleView);
     
-    layout->addWidget(m_webView);
+    // Add stacked widget to layout
+    mainLayout->addWidget(m_stackedWidget);
     
-    initializeMap();
+    // Position toggle button in top-right corner
+    m_toggleButton->setParent(this);
+    m_toggleButton->move(width() - m_toggleButton->width() - 20, 20);
+    m_toggleButton->raise();
+    
+    // Set initial view
+    m_stackedWidget->setCurrentIndex(MapMode);
 }
 
-MapViewer::~MapViewer()
+void MapViewer::loadMap()
 {
-}
+    // Get GeoJSON data
+    QString appPath = QCoreApplication::applicationDirPath();
+    QString geojsonPath = appPath + "/drone_geojson/Atlas_path.geojson";
+    QFile file(geojsonPath);
+    QString geojsonStr = "{}";
+    
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        geojsonStr = doc.toJson(QJsonDocument::Compact);
+        file.close();
+        qDebug() << "GeoJSON loaded successfully";
+    } else {
+        qDebug() << "Failed to open file:" << geojsonPath;
+    }
 
-void MapViewer::initializeMap()
-{
-    qDebug() << "Initializing map with Threebox and drone path...";
     const QString mapboxToken = "pk.eyJ1Ijoibmlja3lqMTIxIiwiYSI6ImNtN3N3eHFtcTB1MTkya3M4Mnc0dmQxanAifQ.gLJZYJe_zH9b9yxFxQZm6g";
     
     QString html = R"(
@@ -56,137 +110,161 @@ void MapViewer::initializeMap()
         <html>
         <head>
             <meta charset='utf-8'>
-    <title>Threebox Drone</title>
-            <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet'>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/threebox-plugin@2.2.7/dist/threebox.min.js'></script>
+            <title>3D Path Visualization</title>
+            <script src='https://unpkg.com/mapbox-gl@2.15.0/dist/mapbox-gl.js'></script>
+            <link href='https://unpkg.com/mapbox-gl@2.15.0/dist/mapbox-gl.css' rel='stylesheet' />
+            <script src='https://cdn.jsdelivr.net/npm/threebox-plugin@2.2.7/dist/threebox.min.js'></script>
             <style>
-        body, html { margin: 0; height: 100%; }
-        #map { width: 100%; height: 100%; }
+                body { margin: 0; padding: 0; }
+                #map { position: absolute; top: 0; bottom: 0; width: 100%; }
             </style>
         </head>
         <body>
             <div id='map'></div>
             <script>
-                    mapboxgl.accessToken = '%1';
-                    
-                    const map = new mapboxgl.Map({
-                        container: 'map',
-                        style: 'mapbox://styles/mapbox/dark-v11',
-            center: [-3.44885, 40.49198],
-            zoom: 13.4,
-            pitch: 50,
-            bearing: -13
-        });
+                const MAPBOX_TOKEN = '%1';
+                const geojsonData = %2;
 
-        let tb;
-        let drone;
+                mapboxgl.accessToken = MAPBOX_TOKEN;
+                
+                const map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/mapbox/dark-v11',
+                    center: [77.9806, 10.3637],
+                    zoom: 14,
+                    pitch: 60,
+                    bearing: 0,
+                    antialias: true
+                });
 
-        map.on('style.load', function() {
-            tb = new Threebox(
-                map,
-                map.getCanvas().getContext('webgl'),
-                { defaultLights: true }
-            );
-
-            const flightPath = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": [
-                        [-3.459164318324355, 40.483196679459695, 0],
-                        [-3.46032158100065006, 40.48405772625512, 0],
-                        [-3.4601480276212726, 40.48464924045098, 0],
-                        [-3.4605399688768728, 40.48492144503072, 0],
-                        [-3.4544247306827174, 40.489871726679894, 0],
-                        [-3.4419511970175165, 40.49989552385142, 100],
-                        [-3.4199262740950473, 40.51776139362727, 800],
-                        [-3.4064155093898023, 40.52744748436612, 1000],
-                        [-3.394276165400413, 40.53214151673197, 1400],
-                        [-3.3774962506359145, 40.53130304189972, 1800],
-                        [-3.35977648690141, 40.523996322867305, 2000]
-                    ]
-                }
-            };
-
-            // Add the flight path line
-            map.addSource('flight-path', {
-                'type': 'geojson',
-                'data': flightPath
-            });
-
-                            map.addLayer({
-                'id': 'flight-path-line',
-                'type': 'line',
-                'source': 'flight-path',
-                                'paint': {
-                    'line-color': '#00ff00',
-                    'line-width': 4,
-                    'line-opacity': 0.8
-                }
-            });
-
-                            map.addLayer({
-                id: 'custom-layer',
-                type: 'custom',
-                renderingMode: '3d',
-                onAdd: function() {
-                    const options = {
-                        obj: '.assets/models/drone.glb',
-                        type: 'gltf',
-                        scale: 1,
-                        units: 'meters',
-                        rotation: { x: 90, y: 0, z: 0 },
-                        anchor: 'center'
-                    };
-
-                    tb.loadObj(options, function(model) {
-                        drone = model;
-                        drone.setCoords(flightPath.geometry.coordinates[0]);
-                        drone.setRotation({ x: 0, y: 0, z: 135 });
-                        tb.add(drone);
-
-                        // Animate drone along path
-                        let step = 0;
-                        const coords = flightPath.geometry.coordinates;
-                        
-                        function animate() {
-                            if (step < coords.length - 1) {
-                                const start = coords[step];
-                                const end = coords[step + 1];
-                                const progress = (Date.now() % 1000) / 1000;
-                                
-                                const currentPos = [
-                                    start[0] + (end[0] - start[0]) * progress,
-                                    start[1] + (end[1] - start[1]) * progress,
-                                    start[2] + (end[2] - start[2]) * progress
-                                ];
-                                
-                                drone.setCoords(currentPos);
-                                
-                                if (progress >= 0.99) {
-                                    step++;
-                                }
-                            } else {
-                                step = 0;
-                            }
-                            
-                            requestAnimationFrame(animate);
+                map.on('style.load', function() {
+                    // Initialize Threebox
+                    const tb = new Threebox(
+                        map,
+                        map.getCanvas().getContext('webgl'),
+                        {
+                            defaultLights: true,
+                            enableSelectingObjects: true,
+                            enableTooltips: true,
+                            enableDraggingObjects: true,
+                            terrain: true
                         }
-                        
-                        animate();
+                    );
+                    map.addLayer({
+                        id: 'custom-threebox-terrain',
+                        type: 'custom',
+                        renderingMode: '3d',
+                        onAdd: function() {
+                            // Get coordinates
+                            const coordinates = geojsonData.features[0].geometry.coordinates;
+                            
+                            // Create line geometry with thicker line
+                            const material = new THREE.LineBasicMaterial({
+                                color: 0xff0000,
+                                linewidth: 10
+                            });
+
+                            const points = coordinates.map(coord => {
+                                return tb.utils.projectToWorld([coord[0], coord[1], coord[2] * 5]);
+                            });
+
+                            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                            const line = new THREE.Line(geometry, material);
+                            
+                            // Add to scene
+                            tb.add(line);
+
+                            // Add markers with popups
+                            coordinates.forEach(coord => {
+                                new mapboxgl.Marker({ 
+                                    color: '#ff0000',
+                                    scale: 0.5 
+                                })
+                                .setLngLat([coord[0], coord[1]])
+                                .setPopup(new mapboxgl.Popup().setHTML(`Elevation: ${coord[2]}m`))
+                                .addTo(map);
+                            });
+                        },
+                        render: function() {
+                            tb.update();
+                        }
                     });
-                },
-                render: function() {
-                    tb.update();
-                }
-            });
-        });
+
+                    // Add terrain
+                    map.addSource('mapbox-dem', {
+                        'type': 'raster-dem',
+                        'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                        'tileSize': 512,
+                        'maxzoom': 14
+                    });
+                    map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+
+                    // Fit to bounds
+                    const coordinates = geojsonData.features[0].geometry.coordinates;
+                    const bounds = coordinates.reduce((bounds, coord) => {
+                        return bounds.extend([coord[0], coord[1]]);
+                    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+                    map.fitBounds(bounds, {
+                        padding: 50
+                    });
+                });
+
+                map.on('error', function(e) {
+                    console.error('Map error:', e.error);
+                });
             </script>
         </body>
         </html>
     )";
+    
+    m_webView->setHtml(html.arg(mapboxToken, geojsonStr));
+}
 
-    m_webView->setHtml(html.arg(mapboxToken), QUrl("https://api.mapbox.com"));
+void MapViewer::toggleView()
+{
+    if (m_currentMode == MapMode) {
+        m_stackedWidget->setCurrentIndex(SimulationMode);
+        m_toggleButton->setText("Switch to Map");
+        m_currentMode = SimulationMode;
+    } else {
+        m_stackedWidget->setCurrentIndex(MapMode);
+        m_toggleButton->setText("Switch to Simulation");
+        m_currentMode = MapMode;
+    }
+}
+
+void MapViewer::setDronePositions(const QVector<QVector3D>& positions)
+{
+    // Update positions in simulation view
+    m_simulationView->setDronePositions(positions);
+    
+    // Update positions in map view
+    QJsonArray droneArray;
+    for (const QVector3D& pos : positions) {
+        QJsonObject drone;
+        drone["x"] = pos.x();
+        drone["y"] = pos.y();
+        drone["z"] = pos.z();
+        droneArray.append(drone);
+    }
+    
+    QJsonDocument doc(droneArray);
+    QString jsonString = doc.toJson(QJsonDocument::Compact);
+    
+    QString script = QString("updateDronePositions(%1);").arg(jsonString);
+    m_webView->page()->runJavaScript(script);
+}
+
+void MapViewer::updateDronePath(const QJsonObject& geojsonData)
+{
+    QJsonDocument doc(geojsonData);
+    QString jsonString = doc.toJson(QJsonDocument::Compact);
+    
+    QString script = QString("updateDronePath(%1);").arg(jsonString);
+    m_webView->page()->runJavaScript(script);
+}
+
+MapViewer::~MapViewer()
+{
 } 
