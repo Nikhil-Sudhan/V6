@@ -7,7 +7,6 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QJsonObject>
 
 class ResponseDialog : public QDialog
 {
@@ -16,20 +15,14 @@ public:
     explicit ResponseDialog(QWidget* parent = nullptr);
     ~ResponseDialog();
     
-    void setResponse(const QString& response, const QString& functionCalls);
+    void setResponse(const QString& response, const QString& unused);
 
 private slots:
-    void executeFunctions();
     void closeDialog();
 
 private:
     QTextEdit* responseTextEdit;
-    QTextEdit* functionsTextEdit;
-    QPushButton* executeButton;
     QPushButton* closeButton;
-    
-    QJsonObject parsedFunctionCalls;
-    bool hasFunctions;
 };
 
-#endif // RESPONSEDIALOG_H 
+#endif // RESPONSEDIALOG_H

@@ -351,6 +351,11 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonArray \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonarray.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_LeftSidebar.cpp \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/LeftSidebar.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QToolBar \
@@ -410,15 +415,30 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineProfile \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineprofile.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/QWebChannel \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonValue \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannelglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QFileInfo \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QCryptographicHash \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcryptographichash.h \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_RightSidebar.cpp \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/RightSidebar.h \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_TopBar.cpp \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/TopBar.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_VehicleInfoWidget.cpp \

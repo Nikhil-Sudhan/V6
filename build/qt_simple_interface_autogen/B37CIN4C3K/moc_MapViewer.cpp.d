@@ -238,12 +238,19 @@
   /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCryptographicHash \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFileInfo \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QFlags \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonValue \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QMetaType \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QSharedDataPointer \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QUrl \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QVector \
@@ -252,6 +259,7 @@
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasicatomic.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearraylist.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
@@ -266,6 +274,10 @@
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatastream.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qflags.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qgenericatomic.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h \
@@ -312,6 +324,7 @@
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qsystemdetection.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qtcore-config.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qtypeinfo.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
@@ -362,16 +375,21 @@
   /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtcpsocket.h \
   /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetwork-config.h \
   /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetworkglobal.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/QWebChannel \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannelglobal.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/qtwebenginecore-config.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/qtwebenginecoreglobal.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/qwebenginecallback.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/qwebenginehttprequest.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineProfile \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineView \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qtwebenginewidgetsglobal.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineclientcertificateselection.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginedownloaditem.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineprofile.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineview.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \

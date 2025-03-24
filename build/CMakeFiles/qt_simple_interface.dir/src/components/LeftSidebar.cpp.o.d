@@ -386,6 +386,11 @@ CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonArray \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonarray.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
  /home/sudhan/V6/src/components/../../include/dialogs/ResponseDialog.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDialog \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdialog.h \

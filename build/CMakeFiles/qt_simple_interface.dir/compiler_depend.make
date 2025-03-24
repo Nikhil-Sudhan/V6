@@ -458,15 +458,35 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineProfile \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineprofile.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/QWebChannel \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonValue \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannelglobal.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFileInfo \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCryptographicHash \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcryptographichash.h \
   qt_simple_interface_autogen/B37CIN4C3K/moc_RightSidebar.cpp \
   ../include/components/RightSidebar.h \
   qt_simple_interface_autogen/B37CIN4C3K/moc_TopBar.cpp \
   ../include/components/TopBar.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h \
   qt_simple_interface_autogen/B37CIN4C3K/moc_VehicleInfoWidget.cpp \
@@ -932,6 +952,8 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: ../src/MainWindow.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineProfile \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineprofile.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
@@ -940,6 +962,24 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: ../src/MainWindow.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/QWebChannel \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonValue \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannelglobal.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFileInfo \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCryptographicHash \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcryptographichash.h \
   ../include/database/DatabaseManager.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
   /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \
@@ -2193,6 +2233,8 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: ../src/compon
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
   /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineProfile \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineprofile.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
@@ -2209,6 +2251,27 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: ../src/compon
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/QWebChannel \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannel.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonValue \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannelglobal.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFileInfo \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCryptographicHash \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcryptographichash.h \
   ../include/simulation/SimulationView.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
@@ -2216,14 +2279,8 @@ CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o: ../src/compon
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QUrl \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QTextStream \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QDebug \
@@ -3967,8 +4024,8 @@ CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o: ../src/dial
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonDocument \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
@@ -3980,11 +4037,6 @@ CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o: ../src/dial
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
-  ../include/drone/DroneFunctions.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonDocument \
-  /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsondocument.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdialog.h \
@@ -5110,8 +5162,6 @@ CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: ../src/s
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h
 
 
-/usr/include/x86_64-linux-gnu/qt5/QtGui/qsurfaceformat.h:
-
 /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginesettings.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineSettings:
@@ -5122,19 +5172,11 @@ CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: ../src/s
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/QStandardPaths:
 
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/QDir:
-
 /usr/include/x86_64-linux-gnu/qt5/QtGui/QIcon:
 
 ../src/components/LeftSidebar.cpp:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/QTextStream:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/QFile:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qurlquery.h:
 
@@ -5158,8 +5200,6 @@ CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o: ../src/s
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h:
 
-../include/simulation/SimulationView.h:
-
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QScrollArea:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDialog:
@@ -5182,13 +5222,35 @@ qt_simple_interface_autogen/B37CIN4C3K/moc_VehicleInfoWidget.cpp:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit:
 
-/usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer:
-
 ../include/components/TopBar.h:
 
 qt_simple_interface_autogen/B37CIN4C3K/moc_TopBar.cpp:
 
 qt_simple_interface_autogen/B37CIN4C3K/moc_RightSidebar.cpp:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QFileInfo:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QFile:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QDir:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannelglobal.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonValue:
+
+../include/simulation/SimulationView.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannel.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qsurfaceformat.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWebChannel/QWebChannel:
 
 ../src/MainWindow.cpp:
 
@@ -5227,6 +5289,8 @@ qt_simple_interface_autogen/B37CIN4C3K/moc_RightSidebar.cpp:
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcombobox.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QComboBox:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineprofile.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout:
 
@@ -5706,6 +5770,8 @@ qt_simple_interface_autogen/2MMMJD267A/moc_ChatGPTClient.cpp:
 
 /usr/include/c++/11/debug/assertions.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineProfile:
+
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
 /usr/include/c++/11/type_traits:
@@ -5777,6 +5843,8 @@ qt_simple_interface_autogen/6YEA5652QU/moc_MainWindow.cpp:
 /usr/include/c++/11/bits/exception_ptr.h:
 
 /usr/include/c++/11/ext/string_conversions.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/QCryptographicHash:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 

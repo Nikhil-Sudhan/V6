@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QString>
+#include <QDir>
 
 class ChatGPTClient : public QObject
 {

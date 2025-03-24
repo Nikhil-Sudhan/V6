@@ -84,32 +84,71 @@ void ChatGPTClient::sendPrompt(const QString& missionType, const QString& vehicl
     QString authHeader = QString("Bearer %1").arg(apiKey);
     request.setRawHeader("Authorization", authHeader.toUtf8());
     
-    // Debug output
-    qDebug() << "API Key length:" << apiKey.length();
-    qDebug() << "First 10 chars of API key:" << apiKey.left(10);
-    qDebug() << "Auth header length:" << authHeader.length();
-    qDebug() << "First 20 chars of auth header:" << authHeader.left(20);
-    
     // Create the JSON payload
     QJsonObject payload;
     payload["model"] = "gpt-4"; // Use appropriate model
     
     QJsonArray messages;
     
-    // System message with function definitions
+    // System message with GeoJSON format instructions
     QJsonObject systemMessage;
     systemMessage["role"] = "system";
-    systemMessage["content"] = R"(You are a UAV control assistant. You help with mission planning and execution.
-Base location is at [10.3624, 77.9695].
-When given a command:
-1. Always start by arming the drone
-2. Then takeoff from the base location
-3. Execute any moves to target locations
-4. Finally land at the specified location
-5. End by disarming the drone
+    systemMessage["content"] = R"(
+Generate a strictly formatted GeoJSON file defining a drone flight path.
 
-Break down complex commands into these basic operations.
-All coordinates should be in [longitude, latitude] format.)";
+GeoJSON Format (Strict Rules)
+type: "FeatureCollection"
+
+features: Array of "Feature" objects
+
+Each "Feature" has:
+
+"type": "Feature"
+
+"properties": { "name": "[Mission Name]" }
+
+"geometry":
+
+"type": "LineString"
+
+"coordinates": Array of [longitude, latitude] pairs
+
+Constraints
+Base location: [77.9695, 10.3624]
+
+At least 3 waypoints forming a "LineString"
+
+Correct coordinate order: [longitude, latitude]
+
+No extra properties or null values
+
+Example Output:
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Surveillance Flight Path"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [77.9695, 10.3624],
+          [77.9700, 10.3628],
+          [77.9702, 10.3632]
+        ]
+      }
+    }
+  ]
+}
+Keep the response strictly in this format every time. No variations.
+# Notes
+- Don't add comments in geojson data. 
+- Give Code geojson data code alone.
+- Ensure that coordinate values are accurate and appropriate for the designated flight region.
+- GeoJSON is strictly typed; ensure that types (such as "FeatureCollection", "Feature", "LineString") are specified verbatim.
+- Name each feature clearly to reflect the mission or surveillance areas they cover.)";
     messages.append(systemMessage);
     
     // User message with mission details
@@ -120,96 +159,6 @@ All coordinates should be in [longitude, latitude] format.)";
     messages.append(userMessage);
     
     payload["messages"] = messages;
-    
-    // Define available functions
-    QJsonArray functions;
-    
-    // Takeoff function
-    QJsonObject takeoffFunction;
-    takeoffFunction["name"] = "takeoff";
-    takeoffFunction["description"] = "Command the drone to take off from current position to specified altitude";
-    QJsonObject takeoffParams;
-    takeoffParams["type"] = "object";
-    takeoffParams["properties"] = QJsonObject({
-        {"x", QJsonObject({
-            {"type", "number"},
-            {"description", "Longitude"}
-        })},
-        {"y", QJsonObject({
-            {"type", "number"},
-            {"description", "Latitude"}
-        })},
-        {"altitude", QJsonObject({
-            {"type", "number"},
-            {"description", "Target altitude in meters (typically between 10-500)"}
-        })},
-        {"drone", QJsonObject({
-            {"type", "string"},
-            {"description", "Name of the drone"}
-        })}
-    });
-    takeoffParams["required"] = QJsonArray({"x", "y", "altitude", "drone"});
-    takeoffFunction["parameters"] = takeoffParams;
-    functions.append(takeoffFunction);
-    
-    // Move function
-    QJsonObject moveFunction;
-    moveFunction["name"] = "move";
-    moveFunction["description"] = "Command the drone to move to a specific position while maintaining altitude";
-    QJsonObject moveParams;
-    moveParams["type"] = "object";
-    moveParams["properties"] = QJsonObject({
-        {"x", QJsonObject({
-            {"type", "number"},
-            {"description", "Target longitude"}
-        })},
-        {"y", QJsonObject({
-            {"type", "number"},
-            {"description", "Target latitude"}
-        })},
-        {"z", QJsonObject({
-            {"type", "number"},
-            {"description", "Target altitude in meters"}
-        })},
-        {"drone", QJsonObject({
-            {"type", "string"},
-            {"description", "Name of the drone"}
-        })}
-    });
-    moveParams["required"] = QJsonArray({"x", "y", "z", "drone"});
-    moveFunction["parameters"] = moveParams;
-    functions.append(moveFunction);
-    
-    // Land function
-    QJsonObject landFunction;
-    landFunction["name"] = "land";
-    landFunction["description"] = "Command the drone to land at the current position";
-    QJsonObject landParams;
-    landParams["type"] = "object";
-    landParams["properties"] = QJsonObject({
-        {"x", QJsonObject({
-            {"type", "number"},
-            {"description", "Landing longitude"}
-        })},
-        {"y", QJsonObject({
-            {"type", "number"},
-            {"description", "Landing latitude"}
-        })},
-        {"z", QJsonObject({
-            {"type", "number"},
-            {"description", "Final approach altitude (typically 0)"}
-        })},
-        {"drone", QJsonObject({
-            {"type", "string"},
-            {"description", "Name of the drone"}
-        })}
-    });
-    landParams["required"] = QJsonArray({"x", "y", "z", "drone"});
-    landFunction["parameters"] = landParams;
-    functions.append(landFunction);
-    
-    payload["functions"] = functions;
-    payload["function_call"] = "auto";
     
     // Send the request
     QJsonDocument doc(payload);
@@ -225,7 +174,6 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
     }
     
     QByteArray responseData = reply->readAll();
-    qDebug() << "Raw response data:" << responseData;
     
     QJsonDocument doc = QJsonDocument::fromJson(responseData);
     
@@ -252,34 +200,55 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
     
     QJsonObject messageObj = choices[0].toObject()["message"].toObject();
     QString content = messageObj["content"].toString();
-    QString functionCalls;
-    
-    // Check for function calls
-    if (messageObj.contains("function_call")) {
-        QJsonObject functionCall = messageObj["function_call"].toObject();
-        functionCalls = QJsonDocument(functionCall).toJson();
-        
-        // If content is null but we have a function call, create a descriptive content
-        if (content.isEmpty()) {
-            QString functionName = functionCall["name"].toString();
-            QString args = functionCall["arguments"].toString();
-            content = QString("Executing function: %1 with arguments: %2").arg(functionName, args);
-        }
-    }
     
     // Validate response
-    if (content.isEmpty() && functionCalls.isEmpty()) {
-        emit errorOccurred("Empty response and no function calls from API");
+    if (content.isEmpty()) {
+        emit errorOccurred("Empty response from API");
         reply->deleteLater();
         return;
     }
     
-    qDebug() << "Response content:" << content;
-    qDebug() << "Function calls:" << functionCalls;
+    // Parse the GeoJSON content
+    QJsonDocument geojsonDoc = QJsonDocument::fromJson(content.toUtf8());
+    if (geojsonDoc.isNull() || !geojsonDoc.isObject()) {
+        emit errorOccurred("Invalid GeoJSON format in response");
+        reply->deleteLater();
+        return;
+    }
+    
+    // Save GeoJSON to file
+    QString appPath = QCoreApplication::applicationDirPath();
+    QString geojsonDir = appPath + "/drone_geojson";
+    
+    // Ensure directory exists
+    QDir dir(geojsonDir);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+    
+    // Get vehicle name from database
+    QSqlQuery query;
+    query.prepare("SELECT vehicle FROM missions WHERE id = ?");
+    query.addBindValue(currentMissionId);
+    QString vehicleName = "drone";
+    if (query.exec() && query.next()) {
+        vehicleName = query.value(0).toString();
+    }
+    
+    // Save to file
+    QString filename = QString("%1/%2_path.geojson").arg(geojsonDir, vehicleName);
+    QFile file(filename);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << geojsonDoc.toJson(QJsonDocument::Indented);
+        file.close();
+    } else {
+        emit errorOccurred(QString("Failed to save GeoJSON to file: %1").arg(file.errorString()));
+    }
     
     // Save response to database
     if (currentMissionId > 0) {
-        if (!DatabaseManager::instance().saveChatGPTResponse(currentMissionId, content, functionCalls.isEmpty() ? "{}" : functionCalls)) {
+        if (!DatabaseManager::instance().saveChatGPTResponse(currentMissionId, content, "{}")) {
             emit errorOccurred("Failed to save response to database");
             reply->deleteLater();
             return;
@@ -287,7 +256,7 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
     }
     
     // Emit signal with response
-    emit responseReceived(currentMissionId, content, functionCalls);
+    emit responseReceived(currentMissionId, content, "{}");
     
     reply->deleteLater();
-} 
+}

@@ -98,9 +98,6 @@ void MapViewer::loadMap()
         QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
         geojsonStr = doc.toJson(QJsonDocument::Compact);
         file.close();
-        qDebug() << "GeoJSON loaded successfully";
-    } else {
-        qDebug() << "Failed to open file:" << geojsonPath;
     }
 
     const QString mapboxToken = "pk.eyJ1Ijoibmlja3lqMTIxIiwiYSI6ImNtN3N3eHFtcTB1MTkya3M4Mnc0dmQxanAifQ.gLJZYJe_zH9b9yxFxQZm6g";
@@ -111,16 +108,53 @@ void MapViewer::loadMap()
         <head>
             <meta charset='utf-8'>
             <title>3D Path Visualization</title>
-            <script src='https://unpkg.com/mapbox-gl@2.15.0/dist/mapbox-gl.js'></script>
-            <link href='https://unpkg.com/mapbox-gl@2.15.0/dist/mapbox-gl.css' rel='stylesheet' />
-            <script src='https://cdn.jsdelivr.net/npm/threebox-plugin@2.2.7/dist/threebox.min.js'></script>
+            <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+            <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+            <!-- Add Mapbox Draw plugin -->
+            <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.js'></script>
+            <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.css' type='text/css' />
             <style>
                 body { margin: 0; padding: 0; }
                 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+                .mapboxgl-ctrl-group { background: #252525; }
+                .mapboxgl-ctrl-group button { color: #00a6ff; }
+                .mapboxgl-ctrl-group button:hover { background-color: #333; }
+                .custom-controls {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    z-index: 1;
+                    background-color: #252525;
+                    border-radius: 4px;
+                    padding: 5px;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .control-button {
+                    background-color: #252525;
+                    color: #00a6ff;
+                    border: 1px solid #00a6ff;
+                    border-radius: 4px;
+                    padding: 8px 12px;
+                    margin: 5px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: all 0.3s;
+                }
+                .control-button:hover {
+                    background-color: #00a6ff;
+                    color: #ffffff;
+                }
             </style>
         </head>
         <body>
             <div id='map'></div>
+            <div class='custom-controls'>
+                <button id='zoom-in' class='control-button'>Zoom In</button>
+                <button id='zoom-out' class='control-button'>Zoom Out</button>
+                <button id='reset-north' class='control-button'>Reset North</button>
+                <button id='save-geometry' class='control-button'>Save Geometry</button>
+            </div>
             <script>
                 const MAPBOX_TOKEN = '%1';
                 const geojsonData = %2;
@@ -136,81 +170,217 @@ void MapViewer::loadMap()
                     bearing: 0,
                     antialias: true
                 });
-
-                map.on('style.load', function() {
-                    // Initialize Threebox
-                    const tb = new Threebox(
-                        map,
-                        map.getCanvas().getContext('webgl'),
+                
+                // Initialize the draw control
+                const draw = new MapboxDraw({
+                    displayControlsDefault: false,
+                    controls: {
+                        point: true,
+                        line_string: true,
+                        polygon: true,
+                        trash: true
+                    },
+                    styles: [
+                        // Line style
                         {
-                            defaultLights: true,
-                            enableSelectingObjects: true,
-                            enableTooltips: true,
-                            enableDraggingObjects: true,
-                            terrain: true
-                        }
-                    );
-                    map.addLayer({
-                        id: 'custom-threebox-terrain',
-                        type: 'custom',
-                        renderingMode: '3d',
-                        onAdd: function() {
-                            // Get coordinates
-                            const coordinates = geojsonData.features[0].geometry.coordinates;
-                            
-                            // Create line geometry with thicker line
-                            const material = new THREE.LineBasicMaterial({
-                                color: 0xff0000,
-                                linewidth: 10
-                            });
-
-                            const points = coordinates.map(coord => {
-                                return tb.utils.projectToWorld([coord[0], coord[1], coord[2] * 5]);
-                            });
-
-                            const geometry = new THREE.BufferGeometry().setFromPoints(points);
-                            const line = new THREE.Line(geometry, material);
-                            
-                            // Add to scene
-                            tb.add(line);
-
-                            // Add markers with popups
-                            coordinates.forEach(coord => {
-                                new mapboxgl.Marker({ 
-                                    color: '#ff0000',
-                                    scale: 0.5 
-                                })
-                                .setLngLat([coord[0], coord[1]])
-                                .setPopup(new mapboxgl.Popup().setHTML(`Elevation: ${coord[2]}m`))
-                                .addTo(map);
-                            });
+                            'id': 'gl-draw-line',
+                            'type': 'line',
+                            'filter': ['all', ['==', '$type', 'LineString'], ['!=', 'mode', 'static']],
+                            'layout': {
+                                'line-cap': 'round',
+                                'line-join': 'round'
+                            },
+                            'paint': {
+                                'line-color': '#00a6ff',
+                                'line-width': 3
+                            }
                         },
-                        render: function() {
-                            tb.update();
+                        // Point style
+                        {
+                            'id': 'gl-draw-point',
+                            'type': 'circle',
+                            'filter': ['all', ['==', '$type', 'Point'], ['!=', 'mode', 'static']],
+                            'paint': {
+                                'circle-radius': 6,
+                                'circle-color': '#00a6ff'
+                            }
+                        },
+                        // Polygon style
+                        {
+                            'id': 'gl-draw-polygon',
+                            'type': 'fill',
+                            'filter': ['all', ['==', '$type', 'Polygon'], ['!=', 'mode', 'static']],
+                            'paint': {
+                                'fill-color': '#00a6ff',
+                                'fill-outline-color': '#00a6ff',
+                                'fill-opacity': 0.3
+                            }
                         }
-                    });
+                    ]
+                });
+                
+                // Add the draw control to the map
+                map.addControl(draw, 'top-left');
+                
+                // Add navigation control
+                map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+                
+                // Add fullscreen control
+                map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
 
-                    // Add terrain
+                map.on('style.load', () => {
+                    // Add terrain source
                     map.addSource('mapbox-dem', {
                         'type': 'raster-dem',
                         'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
                         'tileSize': 512,
                         'maxzoom': 14
                     });
+                    
+                    // Add terrain and sky
                     map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-
-                    // Fit to bounds
-                    const coordinates = geojsonData.features[0].geometry.coordinates;
-                    const bounds = coordinates.reduce((bounds, coord) => {
-                        return bounds.extend([coord[0], coord[1]]);
-                    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-
-                    map.fitBounds(bounds, {
-                        padding: 50
+                    map.addLayer({
+                        'id': 'sky',
+                        'type': 'sky',
+                        'paint': {
+                            'sky-type': 'atmosphere',
+                            'sky-atmosphere-sun': [0.0, 90.0],
+                            'sky-atmosphere-sun-intensity': 15
+                        }
                     });
+
+                    // Add the drone path source
+                    map.addSource('drone-path', {
+                        'type': 'geojson',
+                        'data': geojsonData
+                    });
+
+                    // Add the path layer with glow effect
+                    map.addLayer({
+                        'id': 'drone-path-glow',
+                        'type': 'line',
+                        'source': 'drone-path',
+                        'paint': {
+                            'line-color': '#ff0000',
+                            'line-width': 12,
+                            'line-opacity': 0.3,
+                            'line-blur': 3
+                        }
+                    });
+
+                    // Add the main path layer
+                    map.addLayer({
+                        'id': 'drone-path',
+                        'type': 'line',
+                        'source': 'drone-path',
+                        'paint': {
+                            'line-color': '#ff0000',
+                            'line-width': 4,
+                            'line-opacity': 0.8
+                        }
+                    });
+
+                    // Add altitude markers if coordinates have altitude (z) values
+                    if (geojsonData.features && geojsonData.features.length > 0) {
+                        const coordinates = geojsonData.features[0].geometry.coordinates;
+                        coordinates.forEach((coord, index) => {
+                            const height = coord.length > 2 ? coord[2] : 0;
+                            if (height > 0) {
+                                const el = document.createElement('div');
+                                el.className = 'altitude-marker';
+                                el.style.height = Math.max(8, height / 10) + 'px';
+                                el.style.backgroundColor = '#ff0000';
+                                el.style.width = '4px';
+                                el.style.borderRadius = '2px';
+                                
+                                new mapboxgl.Marker({
+                                    element: el,
+                                    anchor: 'bottom'
+                                })
+                                .setLngLat([coord[0], coord[1]])
+                                .setPopup(new mapboxgl.Popup({
+                                    closeButton: false
+                                }).setHTML(`Altitude: ${height}m`))
+                                .addTo(map);
+                            }
+                        });
+                    }
+
+                    // Fit to bounds if coordinates exist
+                    if (geojsonData.features && geojsonData.features.length > 0) {
+                        const coordinates = geojsonData.features[0].geometry.coordinates;
+                        if (coordinates && coordinates.length > 0) {
+                            const bounds = coordinates.reduce((bounds, coord) => {
+                                return bounds.extend([coord[0], coord[1]]);
+                            }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+                            map.fitBounds(bounds, {
+                                padding: 50,
+                                pitch: 60
+                            });
+                        }
+                    }
                 });
 
-                map.on('error', function(e) {
+                // Function to update drone path
+                window.updateDronePath = function(newGeojsonData) {
+                    if (map.getSource('drone-path')) {
+                        map.getSource('drone-path').setData(newGeojsonData);
+                        
+                        // Update bounds
+                        if (newGeojsonData.features && newGeojsonData.features.length > 0) {
+                            const coordinates = newGeojsonData.features[0].geometry.coordinates;
+                            if (coordinates && coordinates.length > 0) {
+                                const bounds = coordinates.reduce((bounds, coord) => {
+                                    return bounds.extend([coord[0], coord[1]]);
+                                }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+                                map.fitBounds(bounds, {
+                                    padding: 50,
+                                    pitch: 60
+                                });
+                            }
+                        }
+                    }
+                };
+                
+                // Custom control event listeners
+                document.getElementById('zoom-in').addEventListener('click', () => {
+                    map.zoomIn();
+                });
+                
+                document.getElementById('zoom-out').addEventListener('click', () => {
+                    map.zoomOut();
+                });
+                
+                document.getElementById('reset-north').addEventListener('click', () => {
+                    map.easeTo({ bearing: 0 });
+                });
+                
+                document.getElementById('save-geometry').addEventListener('click', () => {
+                    const data = draw.getAll();
+                    if (data.features.length > 0) {
+                        // Send data to Qt
+                        window.qt.saveGeometryData(JSON.stringify(data));
+                    } else {
+                        alert('No geometries to save');
+                    }
+                });
+                
+                // Listen for drawing events
+                map.on('draw.create', updateGeometry);
+                map.on('draw.update', updateGeometry);
+                map.on('draw.delete', updateGeometry);
+                
+                function updateGeometry() {
+                    const data = draw.getAll();
+                    if (data.features.length > 0) {
+                        // Send data to Qt in real-time
+                        window.qt.updateGeometryData(JSON.stringify(data));
+                    }
+                }
+
+                map.on('error', (e) => {
                     console.error('Map error:', e.error);
                 });
             </script>
@@ -218,7 +388,20 @@ void MapViewer::loadMap()
         </html>
     )";
     
+    // Create a custom web page with a bridge to receive JavaScript calls
+    DebugWebEnginePage* page = new DebugWebEnginePage(QWebEngineProfile::defaultProfile(), this);
+    m_webView->setPage(page);
+    
+    // Set up the bridge for JavaScript communication
+    page->setWebChannel(new QWebChannel(page));
+    page->webChannel()->registerObject(QStringLiteral("qt"), this);
+    
     m_webView->setHtml(html.arg(mapboxToken, geojsonStr));
+    
+    // Start a timer to check for file changes
+    QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MapViewer::checkForFileChanges);
+    timer->start(1000); // Check every second
 }
 
 void MapViewer::toggleView()
@@ -258,13 +441,101 @@ void MapViewer::setDronePositions(const QVector<QVector3D>& positions)
 
 void MapViewer::updateDronePath(const QJsonObject& geojsonData)
 {
-    QJsonDocument doc(geojsonData);
+    QJsonDocument doc(geojsonData); 
     QString jsonString = doc.toJson(QJsonDocument::Compact);
     
     QString script = QString("updateDronePath(%1);").arg(jsonString);
     m_webView->page()->runJavaScript(script);
 }
 
+void MapViewer::saveGeometryData(const QString& geometryData)
+{
+    // Get application path
+    QString appPath = QCoreApplication::applicationDirPath();
+    QString geojsonDir = appPath + "/drone_geojson";
+    
+    // Ensure directory exists
+    QDir dir(geojsonDir);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+    
+    // Save to geomatics.geojson file
+    QString filename = geojsonDir + "/geomatics.geojson";
+    QFile file(filename);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << geometryData;
+        file.close();
+        qDebug() << "Geometry data saved to" << filename;
+    } else {
+        qDebug() << "Failed to save geometry data to file:" << file.errorString();
+    }
+}
+
+void MapViewer::updateGeometryData(const QString& geometryData)
+{
+    // Real-time update of geometry data
+    // This method is called whenever the user draws or edits geometry
+    
+    // Get application path
+    QString appPath = QCoreApplication::applicationDirPath();
+    QString geojsonDir = appPath + "/drone_geojson";
+    
+    // Ensure directory exists
+    QDir dir(geojsonDir);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+    
+    // Save to geomatics.geojson file
+    QString filename = geojsonDir + "/geomatics.geojson";
+    QFile file(filename);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << geometryData;
+        file.close();
+    }
+}
+
+void MapViewer::checkForFileChanges()
+{
+    // Get application path
+    QString appPath = QCoreApplication::applicationDirPath();
+    QString geojsonDir = appPath + "/drone_geojson";
+    
+    // Check for Atlas_path.geojson file changes
+    QString filename = geojsonDir + "/Atlas_path.geojson";
+    QFileInfo fileInfo(filename);
+    
+    if (fileInfo.exists() && fileInfo.isFile()) {
+        QDateTime lastModified = fileInfo.lastModified();
+        
+        // Check if file has been modified since last check
+        if (!m_lastFileModified.isValid() || lastModified > m_lastFileModified) {
+            // File has been modified, reload it
+            QFile file(filename);
+            if (file.open(QIODevice::ReadOnly)) {
+                QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+                QString geojsonStr = doc.toJson(QJsonDocument::Compact);
+                file.close();
+                
+                // Calculate hash to avoid unnecessary updates
+                QString newHash = QString(QCryptographicHash::hash(geojsonStr.toUtf8(), QCryptographicHash::Md5).toHex());
+                
+                if (newHash != m_lastGeojsonHash) {
+                    // Update the map with new GeoJSON data
+                    m_webView->page()->runJavaScript(QString("updateDronePath(%1);").arg(geojsonStr));
+                    m_lastGeojsonHash = newHash;
+                }
+            }
+            
+            // Update last modified time
+            m_lastFileModified = lastModified;
+        }
+    }
+}
+
 MapViewer::~MapViewer()
 {
-} 
+}

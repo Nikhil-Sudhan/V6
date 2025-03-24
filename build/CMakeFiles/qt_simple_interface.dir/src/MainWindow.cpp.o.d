@@ -389,6 +389,8 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpagesize.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEnginePage \
  /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebenginepage.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/QWebEngineProfile \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/qwebengineprofile.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
@@ -397,6 +399,24 @@ CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/QWebChannel \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonValue \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWebChannel/qwebchannelglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDir \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdir.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QFileInfo \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfileinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QCryptographicHash \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcryptographichash.h \
  /home/sudhan/V6/src/../include/database/DatabaseManager.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \

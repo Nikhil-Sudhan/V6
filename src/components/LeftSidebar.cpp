@@ -362,7 +362,7 @@ void LeftSidebar::handleAssignTask()
     
     // Show loading indicator or message
     QMessageBox::information(nullptr, "Task Assigned", 
-        "Task has been assigned and sent to ChatGPT. Please wait for the response.");
+        "Task has been assigned and sent to ChatGPT. The GeoJSON data will be displayed in the terminal and in a dialog window.");
 }
 
 void LeftSidebar::handleChatGPTResponse(int missionId, const QString& response, const QString& functions)
@@ -395,4 +395,4 @@ void LeftSidebar::handleButtonClick(int index)
 void LeftSidebar::setTitle(const QString& title)
 {
     leftPanelDock->setWindowTitle(title);
-} 
+}

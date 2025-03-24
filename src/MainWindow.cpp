@@ -14,10 +14,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    // Initialize database
-    if (!DatabaseManager::instance().initialize()) {
-        QMessageBox::warning(this, "Database Error", "Failed to initialize the database. Some features may not work correctly.");
-    }
+    
     
     // Set window properties
     setWindowTitle("UAV Control System");
