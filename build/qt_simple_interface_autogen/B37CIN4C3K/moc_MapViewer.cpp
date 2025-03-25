@@ -93,8 +93,8 @@ int DebugWebEnginePage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     return _id;
 }
 struct qt_meta_stringdata_MapViewer_t {
-    QByteArrayData data[12];
-    char stringdata0[166];
+    QByteArrayData data[18];
+    char stringdata0[259];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -104,24 +104,32 @@ struct qt_meta_stringdata_MapViewer_t {
 static const qt_meta_stringdata_MapViewer_t qt_meta_stringdata_MapViewer = {
     {
 QT_MOC_LITERAL(0, 0, 9), // "MapViewer"
-QT_MOC_LITERAL(1, 10, 10), // "toggleView"
-QT_MOC_LITERAL(2, 21, 0), // ""
-QT_MOC_LITERAL(3, 22, 17), // "setDronePositions"
-QT_MOC_LITERAL(4, 40, 18), // "QVector<QVector3D>"
-QT_MOC_LITERAL(5, 59, 9), // "positions"
-QT_MOC_LITERAL(6, 69, 15), // "updateDronePath"
-QT_MOC_LITERAL(7, 85, 11), // "geojsonData"
-QT_MOC_LITERAL(8, 97, 16), // "saveGeometryData"
-QT_MOC_LITERAL(9, 114, 12), // "geometryData"
-QT_MOC_LITERAL(10, 127, 18), // "updateGeometryData"
-QT_MOC_LITERAL(11, 146, 19) // "checkForFileChanges"
+QT_MOC_LITERAL(1, 10, 19), // "geometricShapeSaved"
+QT_MOC_LITERAL(2, 30, 0), // ""
+QT_MOC_LITERAL(3, 31, 9), // "shapeName"
+QT_MOC_LITERAL(4, 41, 17), // "setDronePositions"
+QT_MOC_LITERAL(5, 59, 18), // "QVector<QVector3D>"
+QT_MOC_LITERAL(6, 78, 9), // "positions"
+QT_MOC_LITERAL(7, 88, 15), // "updateDronePath"
+QT_MOC_LITERAL(8, 104, 11), // "geojsonData"
+QT_MOC_LITERAL(9, 116, 16), // "saveGeometryData"
+QT_MOC_LITERAL(10, 133, 12), // "geometryData"
+QT_MOC_LITERAL(11, 146, 18), // "updateGeometryData"
+QT_MOC_LITERAL(12, 165, 19), // "checkForFileChanges"
+QT_MOC_LITERAL(13, 185, 14), // "setActiveDrone"
+QT_MOC_LITERAL(14, 200, 9), // "droneName"
+QT_MOC_LITERAL(15, 210, 18), // "saveGeometricShape"
+QT_MOC_LITERAL(16, 229, 9), // "shapeData"
+QT_MOC_LITERAL(17, 239, 19) // "loadGeometricShapes"
 
     },
-    "MapViewer\0toggleView\0\0setDronePositions\0"
-    "QVector<QVector3D>\0positions\0"
-    "updateDronePath\0geojsonData\0"
+    "MapViewer\0geometricShapeSaved\0\0shapeName\0"
+    "setDronePositions\0QVector<QVector3D>\0"
+    "positions\0updateDronePath\0geojsonData\0"
     "saveGeometryData\0geometryData\0"
-    "updateGeometryData\0checkForFileChanges"
+    "updateGeometryData\0checkForFileChanges\0"
+    "setActiveDrone\0droneName\0saveGeometricShape\0"
+    "shapeData\0loadGeometricShapes"
 };
 #undef QT_MOC_LITERAL
 
@@ -131,27 +139,37 @@ static const uint qt_meta_data_MapViewer[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   59,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x0a /* Public */,
-       3,    1,   45,    2, 0x0a /* Public */,
-       6,    1,   48,    2, 0x0a /* Public */,
-       8,    1,   51,    2, 0x0a /* Public */,
-      10,    1,   54,    2, 0x0a /* Public */,
-      11,    0,   57,    2, 0x0a /* Public */,
+       4,    1,   62,    2, 0x0a /* Public */,
+       7,    1,   65,    2, 0x0a /* Public */,
+       9,    1,   68,    2, 0x0a /* Public */,
+      11,    1,   71,    2, 0x0a /* Public */,
+      12,    0,   74,    2, 0x0a /* Public */,
+      13,    1,   75,    2, 0x0a /* Public */,
+      15,    2,   78,    2, 0x0a /* Public */,
+      17,    0,   83,    2, 0x0a /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::QString,    3,
 
  // slots: parameters
+    QMetaType::Void, 0x80000000 | 5,    6,
+    QMetaType::Void, QMetaType::QJsonObject,    8,
+    QMetaType::Void, QMetaType::QString,   10,
+    QMetaType::Void, QMetaType::QString,   10,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4,    5,
-    QMetaType::Void, QMetaType::QJsonObject,    7,
-    QMetaType::Void, QMetaType::QString,    9,
-    QMetaType::Void, QMetaType::QString,    9,
+    QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   16,    3,
     QMetaType::Void,
 
        0        // eod
@@ -163,12 +181,15 @@ void MapViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         auto *_t = static_cast<MapViewer *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->toggleView(); break;
+        case 0: _t->geometricShapeSaved((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 1: _t->setDronePositions((*reinterpret_cast< const QVector<QVector3D>(*)>(_a[1]))); break;
         case 2: _t->updateDronePath((*reinterpret_cast< const QJsonObject(*)>(_a[1]))); break;
         case 3: _t->saveGeometryData((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 4: _t->updateGeometryData((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 5: _t->checkForFileChanges(); break;
+        case 6: _t->setActiveDrone((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 7: _t->saveGeometricShape((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
+        case 8: _t->loadGeometricShapes(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -181,6 +202,15 @@ void MapViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
                 *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QVector<QVector3D> >(); break;
             }
             break;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (MapViewer::*)(const QString & );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MapViewer::geometricShapeSaved)) {
+                *result = 0;
+                return;
+            }
         }
     }
 }
@@ -214,15 +244,22 @@ int MapViewer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 9;
     }
     return _id;
+}
+
+// SIGNAL 0
+void MapViewer::geometricShapeSaved(const QString & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

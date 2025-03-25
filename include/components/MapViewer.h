@@ -16,8 +16,9 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <QCryptographicHash>
-
-class SimulationView;
+#include <QMap> // Added include for QMap
+#include <QRandomGenerator>
+#include <QColor>
 
 // Custom WebEnginePage for debugging
 class DebugWebEnginePage : public QWebEnginePage {
@@ -36,28 +37,30 @@ public:
     explicit MapViewer(QWidget* parent = nullptr);
     ~MapViewer();
     
-    enum ViewMode {
-        MapMode,
-        SimulationMode
-    };
-    
 public slots:
-    void toggleView();
     void setDronePositions(const QVector<QVector3D>& positions);
     void updateDronePath(const QJsonObject& geojsonData);
     void saveGeometryData(const QString& geometryData);
     void updateGeometryData(const QString& geometryData);
     void checkForFileChanges();
+    void setActiveDrone(const QString& droneName);
+    void saveGeometricShape(const QString& shapeData, const QString& shapeName);
+    void loadGeometricShapes();
+    
+signals:
+    void geometricShapeSaved(const QString& shapeName);
     
 private:
     QStackedWidget* m_stackedWidget;
     QWebEngineView* m_webView;
-    SimulationView* m_simulationView;
-    QPushButton* m_toggleButton;
-    ViewMode m_currentMode;
     QString m_lastGeojsonHash;
+    QString m_lastGeojsonPath;
     QDateTime m_lastFileModified;
-    
+    QString m_activeDroneName = "Atlas"; // Default drone name
+    QMap<QString, QString> m_dronePathColors; // Store colors for each drone
+    QTimer* m_fileCheckTimer; // Timer to periodically check for file changes
+    QDateTime m_lastShapesFileModified; // Last modified time for shapes file
+    QDateTime m_lastDronePathsFileModified; // Last modified time for drone paths file
     void setupUI();
     void loadMap();
 };

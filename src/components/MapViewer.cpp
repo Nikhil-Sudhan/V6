@@ -29,68 +29,54 @@ void DebugWebEnginePage::javaScriptConsoleMessage(JavaScriptConsoleMessageLevel 
     qDebug() << "JS:" << levelStr << message << "at line" << lineNumber << "in" << sourceID;
 }
 
-MapViewer::MapViewer(QWidget* parent) : QWidget(parent), m_currentMode(MapMode)
+MapViewer::MapViewer(QWidget* parent) : QWidget(parent)
 {
     setupUI();
     loadMap();
+    
+    // Initial check for file changes
+    QTimer::singleShot(500, this, &MapViewer::checkForFileChanges);
 }
 
 void MapViewer::setupUI()
 {
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(0, 0, 0, 0);
-    mainLayout->setSpacing(0);
-    
-    // Create stacked widget to hold map and simulation views
     m_stackedWidget = new QStackedWidget(this);
     
-    // Create map view
+    // Create a QWebEngineView with a custom page for debugging
+    QWebEngineProfile* profile = new QWebEngineProfile(this);
+    DebugWebEnginePage* page = new DebugWebEnginePage(profile, this);
+    
     m_webView = new QWebEngineView(this);
+    m_webView->setPage(page);
+    
+    // Create a QWebChannel to communicate with JavaScript
+    QWebChannel* channel = new QWebChannel(this);
+    channel->registerObject("qt_object", this);
+    page->setWebChannel(channel);
+    
+    // Add the web view to the stacked widget
     m_stackedWidget->addWidget(m_webView);
     
-    // Create simulation view
-    m_simulationView = new SimulationView(this);
-    m_stackedWidget->addWidget(m_simulationView);
-    
-    // Create toggle button
-    m_toggleButton = new QPushButton(this);
-    m_toggleButton->setText("Switch to Simulation");
-    m_toggleButton->setStyleSheet(R"(
-        QPushButton {
-            background-color: #252525;
-            color: #00a6ff;
-            border: 1px solid #00a6ff;
-            border-radius: 4px;
-            padding: 8px 16px;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        QPushButton:hover {
-            background-color: #00a6ff;
-            color: #ffffff;
-        }
-    )");
-    connect(m_toggleButton, &QPushButton::clicked, this, &MapViewer::toggleView);
-    
-    // Add stacked widget to layout
+    // Set up the layout
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(m_stackedWidget);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     
-    // Position toggle button in top-right corner
-    m_toggleButton->setParent(this);
-    m_toggleButton->move(width() - m_toggleButton->width() - 20, 20);
-    m_toggleButton->raise();
+    // Set up the file check timer
+    m_fileCheckTimer = new QTimer(this);
+    connect(m_fileCheckTimer, &QTimer::timeout, this, &MapViewer::checkForFileChanges);
+    connect(m_fileCheckTimer, &QTimer::timeout, this, &MapViewer::loadGeometricShapes);
+    m_fileCheckTimer->start(1000); // Check every second
     
-    // Set initial view
-    m_stackedWidget->setCurrentIndex(MapMode);
+    // Load the map
+    loadMap();
 }
 
 void MapViewer::loadMap()
 {
     // Get GeoJSON data
-    QString appPath = QCoreApplication::applicationDirPath();
-    QString geojsonPath = appPath + "/drone_geojson/Atlas_path.geojson";
+    QString geojsonPath = QDir::currentPath() + "/drone_geojson/Atlas_path.geojson";
+    m_lastGeojsonPath = geojsonPath;
     QFile file(geojsonPath);
     QString geojsonStr = "{}";
     
@@ -113,54 +99,30 @@ void MapViewer::loadMap()
             <!-- Add Mapbox Draw plugin -->
             <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.js'></script>
             <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.css' type='text/css' />
+            <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
             <style>
                 body { margin: 0; padding: 0; }
                 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
                 .mapboxgl-ctrl-group { background: #252525; }
                 .mapboxgl-ctrl-group button { color: #00a6ff; }
                 .mapboxgl-ctrl-group button:hover { background-color: #333; }
-                .custom-controls {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    z-index: 1;
-                    background-color: #252525;
-                    border-radius: 4px;
-                    padding: 5px;
-                    display: flex;
-                    flex-direction: column;
-                }
-                .control-button {
-                    background-color: #252525;
-                    color: #00a6ff;
-                    border: 1px solid #00a6ff;
-                    border-radius: 4px;
-                    padding: 8px 12px;
-                    margin: 5px;
-                    cursor: pointer;
-                    font-weight: bold;
-                    transition: all 0.3s;
-                }
-                .control-button:hover {
-                    background-color: #00a6ff;
-                    color: #ffffff;
-                }
             </style>
         </head>
         <body>
             <div id='map'></div>
-            <div class='custom-controls'>
-                <button id='zoom-in' class='control-button'>Zoom In</button>
-                <button id='zoom-out' class='control-button'>Zoom Out</button>
-                <button id='reset-north' class='control-button'>Reset North</button>
-                <button id='save-geometry' class='control-button'>Save Geometry</button>
-            </div>
             <script>
+                // Initialize the Qt web channel
+                var qt_object;
+                new QWebChannel(qt.webChannelTransport, function(channel) {
+                    qt_object = channel.objects.qt_object;
+                });
+                
                 const MAPBOX_TOKEN = '%1';
                 const geojsonData = %2;
 
                 mapboxgl.accessToken = MAPBOX_TOKEN;
                 
+                // Initialize the map
                 const map = new mapboxgl.Map({
                     container: 'map',
                     style: 'mapbox://styles/mapbox/dark-v11',
@@ -171,64 +133,228 @@ void MapViewer::loadMap()
                     antialias: true
                 });
                 
-                // Initialize the draw control
-                const draw = new MapboxDraw({
-                    displayControlsDefault: false,
-                    controls: {
-                        point: true,
-                        line_string: true,
-                        polygon: true,
-                        trash: true
-                    },
-                    styles: [
-                        // Line style
-                        {
-                            'id': 'gl-draw-line',
-                            'type': 'line',
-                            'filter': ['all', ['==', '$type', 'LineString'], ['!=', 'mode', 'static']],
-                            'layout': {
-                                'line-cap': 'round',
-                                'line-join': 'round'
+                // Wait for map to load before adding sources and controls
+                map.on('load', function() {
+                    // Add Mapbox Draw control
+                    window.draw = new MapboxDraw({
+                        displayControlsDefault: false,
+                        controls: {
+                            polygon: true,
+                            line_string: true,
+                            point: true,
+                            trash: true
+                        },
+                        styles: [
+                            // Default styles
+                            {
+                                'id': 'gl-draw-polygon-fill-inactive',
+                                'type': 'fill',
+                                'filter': ['all', ['==', 'active', 'false'], ['==', '$type', 'Polygon']],
+                                'paint': {
+                                    'fill-color': '#3388ff',
+                                    'fill-outline-color': '#3388ff',
+                                    'fill-opacity': 0.4
+                                }
                             },
-                            'paint': {
-                                'line-color': '#00a6ff',
-                                'line-width': 3
+                            {
+                                'id': 'gl-draw-polygon-fill-active',
+                                'type': 'fill',
+                                'filter': ['all', ['==', 'active', 'true'], ['==', '$type', 'Polygon']],
+                                'paint': {
+                                    'fill-color': '#fbb03b',
+                                    'fill-outline-color': '#fbb03b',
+                                    'fill-opacity': 0.6
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-polygon-stroke-inactive',
+                                'type': 'line',
+                                'filter': ['all', ['==', 'active', 'false'], ['==', '$type', 'Polygon']],
+                                'layout': {
+                                    'line-cap': 'round',
+                                    'line-join': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#3388ff',
+                                    'line-width': 2
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-polygon-stroke-active',
+                                'type': 'line',
+                                'filter': ['all', ['==', 'active', 'true'], ['==', '$type', 'Polygon']],
+                                'layout': {
+                                    'line-cap': 'round',
+                                    'line-join': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#fbb03b',
+                                    'line-dasharray': [0.2, 2],
+                                    'line-width': 2
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-line-inactive',
+                                'type': 'line',
+                                'filter': ['all', ['==', 'active', 'false'], ['==', '$type', 'LineString']],
+                                'layout': {
+                                    'line-cap': 'round',
+                                    'line-join': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#3388ff',
+                                    'line-width': 2
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-line-active',
+                                'type': 'line',
+                                'filter': ['all', ['==', 'active', 'true'], ['==', '$type', 'LineString']],
+                                'layout': {
+                                    'line-cap': 'round',
+                                    'line-join': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#fbb03b',
+                                    'line-dasharray': [0.2, 2],
+                                    'line-width': 2
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-point-inactive',
+                                'type': 'circle',
+                                'filter': ['all', ['==', 'active', 'false'], ['==', '$type', 'Point']],
+                                'paint': {
+                                    'circle-radius': 5,
+                                    'circle-color': '#3388ff'
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-point-active',
+                                'type': 'circle',
+                                'filter': ['all', ['==', 'active', 'true'], ['==', '$type', 'Point']],
+                                'paint': {
+                                    'circle-radius': 7,
+                                    'circle-color': '#fbb03b'
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-polygon-fill-static',
+                                'type': 'fill',
+                                'filter': ['all', ['==', 'mode', 'static'], ['==', '$type', 'Polygon']],
+                                'paint': {
+                                    'fill-color': '#3388ff',
+                                    'fill-outline-color': '#3388ff',
+                                    'fill-opacity': 0.4
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-polygon-stroke-static',
+                                'type': 'line',
+                                'filter': ['all', ['==', 'mode', 'static'], ['==', '$type', 'Polygon']],
+                                'layout': {
+                                    'line-cap': 'round',
+                                    'line-join': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#3388ff',
+                                    'line-width': 2
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-line-static',
+                                'type': 'line',
+                                'filter': ['all', ['==', 'mode', 'static'], ['==', '$type', 'LineString']],
+                                'layout': {
+                                    'line-cap': 'round',
+                                    'line-join': 'round'
+                                },
+                                'paint': {
+                                    'line-color': '#3388ff',
+                                    'line-width': 2
+                                }
+                            },
+                            {
+                                'id': 'gl-draw-point-static',
+                                'type': 'circle',
+                                'filter': ['all', ['==', 'mode', 'static'], ['==', '$type', 'Point']],
+                                'paint': {
+                                    'circle-radius': 5,
+                                    'circle-color': '#3388ff'
+                                }
+                            },
+                            // Label styles for shapes
+                            {
+                                'id': 'gl-draw-shape-labels',
+                                'type': 'symbol',
+                                'filter': ['has', 'name'],
+                                'layout': {
+                                    'text-field': ['get', 'name'],
+                                    'text-font': ['Open Sans Regular'],
+                                    'text-size': 12,
+                                    'text-anchor': 'center',
+                                    'text-justify': 'center',
+                                    'text-allow-overlap': true
+                                },
+                                'paint': {
+                                    'text-color': '#000000',
+                                    'text-halo-color': '#ffffff',
+                                    'text-halo-width': 2
+                                }
                             }
-                        },
-                        // Point style
-                        {
-                            'id': 'gl-draw-point',
-                            'type': 'circle',
-                            'filter': ['all', ['==', '$type', 'Point'], ['!=', 'mode', 'static']],
-                            'paint': {
-                                'circle-radius': 6,
-                                'circle-color': '#00a6ff'
-                            }
-                        },
-                        // Polygon style
-                        {
-                            'id': 'gl-draw-polygon',
-                            'type': 'fill',
-                            'filter': ['all', ['==', '$type', 'Polygon'], ['!=', 'mode', 'static']],
-                            'paint': {
-                                'fill-color': '#00a6ff',
-                                'fill-outline-color': '#00a6ff',
-                                'fill-opacity': 0.3
+                        ]
+                    });
+                    
+                    map.addControl(window.draw, 'top-right');
+
+                    // Function to update geometric shapes
+                    window.updateGeometricShapes = function(shapesData) {
+                        // First remove any existing shapes
+                        if (window.draw) {
+                            window.draw.deleteAll();
+                            
+                            // Add the shapes from the GeoJSON data
+                            if (shapesData && shapesData.features && shapesData.features.length > 0) {
+                                window.draw.add(shapesData);
                             }
                         }
-                    ]
-                });
-                
-                // Add the draw control to the map
-                map.addControl(draw, 'top-left');
-                
-                // Add navigation control
-                map.addControl(new mapboxgl.NavigationControl(), 'top-left');
-                
-                // Add fullscreen control
-                map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
+                    };
+                    
+                    // Handle draw.create event
+                    map.on('draw.create', function(e) {
+                        // Prompt for shape name
+                        const shapeName = prompt('Enter a name for this shape:', 'Shape ' + new Date().toLocaleTimeString());
+                        
+                        if (shapeName) {
+                            // Create a GeoJSON with the new shape
+                            const shapeData = {
+                                type: 'FeatureCollection',
+                                features: e.features
+                            };
+                            
+                            // Send the shape data to Qt
+                            qt_object.saveGeometricShape(JSON.stringify(shapeData), shapeName);
+                        }
+                    });
+                    
+                    // Handle draw.update event
+                    map.on('draw.update', function(e) {
+                        // Get the updated features
+                        const shapeData = {
+                            type: 'FeatureCollection',
+                            features: e.features
+                        };
+                        
+                        // Get the name from the first feature's properties
+                        let shapeName = 'Updated Shape';
+                        if (e.features[0].properties && e.features[0].properties.name) {
+                            shapeName = e.features[0].properties.name;
+                        }
+                        
+                        // Send the updated shape data to Qt
+                        qt_object.saveGeometricShape(JSON.stringify(shapeData), shapeName);
+                    });
 
-                map.on('style.load', () => {
                     // Add terrain source
                     map.addSource('mapbox-dem', {
                         'type': 'raster-dem',
@@ -237,190 +363,85 @@ void MapViewer::loadMap()
                         'maxzoom': 14
                     });
                     
-                    // Add terrain and sky
+                    // Add 3D terrain
                     map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-                    map.addLayer({
-                        'id': 'sky',
-                        'type': 'sky',
-                        'paint': {
-                            'sky-type': 'atmosphere',
-                            'sky-atmosphere-sun': [0.0, 90.0],
-                            'sky-atmosphere-sun-intensity': 15
-                        }
-                    });
-
-                    // Add the drone path source
+                    
+                    // Add drone path source and layer
                     map.addSource('drone-path', {
                         'type': 'geojson',
                         'data': geojsonData
                     });
-
-                    // Add the path layer with glow effect
+                    
+                    // Add drone path layer
                     map.addLayer({
-                        'id': 'drone-path-glow',
+                        'id': 'drone-path-layer',
                         'type': 'line',
                         'source': 'drone-path',
+                        'layout': {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
                         'paint': {
-                            'line-color': '#ff0000',
-                            'line-width': 12,
-                            'line-opacity': 0.3,
-                            'line-blur': 3
-                        }
-                    });
-
-                    // Add the main path layer
-                    map.addLayer({
-                        'id': 'drone-path',
-                        'type': 'line',
-                        'source': 'drone-path',
-                        'paint': {
-                            'line-color': '#ff0000',
+                            'line-color': ['get', 'color'],
                             'line-width': 4,
                             'line-opacity': 0.8
                         }
                     });
-
-                    // Add altitude markers if coordinates have altitude (z) values
-                    if (geojsonData.features && geojsonData.features.length > 0) {
-                        const coordinates = geojsonData.features[0].geometry.coordinates;
-                        coordinates.forEach((coord, index) => {
-                            const height = coord.length > 2 ? coord[2] : 0;
-                            if (height > 0) {
-                                const el = document.createElement('div');
-                                el.className = 'altitude-marker';
-                                el.style.height = Math.max(8, height / 10) + 'px';
-                                el.style.backgroundColor = '#ff0000';
-                                el.style.width = '4px';
-                                el.style.borderRadius = '2px';
-                                
-                                new mapboxgl.Marker({
-                                    element: el,
-                                    anchor: 'bottom'
-                                })
-                                .setLngLat([coord[0], coord[1]])
-                                .setPopup(new mapboxgl.Popup({
-                                    closeButton: false
-                                }).setHTML(`Altitude: ${height}m`))
-                                .addTo(map);
-                            }
-                        });
-                    }
-
-                    // Fit to bounds if coordinates exist
-                    if (geojsonData.features && geojsonData.features.length > 0) {
-                        const coordinates = geojsonData.features[0].geometry.coordinates;
-                        if (coordinates && coordinates.length > 0) {
-                            const bounds = coordinates.reduce((bounds, coord) => {
-                                return bounds.extend([coord[0], coord[1]]);
-                            }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-
-                            map.fitBounds(bounds, {
-                                padding: 50,
-                                pitch: 60
-                            });
+                    
+                    // Add drone points layer
+                    map.addLayer({
+                        'id': 'drone-points',
+                        'type': 'circle',
+                        'source': 'drone-path',
+                        'paint': {
+                            'circle-radius': 5,
+                            'circle-color': ['get', 'color'],
+                            'circle-opacity': 0.7,
+                            'circle-stroke-width': 2,
+                            'circle-stroke-color': '#ffffff'
                         }
-                    }
-                });
-
-                // Function to update drone path
-                window.updateDronePath = function(newGeojsonData) {
-                    if (map.getSource('drone-path')) {
-                        map.getSource('drone-path').setData(newGeojsonData);
-                        
-                        // Update bounds
-                        if (newGeojsonData.features && newGeojsonData.features.length > 0) {
-                            const coordinates = newGeojsonData.features[0].geometry.coordinates;
-                            if (coordinates && coordinates.length > 0) {
-                                const bounds = coordinates.reduce((bounds, coord) => {
-                                    return bounds.extend([coord[0], coord[1]]);
-                                }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-
-                                map.fitBounds(bounds, {
-                                    padding: 50,
-                                    pitch: 60
-                                });
-                            }
+                    });
+                    
+                    // Add drone labels layer
+                    map.addLayer({
+                        'id': 'drone-labels',
+                        'type': 'symbol',
+                        'source': 'drone-path',
+                        'layout': {
+                            'text-field': ['get', 'name'],
+                            'text-size': 12,
+                            'text-offset': [0, 1.5],
+                            'text-anchor': 'top'
+                        },
+                        'paint': {
+                            'text-color': '#ffffff',
+                            'text-halo-color': '#000000',
+                            'text-halo-width': 1
                         }
+                    });
+                    
+                    // Function to update drone path data
+                    window.updateDronePath = function(newData) {
+                        map.getSource('drone-path').setData(newData);
+                    };
+                    
+                    // Signal to Qt that the map is ready
+                    if (qt_object) {
+                        qt_object.loadGeometricShapes();
                     }
-                };
-                
-                // Custom control event listeners
-                document.getElementById('zoom-in').addEventListener('click', () => {
-                    map.zoomIn();
-                });
-                
-                document.getElementById('zoom-out').addEventListener('click', () => {
-                    map.zoomOut();
-                });
-                
-                document.getElementById('reset-north').addEventListener('click', () => {
-                    map.easeTo({ bearing: 0 });
-                });
-                
-                document.getElementById('save-geometry').addEventListener('click', () => {
-                    const data = draw.getAll();
-                    if (data.features.length > 0) {
-                        // Send data to Qt
-                        window.qt.saveGeometryData(JSON.stringify(data));
-                    } else {
-                        alert('No geometries to save');
-                    }
-                });
-                
-                // Listen for drawing events
-                map.on('draw.create', updateGeometry);
-                map.on('draw.update', updateGeometry);
-                map.on('draw.delete', updateGeometry);
-                
-                function updateGeometry() {
-                    const data = draw.getAll();
-                    if (data.features.length > 0) {
-                        // Send data to Qt in real-time
-                        window.qt.updateGeometryData(JSON.stringify(data));
-                    }
-                }
-
-                map.on('error', (e) => {
-                    console.error('Map error:', e.error);
                 });
             </script>
         </body>
         </html>
     )";
     
-    // Create a custom web page with a bridge to receive JavaScript calls
-    DebugWebEnginePage* page = new DebugWebEnginePage(QWebEngineProfile::defaultProfile(), this);
-    m_webView->setPage(page);
-    
-    // Set up the bridge for JavaScript communication
-    page->setWebChannel(new QWebChannel(page));
-    page->webChannel()->registerObject(QStringLiteral("qt"), this);
-    
     m_webView->setHtml(html.arg(mapboxToken, geojsonStr));
-    
-    // Start a timer to check for file changes
-    QTimer* timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &MapViewer::checkForFileChanges);
-    timer->start(1000); // Check every second
-}
-
-void MapViewer::toggleView()
-{
-    if (m_currentMode == MapMode) {
-        m_stackedWidget->setCurrentIndex(SimulationMode);
-        m_toggleButton->setText("Switch to Map");
-        m_currentMode = SimulationMode;
-    } else {
-        m_stackedWidget->setCurrentIndex(MapMode);
-        m_toggleButton->setText("Switch to Simulation");
-        m_currentMode = MapMode;
-    }
 }
 
 void MapViewer::setDronePositions(const QVector<QVector3D>& positions)
 {
     // Update positions in simulation view
-    m_simulationView->setDronePositions(positions);
+    // m_simulationView->setDronePositions(positions);
     
     // Update positions in map view
     QJsonArray droneArray;
@@ -441,18 +462,102 @@ void MapViewer::setDronePositions(const QVector<QVector3D>& positions)
 
 void MapViewer::updateDronePath(const QJsonObject& geojsonData)
 {
-    QJsonDocument doc(geojsonData); 
+    // Process the features to ensure active drone is highlighted
+    QJsonObject processedData = geojsonData;
+    
+    if (processedData.contains("features") && processedData["features"].isArray()) {
+        QJsonArray features = processedData["features"].toArray();
+        
+        // Process each feature to ensure proper properties
+        for (int i = 0; i < features.size(); ++i) {
+            QJsonObject feature = features[i].toObject();
+            
+            if (feature.contains("properties") && feature["properties"].isObject()) {
+                QJsonObject props = feature["properties"].toObject();
+                
+                // Check if this is a drone path
+                if (props.contains("name")) {
+                    QString droneName = props["name"].toString();
+                    
+                    // Set active flag based on current active drone
+                    props["active"] = (droneName == m_activeDroneName);
+                    
+                    // Ensure color property exists
+                    if (!props.contains("color")) {
+                        // Generate a consistent color based on drone name if not already defined
+                        QStringList colors = {"#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"};
+                        int colorIndex = qHash(droneName) % colors.size();
+                        props["color"] = colors[colorIndex];
+                    }
+                    
+                    // Store color in our map for consistency
+                    m_dronePathColors[droneName] = props["color"].toString();
+                    
+                    feature["properties"] = props;
+                    features[i] = feature;
+                }
+            }
+        }
+        
+        processedData["features"] = features;
+    }
+    
+    // Convert to JSON string
+    QJsonDocument doc(processedData);
     QString jsonString = doc.toJson(QJsonDocument::Compact);
     
-    QString script = QString("updateDronePath(%1);").arg(jsonString);
-    m_webView->page()->runJavaScript(script);
+    // Calculate hash to avoid unnecessary updates
+    QString newHash = QString(QCryptographicHash::hash(jsonString.toUtf8(), QCryptographicHash::Md5).toHex());
+    
+    // Only update if content has changed
+    if (newHash != m_lastGeojsonHash) {
+        QString script = QString("updateDronePath(%1);").arg(jsonString);
+        m_webView->page()->runJavaScript(script, [this](const QVariant &result) {
+            qDebug() << "Map updated with drone paths";
+        });
+        
+        m_lastGeojsonHash = newHash;
+    }
+}
+
+void MapViewer::setActiveDrone(const QString& droneName)
+{
+    qDebug() << "Setting active drone to:" << droneName;
+    m_activeDroneName = droneName;
+    
+    // Initialize drone path colors if not already set
+    if (m_dronePathColors.isEmpty()) {
+        // Define a set of distinct colors for different drones
+        m_dronePathColors["Atlas"] = "#FF5733";    // Bright red/orange
+        m_dronePathColors["Bolt"] = "#33A8FF";     // Bright blue
+        m_dronePathColors["Barbarian"] = "#33FF57"; // Bright green
+        m_dronePathColors["Phantom"] = "#A833FF";  // Purple
+        m_dronePathColors["Shadow"] = "#FFD700";   // Gold
+        m_dronePathColors["Hawk"] = "#FF33A8";     // Pink
+        m_dronePathColors["Eagle"] = "#00FFFF";    // Cyan
+        m_dronePathColors["Falcon"] = "#FF8C00";   // Dark orange
+    }
+    
+    // If this drone doesn't have a color yet, assign a random one
+    if (!m_dronePathColors.contains(droneName)) {
+        // Generate a random color if not in predefined list
+        QColor randomColor = QColor::fromHsv(
+            QRandomGenerator::global()->bounded(360),  // Hue (0-359)
+            QRandomGenerator::global()->bounded(155, 255),  // Saturation (155-255 for vibrant colors)
+            QRandomGenerator::global()->bounded(200, 255)   // Value (200-255 for brightness)
+        );
+        m_dronePathColors[droneName] = randomColor.name();
+        qDebug() << "Assigned random color to drone:" << droneName << "-" << randomColor.name();
+    }
+    
+    // Trigger a check for file changes to update the display
+    checkForFileChanges();
 }
 
 void MapViewer::saveGeometryData(const QString& geometryData)
 {
     // Get application path
-    QString appPath = QCoreApplication::applicationDirPath();
-    QString geojsonDir = appPath + "/drone_geojson";
+    QString geojsonDir = QDir::currentPath() + "/drone_geojson";
     
     // Ensure directory exists
     QDir dir(geojsonDir);
@@ -467,20 +572,31 @@ void MapViewer::saveGeometryData(const QString& geometryData)
         QTextStream out(&file);
         out << geometryData;
         file.close();
-        qDebug() << "Geometry data saved to" << filename;
+        qInfo() << "Geometry data saved to:" << QDir::toNativeSeparators(filename);
     } else {
-        qDebug() << "Failed to save geometry data to file:" << file.errorString();
+        qWarning() << "Failed to save geometry data to file:" << file.errorString();
     }
 }
 
 void MapViewer::updateGeometryData(const QString& geometryData)
 {
-    // Real-time update of geometry data
-    // This method is called whenever the user draws or edits geometry
+    // This is the same as saveGeometryData now, just save the data
+    saveGeometryData(geometryData);
+}
+
+void MapViewer::saveGeometricShape(const QString& shapeData, const QString& shapeName)
+{
+    // Parse the shape data
+    QJsonDocument shapeDoc = QJsonDocument::fromJson(shapeData.toUtf8());
+    if (shapeDoc.isNull() || !shapeDoc.isObject()) {
+        qDebug() << "Invalid shape data format";
+        return;
+    }
     
-    // Get application path
-    QString appPath = QCoreApplication::applicationDirPath();
-    QString geojsonDir = appPath + "/drone_geojson";
+    QJsonObject shapeObj = shapeDoc.object();
+    
+    // Get current path
+    QString geojsonDir = QDir::currentPath() + "/drone_geojson";
     
     // Ensure directory exists
     QDir dir(geojsonDir);
@@ -488,52 +604,202 @@ void MapViewer::updateGeometryData(const QString& geometryData)
         dir.mkpath(".");
     }
     
-    // Save to geomatics.geojson file
-    QString filename = geojsonDir + "/geomatics.geojson";
-    QFile file(filename);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&file);
-        out << geometryData;
-        file.close();
+    // Path to the geometric shapes file
+    QString shapesFilename = geojsonDir + "/geometric_shapes.geojson";
+    
+    // Create or load the shapes FeatureCollection file
+    QJsonObject shapesGeoJson;
+    QFile shapesFile(shapesFilename);
+    
+    if (shapesFile.exists() && shapesFile.open(QIODevice::ReadOnly)) {
+        // File exists, read and parse it
+        QJsonDocument existingDoc = QJsonDocument::fromJson(shapesFile.readAll());
+        shapesFile.close();
+        
+        if (!existingDoc.isNull() && existingDoc.isObject()) {
+            shapesGeoJson = existingDoc.object();
+        } else {
+            // Invalid existing file, create new structure
+            shapesGeoJson["type"] = "FeatureCollection";
+            shapesGeoJson["features"] = QJsonArray();
+        }
+    } else {
+        // File doesn't exist or couldn't be opened, create new structure
+        shapesGeoJson["type"] = "FeatureCollection";
+        shapesGeoJson["features"] = QJsonArray();
+    }
+    
+    // Get the features array
+    QJsonArray features;
+    if (shapesGeoJson.contains("features") && shapesGeoJson["features"].isArray()) {
+        features = shapesGeoJson["features"].toArray();
+    }
+    
+    // Process the shape data to add name to properties
+    if (shapeObj.contains("features") && shapeObj["features"].isArray()) {
+        QJsonArray shapeFeatures = shapeObj["features"].toArray();
+        
+        for (int i = 0; i < shapeFeatures.size(); ++i) {
+            QJsonObject feature = shapeFeatures[i].toObject();
+            
+            // Add name to properties
+            if (feature.contains("properties") && feature["properties"].isObject()) {
+                QJsonObject props = feature["properties"].toObject();
+                props["name"] = shapeName;
+                feature["properties"] = props;
+            } else {
+                QJsonObject props;
+                props["name"] = shapeName;
+                feature["properties"] = props;
+            }
+            
+            // Add the feature to the collection
+            features.append(feature);
+        }
+    }
+    
+    // Update the features array
+    shapesGeoJson["features"] = features;
+    
+    // Save the updated FeatureCollection to the file
+    if (shapesFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&shapesFile);
+        QJsonDocument shapesDoc(shapesGeoJson);
+        out << shapesDoc.toJson(QJsonDocument::Indented);
+        shapesFile.close();
+        qDebug() << "Saved geometric shape:" << shapeName << "to file:" << shapesFilename;
+        
+        // Emit signal that shape was saved
+        emit geometricShapeSaved(shapeName);
+        
+        // Update the map with the shapes
+        loadGeometricShapes();
+    } else {
+        qDebug() << "Failed to save geometric shapes file:" << shapesFilename << "-" << shapesFile.errorString();
+    }
+}
+
+void MapViewer::loadGeometricShapes()
+{
+    // Get current path
+    QString geojsonDir = QDir::currentPath() + "/drone_geojson";
+    
+    // Ensure directory exists
+    QDir dir(geojsonDir);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+    
+    // Path to the geometric shapes file
+    QString shapesFilename = geojsonDir + "/geometric_shapes.geojson";
+    QFileInfo fileInfo(shapesFilename);
+    
+    // Create empty file if it doesn't exist
+    if (!fileInfo.exists()) {
+        QFile file(shapesFilename);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QJsonObject emptyGeoJson;
+            emptyGeoJson["type"] = "FeatureCollection";
+            emptyGeoJson["features"] = QJsonArray();
+            
+            QJsonDocument doc(emptyGeoJson);
+            file.write(doc.toJson());
+            file.close();
+            qDebug() << "Created empty geometric shapes file:" << shapesFilename;
+        }
+    }
+    
+    // Now load the file (which should exist)
+    QDateTime lastModified = fileInfo.lastModified();
+    
+    // Check if file has been modified since last check
+    if (!m_lastShapesFileModified.isValid() || lastModified > m_lastShapesFileModified) {
+        // File has been modified, reload it
+        QFile file(shapesFilename);
+        if (file.open(QIODevice::ReadOnly)) {
+            QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+            QJsonObject shapesObj = doc.object();
+            file.close();
+            
+            // Debug output
+            qDebug() << "Loading geometric shapes from file:" << shapesFilename;
+            
+            // Update the map with the shapes
+            QString shapesStr = QJsonDocument(shapesObj).toJson(QJsonDocument::Compact);
+            QString script = QString("updateGeometricShapes(%1);").arg(shapesStr);
+            m_webView->page()->runJavaScript(script, [this](const QVariant &result) {
+                qDebug() << "Map updated with geometric shapes";
+            });
+            
+            // Update last modified time
+            m_lastShapesFileModified = lastModified;
+        } else {
+            qDebug() << "Failed to open geometric shapes file:" << shapesFilename;
+        }
     }
 }
 
 void MapViewer::checkForFileChanges()
 {
-    // Get application path
-    QString appPath = QCoreApplication::applicationDirPath();
-    QString geojsonDir = appPath + "/drone_geojson";
+    // Get current path
+    QString geojsonDir = QDir::currentPath() + "/drone_geojson";
     
-    // Check for Atlas_path.geojson file changes
-    QString filename = geojsonDir + "/Atlas_path.geojson";
-    QFileInfo fileInfo(filename);
+    // Ensure directory exists
+    QDir dir(geojsonDir);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+        return; // No files to check yet
+    }
     
-    if (fileInfo.exists() && fileInfo.isFile()) {
-        QDateTime lastModified = fileInfo.lastModified();
+    // Path to the main drone paths file
+    QString mainDronePathsFile = geojsonDir + "/all_drone_paths.geojson";
+    QFileInfo mainFileInfo(mainDronePathsFile);
+    
+    // Check if the main file exists and has been modified
+    if (mainFileInfo.exists() && mainFileInfo.isFile()) {
+        QDateTime lastModified = mainFileInfo.lastModified();
         
         // Check if file has been modified since last check
-        if (!m_lastFileModified.isValid() || lastModified > m_lastFileModified) {
+        if (!m_lastDronePathsFileModified.isValid() || lastModified > m_lastDronePathsFileModified) {
             // File has been modified, reload it
-            QFile file(filename);
+            QFile file(mainDronePathsFile);
             if (file.open(QIODevice::ReadOnly)) {
                 QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
-                QString geojsonStr = doc.toJson(QJsonDocument::Compact);
+                QJsonObject geoJson = doc.object();
                 file.close();
                 
-                // Calculate hash to avoid unnecessary updates
-                QString newHash = QString(QCryptographicHash::hash(geojsonStr.toUtf8(), QCryptographicHash::Md5).toHex());
+                // Debug output
+                qDebug() << "Loading drone paths from file:" << mainDronePathsFile;
                 
-                if (newHash != m_lastGeojsonHash) {
-                    // Update the map with new GeoJSON data
-                    m_webView->page()->runJavaScript(QString("updateDronePath(%1);").arg(geojsonStr));
-                    m_lastGeojsonHash = newHash;
-                }
+                // Update the map with the drone paths
+                updateDronePath(geoJson);
+                
+                // Update last modified time
+                m_lastDronePathsFileModified = lastModified;
+            } else {
+                qDebug() << "Failed to open drone paths file:" << mainDronePathsFile << "-" << file.errorString();
             }
+        }
+    } else if (!mainFileInfo.exists()) {
+        // Create an empty GeoJSON file if it doesn't exist
+        QFile file(mainDronePathsFile);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QJsonObject emptyGeoJson;
+            emptyGeoJson["type"] = "FeatureCollection";
+            emptyGeoJson["features"] = QJsonArray();
             
-            // Update last modified time
-            m_lastFileModified = lastModified;
+            QJsonDocument doc(emptyGeoJson);
+            file.write(doc.toJson());
+            file.close();
+            qDebug() << "Created empty drone paths file:" << mainDronePathsFile;
+            
+            // Set initial last modified time
+            m_lastDronePathsFileModified = QFileInfo(mainDronePathsFile).lastModified();
         }
     }
+    
+    // Also check for geometric shapes file changes
+    loadGeometricShapes();
 }
 
 MapViewer::~MapViewer()

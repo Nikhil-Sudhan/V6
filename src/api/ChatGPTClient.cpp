@@ -94,18 +94,18 @@ void ChatGPTClient::sendPrompt(const QString& missionType, const QString& vehicl
     QJsonObject systemMessage;
     systemMessage["role"] = "system";
     systemMessage["content"] = R"(
-Generate a strictly formatted GeoJSON file defining a drone flight path.
+Generate a strictly formatted GeoJSON Feature defining a drone flight path that will be added to a FeatureCollection.
 
 GeoJSON Format (Strict Rules)
-type: "FeatureCollection"
-
-features: Array of "Feature" objects
-
-Each "Feature" has:
+You must return a single Feature object with:
 
 "type": "Feature"
 
-"properties": { "name": "[Mission Name]" }
+"properties": { 
+  "name": "[Mission Name]",
+  "drone": "[Drone Name]",
+  "type": "path"
+}
 
 "geometry":
 
@@ -124,31 +124,30 @@ No extra properties or null values
 
 Example Output:
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Surveillance Flight Path"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [77.9695, 10.3624],
-          [77.9700, 10.3628],
-          [77.9702, 10.3632]
-        ]
-      }
-    }
-  ]
+  "type": "Feature",
+  "properties": {
+    "name": "Surveillance Flight Path",
+    "drone": "Atlas",
+    "type": "path"
+  },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [77.9695, 10.3624],
+      [77.9700, 10.3628],
+      [77.9702, 10.3632]
+    ]
+  }
 }
+
 Keep the response strictly in this format every time. No variations.
 # Notes
 - Don't add comments in geojson data. 
 - Give Code geojson data code alone.
 - Ensure that coordinate values are accurate and appropriate for the designated flight region.
-- GeoJSON is strictly typed; ensure that types (such as "FeatureCollection", "Feature", "LineString") are specified verbatim.
-- Name each feature clearly to reflect the mission or surveillance areas they cover.)";
+- GeoJSON is strictly typed; ensure that types (such as "Feature", "LineString") are specified verbatim.
+- Name each feature clearly to reflect the mission or surveillance areas they cover.
+- Include the drone name in the properties.)";
     messages.append(systemMessage);
     
     // User message with mission details
@@ -208,15 +207,18 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
         return;
     }
     
-    // Parse the GeoJSON content
-    QJsonDocument geojsonDoc = QJsonDocument::fromJson(content.toUtf8());
-    if (geojsonDoc.isNull() || !geojsonDoc.isObject()) {
+    // Parse the GeoJSON content (which should be a Feature)
+    QJsonDocument featureDoc = QJsonDocument::fromJson(content.toUtf8());
+    if (featureDoc.isNull() || !featureDoc.isObject()) {
         emit errorOccurred("Invalid GeoJSON format in response");
         reply->deleteLater();
         return;
     }
     
-    // Save GeoJSON to file
+    // Get the Feature object
+    QJsonObject feature = featureDoc.object();
+    
+    // Setup paths
     QString appPath = QCoreApplication::applicationDirPath();
     QString geojsonDir = appPath + "/drone_geojson";
     
@@ -235,15 +237,110 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
         vehicleName = query.value(0).toString();
     }
     
-    // Save to file
-    QString filename = QString("%1/%2_path.geojson").arg(geojsonDir, vehicleName);
-    QFile file(filename);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&file);
-        out << geojsonDoc.toJson(QJsonDocument::Indented);
-        file.close();
+    // Add the drone name and color to properties
+    QJsonObject properties = feature.value("properties").toObject();
+    properties["name"] = vehicleName;
+    properties["type"] = "path";
+    
+    // Assign a color based on drone name for consistency
+    QMap<QString, QString> droneColors;
+    droneColors["Atlas"] = "#FF5733";    // Bright red/orange
+    droneColors["Bolt"] = "#33A8FF";     // Bright blue
+    droneColors["Barbarian"] = "#33FF57"; // Bright green
+    droneColors["Phantom"] = "#A833FF";  // Purple
+    droneColors["Shadow"] = "#FFD700";   // Gold
+    droneColors["Hawk"] = "#FF33A8";     // Pink
+    droneColors["Eagle"] = "#00FFFF";    // Cyan
+    droneColors["Falcon"] = "#FF8C00";   // Dark orange
+            
+    // If the drone has a predefined color, use it
+    if (droneColors.contains(vehicleName)) {
+        properties["color"] = droneColors[vehicleName];
     } else {
-        emit errorOccurred(QString("Failed to save GeoJSON to file: %1").arg(file.errorString()));
+        // Generate a random color for unknown drones
+        QStringList colors = {"#ff00ff", "#00ffff", "#ff8800", "#8800ff", "#00ff88"};
+        int index = qHash(vehicleName) % colors.size();
+        properties["color"] = colors[index];
+    }
+            
+    // Set the active flag for the current drone
+    properties["active"] = true;
+    feature["properties"] = properties;
+    
+    // Main GeoJSON file path
+    QString mainFilename = QString("%1/all_drone_paths.geojson").arg(geojsonDir);
+    
+    // Create or load the main FeatureCollection file
+    QJsonObject mainGeoJson;
+    QFile mainFile(mainFilename);
+    
+    if (mainFile.exists() && mainFile.open(QIODevice::ReadOnly)) {
+        // File exists, read and parse it
+        QJsonDocument existingDoc = QJsonDocument::fromJson(mainFile.readAll());
+        mainFile.close();
+        
+        if (!existingDoc.isNull() && existingDoc.isObject()) {
+            mainGeoJson = existingDoc.object();
+        } else {
+            // Invalid existing file, create new structure
+            mainGeoJson["type"] = "FeatureCollection";
+            mainGeoJson["features"] = QJsonArray();
+        }
+    } else {
+        // File doesn't exist or couldn't be opened, create new structure
+        mainGeoJson["type"] = "FeatureCollection";
+        mainGeoJson["features"] = QJsonArray();
+    }
+    
+    // Add the new feature to the features array
+    QJsonArray features;
+    if (mainGeoJson.contains("features") && mainGeoJson["features"].isArray()) {
+        features = mainGeoJson["features"].toArray();
+        
+        // Check if there's already a feature for this drone and remove it
+        for (int i = features.size() - 1; i >= 0; i--) {
+            QJsonObject existingFeature = features[i].toObject();
+            if (existingFeature.contains("properties") && existingFeature["properties"].isObject()) {
+                QJsonObject existingProps = existingFeature["properties"].toObject();
+                if (existingProps.contains("name") && existingProps["name"].toString() == vehicleName) {
+                    // Remove the existing feature for this drone
+                    features.removeAt(i);
+                    qDebug() << "Removed existing path for drone:" << vehicleName;
+                }
+            }
+        }
+    }
+    
+    // Add the new feature
+    features.append(feature);
+    mainGeoJson["features"] = features;
+    
+    // Save the updated FeatureCollection to the main file
+    if (mainFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&mainFile);
+        QJsonDocument mainDoc(mainGeoJson);
+        out << mainDoc.toJson(QJsonDocument::Indented);
+        mainFile.close();
+        qDebug() << "Updated main GeoJSON file with new feature for drone:" << vehicleName;
+    } else {
+        emit errorOccurred(QString("Failed to save main GeoJSON file: %1").arg(mainFile.errorString()));
+    }
+    
+    // Also save to individual file for backward compatibility
+    QString individualFilename = QString("%1/%2_path.geojson").arg(geojsonDir, vehicleName);
+    QFile individualFile(individualFilename);
+    if (individualFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        // Create a FeatureCollection with just this feature
+        QJsonObject singleDroneGeoJson;
+        singleDroneGeoJson["type"] = "FeatureCollection";
+        QJsonArray singleFeatureArray;
+        singleFeatureArray.append(feature);
+        singleDroneGeoJson["features"] = singleFeatureArray;
+        
+        QTextStream out(&individualFile);
+        QJsonDocument singleDoc(singleDroneGeoJson);
+        out << singleDoc.toJson(QJsonDocument::Indented);
+        individualFile.close();
     }
     
     // Save response to database
