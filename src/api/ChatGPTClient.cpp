@@ -86,7 +86,7 @@ void ChatGPTClient::sendPrompt(const QString& missionType, const QString& vehicl
     
     // Create the JSON payload
     QJsonObject payload;
-    payload["model"] = "gpt-4"; // Use appropriate model
+    payload["model"] = "gpt-3.5-turbo"; // Use appropriate model
     
     QJsonArray messages;
     

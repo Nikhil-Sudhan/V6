@@ -46,6 +46,8 @@ public slots:
     void setActiveDrone(const QString& droneName);
     void saveGeometricShape(const QString& shapeData, const QString& shapeName);
     void loadGeometricShapes();
+    void deleteGeometricShape(const QString& shapeName);
+    void clearDronePathsOnExit();
     
 signals:
     void geometricShapeSaved(const QString& shapeName);

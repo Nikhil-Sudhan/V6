@@ -93,8 +93,8 @@ int DebugWebEnginePage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     return _id;
 }
 struct qt_meta_stringdata_MapViewer_t {
-    QByteArrayData data[18];
-    char stringdata0[259];
+    QByteArrayData data[20];
+    char stringdata0[302];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -120,7 +120,9 @@ QT_MOC_LITERAL(13, 185, 14), // "setActiveDrone"
 QT_MOC_LITERAL(14, 200, 9), // "droneName"
 QT_MOC_LITERAL(15, 210, 18), // "saveGeometricShape"
 QT_MOC_LITERAL(16, 229, 9), // "shapeData"
-QT_MOC_LITERAL(17, 239, 19) // "loadGeometricShapes"
+QT_MOC_LITERAL(17, 239, 19), // "loadGeometricShapes"
+QT_MOC_LITERAL(18, 259, 20), // "deleteGeometricShape"
+QT_MOC_LITERAL(19, 280, 21) // "clearDronePathsOnExit"
 
     },
     "MapViewer\0geometricShapeSaved\0\0shapeName\0"
@@ -129,7 +131,8 @@ QT_MOC_LITERAL(17, 239, 19) // "loadGeometricShapes"
     "saveGeometryData\0geometryData\0"
     "updateGeometryData\0checkForFileChanges\0"
     "setActiveDrone\0droneName\0saveGeometricShape\0"
-    "shapeData\0loadGeometricShapes"
+    "shapeData\0loadGeometricShapes\0"
+    "deleteGeometricShape\0clearDronePathsOnExit"
 };
 #undef QT_MOC_LITERAL
 
@@ -139,7 +142,7 @@ static const uint qt_meta_data_MapViewer[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -147,17 +150,19 @@ static const uint qt_meta_data_MapViewer[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    1,   62,    2, 0x0a /* Public */,
-       7,    1,   65,    2, 0x0a /* Public */,
-       9,    1,   68,    2, 0x0a /* Public */,
-      11,    1,   71,    2, 0x0a /* Public */,
-      12,    0,   74,    2, 0x0a /* Public */,
-      13,    1,   75,    2, 0x0a /* Public */,
-      15,    2,   78,    2, 0x0a /* Public */,
-      17,    0,   83,    2, 0x0a /* Public */,
+       4,    1,   72,    2, 0x0a /* Public */,
+       7,    1,   75,    2, 0x0a /* Public */,
+       9,    1,   78,    2, 0x0a /* Public */,
+      11,    1,   81,    2, 0x0a /* Public */,
+      12,    0,   84,    2, 0x0a /* Public */,
+      13,    1,   85,    2, 0x0a /* Public */,
+      15,    2,   88,    2, 0x0a /* Public */,
+      17,    0,   93,    2, 0x0a /* Public */,
+      18,    1,   94,    2, 0x0a /* Public */,
+      19,    0,   97,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -170,6 +175,8 @@ static const uint qt_meta_data_MapViewer[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   14,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   16,    3,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void,
 
        0        // eod
@@ -190,6 +197,8 @@ void MapViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 6: _t->setActiveDrone((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 7: _t->saveGeometricShape((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
         case 8: _t->loadGeometricShapes(); break;
+        case 9: _t->deleteGeometricShape((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 10: _t->clearDronePathsOnExit(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -244,13 +253,13 @@ int MapViewer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     }
     return _id;
 }

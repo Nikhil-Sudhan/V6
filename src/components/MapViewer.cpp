@@ -142,6 +142,8 @@ void MapViewer::loadMap()
                             polygon: true,
                             line_string: true,
                             point: true,
+                            circle: true,
+                            rectangle: true,
                             trash: true
                         },
                         styles: [
@@ -176,7 +178,7 @@ void MapViewer::loadMap()
                                 },
                                 'paint': {
                                     'line-color': '#3388ff',
-                                    'line-width': 2
+                                    'line-width': 4
                                 }
                             },
                             {
@@ -190,7 +192,7 @@ void MapViewer::loadMap()
                                 'paint': {
                                     'line-color': '#fbb03b',
                                     'line-dasharray': [0.2, 2],
-                                    'line-width': 2
+                                    'line-width': 4
                                 }
                             },
                             {
@@ -203,7 +205,7 @@ void MapViewer::loadMap()
                                 },
                                 'paint': {
                                     'line-color': '#3388ff',
-                                    'line-width': 2
+                                    'line-width': 6 // Increased line width for inactive line strings
                                 }
                             },
                             {
@@ -217,7 +219,7 @@ void MapViewer::loadMap()
                                 'paint': {
                                     'line-color': '#fbb03b',
                                     'line-dasharray': [0.2, 2],
-                                    'line-width': 2
+                                    'line-width': 4
                                 }
                             },
                             {
@@ -225,7 +227,7 @@ void MapViewer::loadMap()
                                 'type': 'circle',
                                 'filter': ['all', ['==', 'active', 'false'], ['==', '$type', 'Point']],
                                 'paint': {
-                                    'circle-radius': 5,
+                                    'circle-radius': 8,
                                     'circle-color': '#3388ff'
                                 }
                             },
@@ -234,7 +236,7 @@ void MapViewer::loadMap()
                                 'type': 'circle',
                                 'filter': ['all', ['==', 'active', 'true'], ['==', '$type', 'Point']],
                                 'paint': {
-                                    'circle-radius': 7,
+                                    'circle-radius': 10,
                                     'circle-color': '#fbb03b'
                                 }
                             },
@@ -309,50 +311,119 @@ void MapViewer::loadMap()
 
                     // Function to update geometric shapes
                     window.updateGeometricShapes = function(shapesData) {
-                        // First remove any existing shapes
-                        if (window.draw) {
-                            window.draw.deleteAll();
-                            
-                            // Add the shapes from the GeoJSON data
-                            if (shapesData && shapesData.features && shapesData.features.length > 0) {
-                                window.draw.add(shapesData);
+                        // Remove existing shapes source if it exists
+                        if (map.getSource('geometric-shapes')) {
+                            // Remove all layers that use this source
+                            if (map.getLayer('geometric-shapes-fill')) {
+                                map.removeLayer('geometric-shapes-fill');
                             }
+                            if (map.getLayer('geometric-shapes-outline')) {
+                                map.removeLayer('geometric-shapes-outline');
+                            }
+                            if (map.getLayer('geometric-shapes-points')) {
+                                map.removeLayer('geometric-shapes-points');
+                            }
+                            if (map.getLayer('geometric-shapes-lines')) {
+                                map.removeLayer('geometric-shapes-lines');
+                            }
+                            // Remove the source
+                            map.removeSource('geometric-shapes');
                         }
+                        
+                        // Add the shapes source
+                        map.addSource('geometric-shapes', {
+                            'type': 'geojson',
+                            'data': shapesData
+                        });
+                        
+                        // Add a fill layer for polygons (including circles and rectangles)
+                        map.addLayer({
+                            'id': 'geometric-shapes-fill',
+                            'type': 'fill',
+                            'source': 'geometric-shapes',
+                            'filter': ['==', '$type', 'Polygon'],
+                            'paint': {
+                                'fill-color': '#3388ff',
+                                'fill-opacity': 0.4
+                            }
+                        });
+                        
+                        // Add an outline layer for polygons (including circles and rectangles)
+                        map.addLayer({
+                            'id': 'geometric-shapes-outline',
+                            'type': 'line',
+                            'source': 'geometric-shapes',
+                            'filter': ['==', '$type', 'Polygon'],
+                            'paint': {
+                                'line-color': '#3388ff',
+                                'line-width': 4
+                            }
+                        });
+                        
+                        // Add a layer for points
+                        map.addLayer({
+                            'id': 'geometric-shapes-points',
+                            'type': 'circle',
+                            'source': 'geometric-shapes',
+                            'filter': ['==', '$type', 'Point'],
+                            'paint': {
+                                'circle-radius': 8,
+                                'circle-color': '#3388ff'
+                            }
+                        });
+                        
+                        // Add a layer for lines
+                        map.addLayer({
+                            'id': 'geometric-shapes-lines',
+                            'type': 'line',
+                            'source': 'geometric-shapes',
+                            'filter': ['==', '$type', 'LineString'],
+                            'paint': {
+                                'line-color': '#3388ff',
+                                'line-width': 4
+                            }
+                        });
                     };
                     
                     // Handle draw.create event
                     map.on('draw.create', function(e) {
-                        // Prompt for shape name
-                        const shapeName = prompt('Enter a name for this shape:', 'Shape ' + new Date().toLocaleTimeString());
+                        // Get the drawn features
+                        const features = e.features;
                         
-                        if (shapeName) {
+                        if (features.length > 0) {
                             // Create a GeoJSON with the new shape
-                            const shapeData = {
-                                type: 'FeatureCollection',
-                                features: e.features
+                            const shapeGeoJson = {
+                                "type": "FeatureCollection",
+                                "features": features
                             };
                             
-                            // Send the shape data to Qt
-                            qt_object.saveGeometricShape(JSON.stringify(shapeData), shapeName);
+                            // Generate a unique name for the shape
+                            const shapeName = 'shape_' + Date.now();
+                            
+                            // Convert to string and send to Qt
+                            const shapeStr = JSON.stringify(shapeGeoJson);
+                            if (qt_object) {
+                                qt_object.saveGeometricShape(shapeStr, shapeName);
+                            }
+                            
+                            // Clear the drawing
+                            window.draw.deleteAll();
                         }
                     });
                     
-                    // Handle draw.update event
-                    map.on('draw.update', function(e) {
-                        // Get the updated features
-                        const shapeData = {
-                            type: 'FeatureCollection',
-                            features: e.features
-                        };
+                    // Handle draw.delete event
+                    map.on('draw.delete', function(e) {
+                        // Get the deleted features
+                        const features = e.features;
                         
-                        // Get the name from the first feature's properties
-                        let shapeName = 'Updated Shape';
-                        if (e.features[0].properties && e.features[0].properties.name) {
-                            shapeName = e.features[0].properties.name;
+                        if (features.length > 0 && qt_object) {
+                            // For each deleted feature, try to find its name and delete it
+                            features.forEach(function(feature) {
+                                if (feature.properties && feature.properties.name) {
+                                    qt_object.deleteGeometricShape(feature.properties.name);
+                                }
+                            });
                         }
-                        
-                        // Send the updated shape data to Qt
-                        qt_object.saveGeometricShape(JSON.stringify(shapeData), shapeName);
                     });
 
                     // Add terrain source
@@ -802,6 +873,130 @@ void MapViewer::checkForFileChanges()
     loadGeometricShapes();
 }
 
+void MapViewer::deleteGeometricShape(const QString& shapeName)
+{
+    // Get current path
+    QString geojsonDir = QDir::currentPath() + "/drone_geojson";
+    
+    // Ensure directory exists
+    QDir dir(geojsonDir);
+    if (!dir.exists()) {
+        dir.mkpath(".");
+        return; // No files to modify yet
+    }
+    
+    // Path to the geometric shapes file
+    QString shapesFilename = geojsonDir + "/geometric_shapes.geojson";
+    
+    // Load the shapes FeatureCollection file
+    QJsonObject shapesGeoJson;
+    QFile shapesFile(shapesFilename);
+    
+    if (shapesFile.exists() && shapesFile.open(QIODevice::ReadOnly)) {
+        // File exists, read and parse it
+        QJsonDocument existingDoc = QJsonDocument::fromJson(shapesFile.readAll());
+        shapesFile.close();
+        
+        if (!existingDoc.isNull() && existingDoc.isObject()) {
+            shapesGeoJson = existingDoc.object();
+        } else {
+            // Invalid existing file, nothing to delete
+            qDebug() << "Invalid geometric shapes file format";
+            return;
+        }
+    } else {
+        // File doesn't exist or couldn't be opened, nothing to delete
+        qDebug() << "Geometric shapes file does not exist or cannot be opened";
+        return;
+    }
+    
+    // Get the features array
+    QJsonArray features;
+    if (shapesGeoJson.contains("features") && shapesGeoJson["features"].isArray()) {
+        features = shapesGeoJson["features"].toArray();
+    } else {
+        // No features to delete
+        return;
+    }
+    
+    // Create a new array without the features with the specified name
+    QJsonArray updatedFeatures;
+    bool shapeFound = false;
+    
+    for (int i = 0; i < features.size(); ++i) {
+        QJsonObject feature = features[i].toObject();
+        
+        // Check if this feature has the name we're looking for
+        if (feature.contains("properties") && feature["properties"].isObject()) {
+            QJsonObject props = feature["properties"].toObject();
+            
+            if (props.contains("name") && props["name"].toString() == shapeName) {
+                // Skip this feature (effectively deleting it)
+                shapeFound = true;
+                continue;
+            }
+        }
+        
+        // Keep this feature
+        updatedFeatures.append(feature);
+    }
+    
+    if (!shapeFound) {
+        qDebug() << "No shape found with name:" << shapeName;
+        return;
+    }
+    
+    // Update the features array
+    shapesGeoJson["features"] = updatedFeatures;
+    
+    // Save the updated FeatureCollection to the file
+    if (shapesFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&shapesFile);
+        QJsonDocument shapesDoc(shapesGeoJson);
+        out << shapesDoc.toJson(QJsonDocument::Indented);
+        shapesFile.close();
+        qDebug() << "Deleted geometric shape:" << shapeName << "from file:" << shapesFilename;
+        
+        // Update the map with the shapes
+        loadGeometricShapes();
+    } else {
+        qDebug() << "Failed to save geometric shapes file after deletion:" << shapesFilename << "-" << shapesFile.errorString();
+    }
+}
+
+void MapViewer::clearDronePathsOnExit()
+{
+    // Get current path
+    QString geojsonDir = QDir::currentPath() + "/drone_geojson";
+    
+    // Ensure directory exists
+    QDir dir(geojsonDir);
+    if (!dir.exists()) {
+        return; // No directory, nothing to clear
+    }
+    
+    // Path to the main drone paths file
+    QString mainDronePathsFile = geojsonDir + "/all_drone_paths.geojson";
+    
+    // Create an empty GeoJSON structure
+    QJsonObject emptyGeoJson;
+    emptyGeoJson["type"] = "FeatureCollection";
+    emptyGeoJson["features"] = QJsonArray();
+    
+    // Save the empty structure to the file
+    QFile file(mainDronePathsFile);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QJsonDocument doc(emptyGeoJson);
+        file.write(doc.toJson(QJsonDocument::Indented));
+        file.close();
+        qDebug() << "Cleared drone paths file on exit:" << mainDronePathsFile;
+    } else {
+        qDebug() << "Failed to clear drone paths file on exit:" << mainDronePathsFile << "-" << file.errorString();
+    }
+}
+
 MapViewer::~MapViewer()
 {
+    // Clear drone paths when the application is closed
+    clearDronePathsOnExit();
 }
