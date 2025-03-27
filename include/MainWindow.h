@@ -21,6 +21,7 @@ public:
 private slots:
     void handleLeftPanelChanged(int index);
     void handleAssignTask();
+    void handleDroneAnimationCompleted();
 
 private:
     void setupMainArea();

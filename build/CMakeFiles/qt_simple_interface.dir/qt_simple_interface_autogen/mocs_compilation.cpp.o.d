@@ -466,6 +466,9 @@ CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.
  /usr/include/c++/11/bits/random.tcc \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QColor \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qcolor.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdialog.h \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_RightSidebar.cpp \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/../../../include/components/RightSidebar.h \
  /home/sudhan/V6/build/qt_simple_interface_autogen/B37CIN4C3K/moc_TopBar.cpp \

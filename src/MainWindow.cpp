@@ -44,8 +44,11 @@ MainWindow::MainWindow(QWidget *parent)
     // Connect signals
     connect(leftSidebar, &LeftSidebar::panelChanged, this, &MainWindow::handleLeftPanelChanged);
     
-    // Connect mission assigned signal to update active drone in MapViewer
-    connect(leftSidebar, &LeftSidebar::missionAssigned, mapViewer, &MapViewer::setActiveDrone);
+    // Connect mission assigned signal to the drone task confirmation dialog
+    connect(leftSidebar, &LeftSidebar::missionAssigned, mapViewer, &MapViewer::confirmDroneTask);
+    
+    // Connect drone animation completed signal to handle completion
+    connect(mapViewer, &MapViewer::droneAnimationCompleted, this, &MainWindow::handleDroneAnimationCompleted);
 }
 
 MainWindow::~MainWindow()
@@ -143,4 +146,9 @@ void MainWindow::handleAssignTask()
 {
     // For now, just update the map or status
     statusBar()->showMessage("Task assigned successfully", 3000);
+}
+
+void MainWindow::handleDroneAnimationCompleted()
+{
+    // TO DO: implement handling for drone animation completion
 }

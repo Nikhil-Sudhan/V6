@@ -184,7 +184,8 @@
 			"MU",
 			"3MFNMLVRLE/moc_SimulationView.cpp",
 			null
-		]
+		],
+		[ "/home/sudhan/V6/src/map.h", "MU", "UVLADIE3JM/moc_map.cpp", null ]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "/home/sudhan/V6/build/qt_simple_interface_autogen/include",
@@ -274,6 +275,7 @@
 		[ "/home/sudhan/V6/src/dialogs/ResponseDialog.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/drone/DroneFunctions.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/main.cpp", "MU", null ],
+		[ "/home/sudhan/V6/src/map.cpp", "MU", null ],
 		[ "/home/sudhan/V6/src/simulation/SimulationView.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

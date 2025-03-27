@@ -26,6 +26,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o.d"
   "CMakeFiles/qt_simple_interface.dir/src/main.cpp.o"
   "CMakeFiles/qt_simple_interface.dir/src/main.cpp.o.d"
+  "CMakeFiles/qt_simple_interface.dir/src/map.cpp.o"
+  "CMakeFiles/qt_simple_interface.dir/src/map.cpp.o.d"
   "CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o"
   "CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o.d"
   "qt_simple_interface"

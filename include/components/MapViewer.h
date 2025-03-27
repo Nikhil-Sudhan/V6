@@ -3,12 +3,14 @@
 
 #include <QWidget>
 #include <QWebEngineView>
+
 #include <QWebEnginePage>
 #include <QWebEngineProfile>
 #include <QStackedWidget>
 #include <QPushButton>
 #include <QVector3D>
 #include <QJsonObject>
+#include <QJsonArray>  // Added include for QJsonArray
 #include <QWebChannel>
 #include <QTimer>
 #include <QDir>
@@ -19,6 +21,7 @@
 #include <QMap> // Added include for QMap
 #include <QRandomGenerator>
 #include <QColor>
+#include <QMessageBox>
 
 // Custom WebEnginePage for debugging
 class DebugWebEnginePage : public QWebEnginePage {
@@ -48,9 +51,15 @@ public slots:
     void loadGeometricShapes();
     void deleteGeometricShape(const QString& shapeName);
     void clearDronePathsOnExit();
+    void startDroneAnimation(); 
+    void confirmDroneTask(const QString& missionType, const QString& vehicle, const QString& prompt); 
     
 signals:
     void geometricShapeSaved(const QString& shapeName);
+    void droneAnimationCompleted(); 
+    
+private slots:
+    void updateDronePosition(); 
     
 private:
     QStackedWidget* m_stackedWidget;
@@ -58,13 +67,22 @@ private:
     QString m_lastGeojsonHash;
     QString m_lastGeojsonPath;
     QDateTime m_lastFileModified;
-    QString m_activeDroneName = "Atlas"; // Default drone name
-    QMap<QString, QString> m_dronePathColors; // Store colors for each drone
-    QTimer* m_fileCheckTimer; // Timer to periodically check for file changes
-    QDateTime m_lastShapesFileModified; // Last modified time for shapes file
-    QDateTime m_lastDronePathsFileModified; // Last modified time for drone paths file
+    QString m_activeDroneName = "Atlas"; 
+    QMap<QString, QString> m_dronePathColors; 
+    QTimer* m_fileCheckTimer; 
+    QDateTime m_lastShapesFileModified; 
+    QDateTime m_lastDronePathsFileModified; 
+    
+    // New properties for drone animation
+    QTimer* m_animationTimer;
+    QJsonArray m_currentPath;
+    int m_currentPathIndex;
+    double m_animationSpeed; 
+    bool m_isAnimating;
+    
     void setupUI();
     void loadMap();
+    void loadDroneModel(); 
 };
 
 #endif // MAPVIEWER_H

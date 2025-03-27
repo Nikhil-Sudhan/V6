@@ -10,6 +10,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QCoreApplication>
+#include <QDir>
 
 // Custom WebEnginePage for debugging
 DebugWebEnginePage::DebugWebEnginePage(QWebEngineProfile *profile, QObject *parent)
@@ -31,6 +32,15 @@ void DebugWebEnginePage::javaScriptConsoleMessage(JavaScriptConsoleMessageLevel 
 
 MapViewer::MapViewer(QWidget* parent) : QWidget(parent)
 {
+    // Initialize animation properties
+    m_animationTimer = new QTimer(this);
+    m_currentPathIndex = 0;
+    m_animationSpeed = 5.0; // 5 meters per second
+    m_isAnimating = false;
+    
+    // Connect animation timer to update slot
+    connect(m_animationTimer, &QTimer::timeout, this, &MapViewer::updateDronePosition);
+    
     setupUI();
     loadMap();
     
@@ -100,16 +110,21 @@ void MapViewer::loadMap()
             <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.js'></script>
             <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.0/mapbox-gl-draw.css' type='text/css' />
             <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+            <!-- Add Three.js for 3D model rendering -->
+            <script src='https://unpkg.com/three@0.126.0/build/three.min.js'></script>
+            <script src='https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js'></script>
             <style>
                 body { margin: 0; padding: 0; }
                 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
                 .mapboxgl-ctrl-group { background: #252525; }
                 .mapboxgl-ctrl-group button { color: #00a6ff; }
                 .mapboxgl-ctrl-group button:hover { background-color: #333; }
+                #debug { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; z-index: 1000; }
             </style>
         </head>
         <body>
             <div id='map'></div>
+            <div id='debug'></div>
             <script>
                 // Initialize the Qt web channel
                 var qt_object;
@@ -119,8 +134,19 @@ void MapViewer::loadMap()
                 
                 const MAPBOX_TOKEN = '%1';
                 const geojsonData = %2;
+                
+                // Debug function
+                function debugLog(message) {
+                    document.getElementById('debug').innerText = message;
+                    console.log(message);
+                }
 
                 mapboxgl.accessToken = MAPBOX_TOKEN;
+                
+                // Variables for 3D drone model
+                let droneModel = null;
+                let droneModelLoaded = false;
+                let customLayer = null;
                 
                 // Initialize the map
                 const map = new mapboxgl.Map({
@@ -496,10 +522,175 @@ void MapViewer::loadMap()
                         map.getSource('drone-path').setData(newData);
                     };
                     
+                    // Function to load 3D drone model
+                    window.loadDroneModel = function() {
+                        debugLog("Loading drone model...");
+                        
+                        // Find the starting point of the active drone path
+                        let startingPoint = [77.9695, 10.3624]; // Default starting point
+                        
+                        // Check if we have valid GeoJSON data with a path
+                        if (geojsonData && geojsonData.features && geojsonData.features.length > 0) {
+                            for (const feature of geojsonData.features) {
+                                if (feature.geometry && feature.geometry.type === 'LineString' && 
+                                    feature.geometry.coordinates && feature.geometry.coordinates.length > 0) {
+                                    startingPoint = feature.geometry.coordinates[0];
+                                    debugLog("Found starting point: " + JSON.stringify(startingPoint));
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // Create a custom layer for the 3D drone model
+                        const modelOrigin = startingPoint;
+                        const modelAltitude = 0;
+                        const modelRotate = [Math.PI / 2, 0, 0];
+                        
+                        const modelAsMercatorCoordinate = mapboxgl.MercatorCoordinate.fromLngLat(
+                            modelOrigin,
+                            modelAltitude
+                        );
+                        
+                        // Create a Three.js scene
+                        const scene = new THREE.Scene();
+                        const camera = new THREE.Camera();
+                        const renderer = new THREE.WebGLRenderer({
+                            canvas: map.getCanvas(),
+                            context: map.getCanvas().getContext('webgl'),
+                            antialias: true
+                        });
+                        
+                        // Add lights to the scene
+                        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                        directionalLight.position.set(0, -70, 100).normalize();
+                        scene.add(directionalLight);
+                        
+                        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                        scene.add(ambientLight);
+                        
+                        // Load the drone model
+                        const loader = new THREE.GLTFLoader();
+                        // Try both model paths
+                        const modelUrls = [
+                            '/home/sudhan/V6/assets/models/drone.glb',
+                            '/home/sudhan/V6/models/drone/drone.glb',
+                            'assets/models/drone.glb',
+                            'models/drone/drone.glb'
+                        ];
+                        
+                        let modelLoadAttempt = 0;
+                        
+                        function attemptLoadModel() {
+                            if (modelLoadAttempt >= modelUrls.length) {
+                                debugLog("Failed to load model after trying all paths");
+                                return;
+                            }
+                            
+                            const modelUrl = modelUrls[modelLoadAttempt];
+                            debugLog("Attempting to load model from: " + modelUrl);
+                            
+                            loader.load(modelUrl, 
+                                // Success callback
+                                function(gltf) {
+                                    debugLog("Model loaded successfully from: " + modelUrl);
+                                    droneModel = gltf.scene;
+                                    
+                                    // Scale the model
+                                    const modelScale = 5;
+                                    droneModel.scale.set(modelScale, modelScale, modelScale);
+                                    
+                                    scene.add(droneModel);
+                                    droneModelLoaded = true;
+                                    
+                                    // Position the model at the start of the path
+                                    droneModel.position.set(
+                                        modelAsMercatorCoordinate.x,
+                                        modelAsMercatorCoordinate.y,
+                                        modelAsMercatorCoordinate.z
+                                    );
+                                    
+                                    // Rotate the model
+                                    droneModel.rotation.set(modelRotate[0], modelRotate[1], modelRotate[2]);
+                                    
+                                    debugLog("Drone model positioned at: " + JSON.stringify(modelOrigin));
+                                }, 
+                                // Progress callback
+                                function(xhr) {
+                                    debugLog("Loading model: " + Math.round(xhr.loaded / xhr.total * 100) + "%");
+                                }, 
+                                // Error callback
+                                function(error) {
+                                    debugLog("Error loading model from " + modelUrl + ": " + error.message);
+                                    modelLoadAttempt++;
+                                    attemptLoadModel(); // Try next path
+                                }
+                            );
+                        }
+                        
+                        attemptLoadModel();
+                        
+                        // Create a custom layer for the 3D model
+                        customLayer = {
+                            id: '3d-drone-model',
+                            type: 'custom',
+                            renderingMode: '3d',
+                            onAdd: function(map, gl) {
+                                this.camera = camera;
+                                this.scene = scene;
+                                this.map = map;
+                                
+                                // Use the Mapbox GL JS map canvas for Three.js
+                                this.renderer = renderer;
+                                this.renderer.autoClear = false;
+                            },
+                            render: function(gl, matrix) {
+                                if (!droneModelLoaded) return;
+                                
+                                const rotationX = new THREE.Matrix4().makeRotationAxis(
+                                    new THREE.Vector3(1, 0, 0),
+                                    modelRotate[0]
+                                );
+                                const rotationY = new THREE.Matrix4().makeRotationAxis(
+                                    new THREE.Vector3(0, 1, 0),
+                                    modelRotate[1]
+                                );
+                                const rotationZ = new THREE.Matrix4().makeRotationAxis(
+                                    new THREE.Vector3(0, 0, 1),
+                                    modelRotate[2]
+                                );
+                                
+                                const m = new THREE.Matrix4().fromArray(matrix);
+                                const l = new THREE.Matrix4()
+                                    .makeTranslation(
+                                        modelAsMercatorCoordinate.x,
+                                        modelAsMercatorCoordinate.y,
+                                        modelAsMercatorCoordinate.z
+                                    )
+                                    .scale(new THREE.Vector3(1, 1, 1))
+                                    .multiply(rotationX)
+                                    .multiply(rotationY)
+                                    .multiply(rotationZ);
+                                
+                                this.camera.projectionMatrix = m.multiply(l);
+                                this.renderer.resetState();
+                                this.renderer.render(this.scene, this.camera);
+                                this.map.triggerRepaint();
+                            }
+                        };
+                        
+                        // Add the custom layer to the map
+                        map.addLayer(customLayer);
+                    };
+                    
                     // Signal to Qt that the map is ready
                     if (qt_object) {
                         qt_object.loadGeometricShapes();
                     }
+                    
+                    // Load the drone model after a short delay to ensure the map is fully loaded
+                    setTimeout(function() {
+                        window.loadDroneModel();
+                    }, 2000);
                 });
             </script>
         </body>
@@ -507,6 +698,9 @@ void MapViewer::loadMap()
     )";
     
     m_webView->setHtml(html.arg(mapboxToken, geojsonStr));
+    
+    // Load the drone model after the map is loaded
+    QTimer::singleShot(2000, this, &MapViewer::loadDroneModel);
 }
 
 void MapViewer::setDronePositions(const QVector<QVector3D>& positions)
@@ -992,6 +1186,136 @@ void MapViewer::clearDronePathsOnExit()
         qDebug() << "Cleared drone paths file on exit:" << mainDronePathsFile;
     } else {
         qDebug() << "Failed to clear drone paths file on exit:" << mainDronePathsFile << "-" << file.errorString();
+    }
+}
+
+void MapViewer::loadDroneModel()
+{
+    // Execute JavaScript to load the 3D drone model
+    QString script = "if (typeof window.loadDroneModel === 'function') { window.loadDroneModel(); }";
+    m_webView->page()->runJavaScript(script, [this](const QVariant &result) {
+        qDebug() << "Drone model loading initiated";
+    });
+}
+
+void MapViewer::startDroneAnimation()
+{
+    if (m_isAnimating) {
+        return; // Already animating
+    }
+    
+    // Get the active drone path
+    QFile file(QDir::currentPath() + "/drone_geojson/" + m_activeDroneName + "_path.geojson");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Failed to open drone path file for animation";
+        return;
+    }
+    
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+    file.close();
+    
+    QJsonObject geojsonObj = doc.object();
+    if (!geojsonObj.contains("features") || !geojsonObj["features"].isArray()) {
+        qDebug() << "Invalid GeoJSON format for animation";
+        return;
+    }
+    
+    QJsonArray features = geojsonObj["features"].toArray();
+    if (features.isEmpty()) {
+        qDebug() << "No features found in GeoJSON for animation";
+        return;
+    }
+    
+    // Find the path for the active drone
+    for (int i = 0; i < features.size(); ++i) {
+        QJsonObject feature = features[i].toObject();
+        if (feature.contains("properties") && feature["properties"].isObject()) {
+            QJsonObject props = feature["properties"].toObject();
+            if (props.contains("name") && props["name"].toString() == m_activeDroneName) {
+                if (feature.contains("geometry") && feature["geometry"].isObject()) {
+                    QJsonObject geometry = feature["geometry"].toObject();
+                    if (geometry.contains("coordinates") && geometry["coordinates"].isArray()) {
+                        m_currentPath = geometry["coordinates"].toArray();
+                        m_currentPathIndex = 0;
+                        m_isAnimating = true;
+                        
+                        // Start the animation timer
+                        m_animationTimer->start(100); // Update every 100ms
+                        
+                        // Move the drone to the starting position
+                        updateDronePosition();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    
+    qDebug() << "No valid path found for the active drone";
+}
+
+void MapViewer::updateDronePosition()
+{
+    if (!m_isAnimating || m_currentPath.isEmpty() || m_currentPathIndex >= m_currentPath.size()) {
+        m_animationTimer->stop();
+        m_isAnimating = false;
+        emit droneAnimationCompleted();
+        return;
+    }
+    
+    // Get the current coordinates
+    QJsonArray coordArray = m_currentPath[m_currentPathIndex].toArray();
+    if (coordArray.size() < 2) {
+        qDebug() << "Invalid coordinate format";
+        m_animationTimer->stop();
+        m_isAnimating = false;
+        return;
+    }
+    
+    // Extract coordinates
+    double lng = coordArray[0].toDouble();
+    double lat = coordArray[1].toDouble();
+    
+    // Create a JavaScript array of coordinates for the path
+    QString coordsJson = "[";
+    for (int i = 0; i < m_currentPath.size(); ++i) {
+        QJsonArray point = m_currentPath[i].toArray();
+        if (i > 0) coordsJson += ",";
+        coordsJson += "[" + QString::number(point[0].toDouble()) + "," + QString::number(point[1].toDouble()) + "]";
+    }
+    coordsJson += "]";
+    
+    // Call JavaScript function to move the drone
+    QString script = QString("if (typeof window.moveDroneAlongPath === 'function') { "
+                           "window.moveDroneAlongPath(%1, %2); }").arg(coordsJson).arg(m_currentPathIndex);
+    m_webView->page()->runJavaScript(script);
+    
+    // Increment the path index for the next update
+    m_currentPathIndex++;
+    
+    // If we've reached the end of the path, stop the animation
+    if (m_currentPathIndex >= m_currentPath.size()) {
+        m_animationTimer->stop();
+        m_isAnimating = false;
+        emit droneAnimationCompleted();
+    }
+}
+
+void MapViewer::confirmDroneTask(const QString& missionType, const QString& vehicle, const QString& prompt)
+{
+    // Create a confirmation dialog
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Confirm Drone Task");
+    msgBox.setText("Are you sure you want to assign this task to the drone?");
+    msgBox.setInformativeText(QString("Mission Type: %1\nVehicle: %2\nPrompt: %3").arg(missionType, vehicle, prompt));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    
+    int ret = msgBox.exec();
+    
+    if (ret == QMessageBox::Yes) {
+        // User confirmed, start the drone animation
+        startDroneAnimation();
     }
 }
 

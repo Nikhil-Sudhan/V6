@@ -27,6 +27,7 @@ set(SOURCES
     src/dialogs/ResponseDialog.cpp
     src/drone/DroneFunctions.cpp
     src/simulation/SimulationView.cpp
+    src/map.cpp
 )
 
 # Header files
@@ -42,6 +43,7 @@ set(HEADERS
     include/dialogs/ResponseDialog.h
     include/drone/DroneFunctions.h
     include/simulation/SimulationView.h
+    src/map.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
@@ -54,3 +56,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Network
     Qt5::Sql
 ) 
+
+# Copy resources directory to build directory
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/resources
+    ${CMAKE_BINARY_DIR}/resources
+    COMMENT "Copying resources to build directory"
+)
