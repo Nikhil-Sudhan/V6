@@ -1,41 +1,31 @@
-#ifndef MAPVIEWER_H
-#define MAPVIEWER_H
+#ifndef MAPFUNCTIONS_H
+#define MAPFUNCTIONS_H
 
 #include <QWidget>
 #include <QWebEngineView>
-#include <QWebEnginePage>
-#include <QWebEngineProfile>
-#include <QStackedWidget>
-#include <QPushButton>
 #include <QVector3D>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QWebChannel>
+#include <QJsonDocument>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QDateTime>
+#include <QCryptographicHash>
+#include <QMap>
+#include <QRandomGenerator>
+#include <QColor>
+#include <QMessageBox>
 #include <QTimer>
+#include <QTextStream>
 
-// Forward declarations
-class MapFunctions;
-class Mapbox;
-
-// Custom WebEnginePage for debugging
-class DebugWebEnginePage : public QWebEnginePage {
+class MapFunctions : public QObject {
     Q_OBJECT
 public:
-    DebugWebEnginePage(QWebEngineProfile *profile, QObject *parent = nullptr);
-    
-protected:
-    void javaScriptConsoleMessage(JavaScriptConsoleMessageLevel level, const QString &message, 
-                                 int lineNumber, const QString &sourceID) override;
-};
-
-class MapViewer : public QWidget {
-    Q_OBJECT
-public:
-    explicit MapViewer(QWidget* parent = nullptr);
-    ~MapViewer();
+    explicit MapFunctions(QWebEngineView* webView, QObject* parent = nullptr);
+    ~MapFunctions();
     
 public slots:
-    // Proxy slots that forward to MapFunctions
     void setDronePositions(const QVector<QVector3D>& positions);
     void updateDronePath(const QJsonObject& geojsonData);
     void saveGeometryData(const QString& geometryData);
@@ -53,18 +43,25 @@ signals:
     void geometricShapeSaved(const QString& shapeName);
     void droneAnimationCompleted(); 
     
+private slots:
+    void updateDronePosition(); 
+    
 private:
-    QStackedWidget* m_stackedWidget;
     QWebEngineView* m_webView;
+    QString m_lastGeojsonHash;
     QString m_lastGeojsonPath;
-    QTimer* m_fileCheckTimer; 
+    QDateTime m_lastFileModified;
+    QString m_activeDroneName = "Atlas"; 
+    QMap<QString, QString> m_dronePathColors; 
+    QDateTime m_lastShapesFileModified; 
+    QDateTime m_lastDronePathsFileModified; 
     
-    // Map functions handler
-    MapFunctions* m_mapFunctions;
-    
-    // Mapbox handler
-    Mapbox* m_mapbox;
-
+    // Properties for drone animation
+    QTimer* m_animationTimer;
+    QJsonArray m_currentPath;
+    int m_currentPathIndex;
+    double m_animationSpeed; 
+    bool m_isAnimating;
 };
 
-#endif // MAPVIEWER_H
+#endif // MAPFUNCTIONS_H

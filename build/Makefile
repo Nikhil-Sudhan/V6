@@ -334,6 +334,54 @@ src/components/VehicleInfoWidget.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/VehicleInfoWidget.cpp.s
 .PHONY : src/components/VehicleInfoWidget.cpp.s
 
+src/components/mapbox.o: src/components/mapbox.cpp.o
+.PHONY : src/components/mapbox.o
+
+# target to build an object file
+src/components/mapbox.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapbox.cpp.o
+.PHONY : src/components/mapbox.cpp.o
+
+src/components/mapbox.i: src/components/mapbox.cpp.i
+.PHONY : src/components/mapbox.i
+
+# target to preprocess a source file
+src/components/mapbox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapbox.cpp.i
+.PHONY : src/components/mapbox.cpp.i
+
+src/components/mapbox.s: src/components/mapbox.cpp.s
+.PHONY : src/components/mapbox.s
+
+# target to generate assembly for a file
+src/components/mapbox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapbox.cpp.s
+.PHONY : src/components/mapbox.cpp.s
+
+src/components/mapfunctions.o: src/components/mapfunctions.cpp.o
+.PHONY : src/components/mapfunctions.o
+
+# target to build an object file
+src/components/mapfunctions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapfunctions.cpp.o
+.PHONY : src/components/mapfunctions.cpp.o
+
+src/components/mapfunctions.i: src/components/mapfunctions.cpp.i
+.PHONY : src/components/mapfunctions.i
+
+# target to preprocess a source file
+src/components/mapfunctions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapfunctions.cpp.i
+.PHONY : src/components/mapfunctions.cpp.i
+
+src/components/mapfunctions.s: src/components/mapfunctions.cpp.s
+.PHONY : src/components/mapfunctions.s
+
+# target to generate assembly for a file
+src/components/mapfunctions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapfunctions.cpp.s
+.PHONY : src/components/mapfunctions.cpp.s
+
 src/database/DatabaseManager.o: src/database/DatabaseManager.cpp.o
 .PHONY : src/database/DatabaseManager.o
 
@@ -430,30 +478,6 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/map.o: src/map.cpp.o
-.PHONY : src/map.o
-
-# target to build an object file
-src/map.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map.cpp.o
-.PHONY : src/map.cpp.o
-
-src/map.i: src/map.cpp.i
-.PHONY : src/map.i
-
-# target to preprocess a source file
-src/map.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map.cpp.i
-.PHONY : src/map.cpp.i
-
-src/map.s: src/map.cpp.s
-.PHONY : src/map.s
-
-# target to generate assembly for a file
-src/map.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map.cpp.s
-.PHONY : src/map.cpp.s
-
 src/simulation/SimulationView.o: src/simulation/SimulationView.cpp.o
 .PHONY : src/simulation/SimulationView.o
 
@@ -512,6 +536,12 @@ help:
 	@echo "... src/components/VehicleInfoWidget.o"
 	@echo "... src/components/VehicleInfoWidget.i"
 	@echo "... src/components/VehicleInfoWidget.s"
+	@echo "... src/components/mapbox.o"
+	@echo "... src/components/mapbox.i"
+	@echo "... src/components/mapbox.s"
+	@echo "... src/components/mapfunctions.o"
+	@echo "... src/components/mapfunctions.i"
+	@echo "... src/components/mapfunctions.s"
 	@echo "... src/database/DatabaseManager.o"
 	@echo "... src/database/DatabaseManager.i"
 	@echo "... src/database/DatabaseManager.s"
@@ -524,9 +554,6 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/map.o"
-	@echo "... src/map.i"
-	@echo "... src/map.s"
 	@echo "... src/simulation/SimulationView.o"
 	@echo "... src/simulation/SimulationView.i"
 	@echo "... src/simulation/SimulationView.s"

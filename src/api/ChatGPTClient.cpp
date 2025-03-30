@@ -10,26 +10,25 @@
 
 QString loadApiKey() {
     // Direct path to .profile file
-    QString profilePath = "/home/sudhan/V6/.profile";
-    QFile file(profilePath);
+    // QString profilePath = "home/sudhan/V6/.profile";
+    // QFile file(profilePath);
 
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        QString fileContents = in.readAll();
-        QStringList lines = fileContents.split('\n');
-        for (const QString& line : lines) {
-            if (line.startsWith("OPENAI_API_KEY=")) {
-                QString key = line.mid(15).trimmed();
-                qDebug() << "Found API key with length:" << key.length();
-                return key;
-            }
-        }
-        qDebug() << "No API key found in file contents";
-    } else {
-        qDebug() << "Could not open .profile file:" << file.errorString();
-    }
-    
-    return "";
+    // if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    //     QTextStream in(&file);
+    //     QString fileContents = in.readAll();
+    //     QStringList lines = fileContents.split('\n');
+    //     for (const QString& line : lines) {
+    //         if (line.startsWith("OPENAI_API_KEY=")) {
+    //             QString key = line.mid(15).trimmed();
+    //             qDebug() << "Found API key with length:" << key.length();
+    //             return key;
+    //         }
+    //     }
+    //     qDebug() << "No API key found in file contents";
+    // } else {
+    //     qDebug() << "Could not open .profile file:" << file.errorString();
+    // }
+    return "ADD THE OPENAI API KEY HERE";
 }
 
 ChatGPTClient& ChatGPTClient::instance()
@@ -113,8 +112,10 @@ You must return a single Feature object with:
 
 "coordinates": Array of [longitude, latitude] pairs
 
-Constraints
-Base location: [77.9695, 10.3624]
+Constraints of three drone placed 10 meters apart. start the geojson with the base location of the drone
+Base Location of Atlas: [77.9695, 10.3624]
+Base Location of Bolt: [77.9695, 10.36249]
+Base Location of Barbarian: [77.96961, 10.3624]
 
 At least 3 waypoints forming a "LineString"
 
@@ -247,11 +248,7 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
     droneColors["Atlas"] = "#FF5733";    // Bright red/orange
     droneColors["Bolt"] = "#33A8FF";     // Bright blue
     droneColors["Barbarian"] = "#33FF57"; // Bright green
-    droneColors["Phantom"] = "#A833FF";  // Purple
-    droneColors["Shadow"] = "#FFD700";   // Gold
-    droneColors["Hawk"] = "#FF33A8";     // Pink
-    droneColors["Eagle"] = "#00FFFF";    // Cyan
-    droneColors["Falcon"] = "#FF8C00";   // Dark orange
+   
             
     // If the drone has a predefined color, use it
     if (droneColors.contains(vehicleName)) {

@@ -21,13 +21,15 @@ set(SOURCES
     src/components/LeftSidebar.cpp
     src/components/RightSidebar.cpp
     src/components/MapViewer.cpp
+    src/components/mapfunctions.cpp
+    src/components/mapbox.cpp
     src/components/VehicleInfoWidget.cpp
     src/database/DatabaseManager.cpp
     src/api/ChatGPTClient.cpp
     src/dialogs/ResponseDialog.cpp
     src/drone/DroneFunctions.cpp
     src/simulation/SimulationView.cpp
-    src/map.cpp
+    
 )
 
 # Header files
@@ -37,13 +39,15 @@ set(HEADERS
     include/components/LeftSidebar.h
     include/components/RightSidebar.h
     include/components/MapViewer.h
+    include/components/mapfunctions.h
+    include/components/mapbox.h
     include/components/VehicleInfoWidget.h
     include/database/DatabaseManager.h
     include/api/ChatGPTClient.h
     include/dialogs/ResponseDialog.h
     include/drone/DroneFunctions.h
     include/simulation/SimulationView.h
-    src/map.h
+    
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})

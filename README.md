@@ -73,3 +73,8 @@ cd build
 ./aerialsystem
 ```
 
+## API Key
+
+Add the OpenAI API key to the in the ChatGPTClient.cpp file. 
+
+
