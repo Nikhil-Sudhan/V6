@@ -117,61 +117,61 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named qt_simple_interface
+# Target rules for targets named aerialsystem
 
 # Build rule for target.
-qt_simple_interface: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 qt_simple_interface
-.PHONY : qt_simple_interface
+aerialsystem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 aerialsystem
+.PHONY : aerialsystem
 
 # fast build rule for target.
-qt_simple_interface/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/build
-.PHONY : qt_simple_interface/fast
+aerialsystem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/build
+.PHONY : aerialsystem/fast
 
 #=============================================================================
-# Target rules for targets named qt_simple_interface_autogen
+# Target rules for targets named aerialsystem_autogen
 
 # Build rule for target.
-qt_simple_interface_autogen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 qt_simple_interface_autogen
-.PHONY : qt_simple_interface_autogen
+aerialsystem_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 aerialsystem_autogen
+.PHONY : aerialsystem_autogen
 
 # fast build rule for target.
-qt_simple_interface_autogen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface_autogen.dir/build.make CMakeFiles/qt_simple_interface_autogen.dir/build
-.PHONY : qt_simple_interface_autogen/fast
+aerialsystem_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem_autogen.dir/build.make CMakeFiles/aerialsystem_autogen.dir/build
+.PHONY : aerialsystem_autogen/fast
 
-qt_simple_interface_autogen/mocs_compilation.o: qt_simple_interface_autogen/mocs_compilation.cpp.o
-.PHONY : qt_simple_interface_autogen/mocs_compilation.o
+aerialsystem_autogen/mocs_compilation.o: aerialsystem_autogen/mocs_compilation.cpp.o
+.PHONY : aerialsystem_autogen/mocs_compilation.o
 
 # target to build an object file
-qt_simple_interface_autogen/mocs_compilation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.o
-.PHONY : qt_simple_interface_autogen/mocs_compilation.cpp.o
+aerialsystem_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/aerialsystem_autogen/mocs_compilation.cpp.o
+.PHONY : aerialsystem_autogen/mocs_compilation.cpp.o
 
-qt_simple_interface_autogen/mocs_compilation.i: qt_simple_interface_autogen/mocs_compilation.cpp.i
-.PHONY : qt_simple_interface_autogen/mocs_compilation.i
+aerialsystem_autogen/mocs_compilation.i: aerialsystem_autogen/mocs_compilation.cpp.i
+.PHONY : aerialsystem_autogen/mocs_compilation.i
 
 # target to preprocess a source file
-qt_simple_interface_autogen/mocs_compilation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.i
-.PHONY : qt_simple_interface_autogen/mocs_compilation.cpp.i
+aerialsystem_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/aerialsystem_autogen/mocs_compilation.cpp.i
+.PHONY : aerialsystem_autogen/mocs_compilation.cpp.i
 
-qt_simple_interface_autogen/mocs_compilation.s: qt_simple_interface_autogen/mocs_compilation.cpp.s
-.PHONY : qt_simple_interface_autogen/mocs_compilation.s
+aerialsystem_autogen/mocs_compilation.s: aerialsystem_autogen/mocs_compilation.cpp.s
+.PHONY : aerialsystem_autogen/mocs_compilation.s
 
 # target to generate assembly for a file
-qt_simple_interface_autogen/mocs_compilation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/qt_simple_interface_autogen/mocs_compilation.cpp.s
-.PHONY : qt_simple_interface_autogen/mocs_compilation.cpp.s
+aerialsystem_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/aerialsystem_autogen/mocs_compilation.cpp.s
+.PHONY : aerialsystem_autogen/mocs_compilation.cpp.s
 
 src/MainWindow.o: src/MainWindow.cpp.o
 .PHONY : src/MainWindow.o
 
 # target to build an object file
 src/MainWindow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/MainWindow.cpp.o
 .PHONY : src/MainWindow.cpp.o
 
 src/MainWindow.i: src/MainWindow.cpp.i
@@ -179,7 +179,7 @@ src/MainWindow.i: src/MainWindow.cpp.i
 
 # target to preprocess a source file
 src/MainWindow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/MainWindow.cpp.i
 .PHONY : src/MainWindow.cpp.i
 
 src/MainWindow.s: src/MainWindow.cpp.s
@@ -187,7 +187,7 @@ src/MainWindow.s: src/MainWindow.cpp.s
 
 # target to generate assembly for a file
 src/MainWindow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/MainWindow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/MainWindow.cpp.s
 .PHONY : src/MainWindow.cpp.s
 
 src/api/ChatGPTClient.o: src/api/ChatGPTClient.cpp.o
@@ -195,7 +195,7 @@ src/api/ChatGPTClient.o: src/api/ChatGPTClient.cpp.o
 
 # target to build an object file
 src/api/ChatGPTClient.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/api/ChatGPTClient.cpp.o
 .PHONY : src/api/ChatGPTClient.cpp.o
 
 src/api/ChatGPTClient.i: src/api/ChatGPTClient.cpp.i
@@ -203,7 +203,7 @@ src/api/ChatGPTClient.i: src/api/ChatGPTClient.cpp.i
 
 # target to preprocess a source file
 src/api/ChatGPTClient.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/api/ChatGPTClient.cpp.i
 .PHONY : src/api/ChatGPTClient.cpp.i
 
 src/api/ChatGPTClient.s: src/api/ChatGPTClient.cpp.s
@@ -211,7 +211,7 @@ src/api/ChatGPTClient.s: src/api/ChatGPTClient.cpp.s
 
 # target to generate assembly for a file
 src/api/ChatGPTClient.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/api/ChatGPTClient.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/api/ChatGPTClient.cpp.s
 .PHONY : src/api/ChatGPTClient.cpp.s
 
 src/components/LeftSidebar.o: src/components/LeftSidebar.cpp.o
@@ -219,7 +219,7 @@ src/components/LeftSidebar.o: src/components/LeftSidebar.cpp.o
 
 # target to build an object file
 src/components/LeftSidebar.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftSidebar.cpp.o
 .PHONY : src/components/LeftSidebar.cpp.o
 
 src/components/LeftSidebar.i: src/components/LeftSidebar.cpp.i
@@ -227,7 +227,7 @@ src/components/LeftSidebar.i: src/components/LeftSidebar.cpp.i
 
 # target to preprocess a source file
 src/components/LeftSidebar.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftSidebar.cpp.i
 .PHONY : src/components/LeftSidebar.cpp.i
 
 src/components/LeftSidebar.s: src/components/LeftSidebar.cpp.s
@@ -235,7 +235,7 @@ src/components/LeftSidebar.s: src/components/LeftSidebar.cpp.s
 
 # target to generate assembly for a file
 src/components/LeftSidebar.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/LeftSidebar.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftSidebar.cpp.s
 .PHONY : src/components/LeftSidebar.cpp.s
 
 src/components/MapViewer.o: src/components/MapViewer.cpp.o
@@ -243,7 +243,7 @@ src/components/MapViewer.o: src/components/MapViewer.cpp.o
 
 # target to build an object file
 src/components/MapViewer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/MapViewer.cpp.o
 .PHONY : src/components/MapViewer.cpp.o
 
 src/components/MapViewer.i: src/components/MapViewer.cpp.i
@@ -251,7 +251,7 @@ src/components/MapViewer.i: src/components/MapViewer.cpp.i
 
 # target to preprocess a source file
 src/components/MapViewer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/MapViewer.cpp.i
 .PHONY : src/components/MapViewer.cpp.i
 
 src/components/MapViewer.s: src/components/MapViewer.cpp.s
@@ -259,7 +259,7 @@ src/components/MapViewer.s: src/components/MapViewer.cpp.s
 
 # target to generate assembly for a file
 src/components/MapViewer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/MapViewer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/MapViewer.cpp.s
 .PHONY : src/components/MapViewer.cpp.s
 
 src/components/RightSidebar.o: src/components/RightSidebar.cpp.o
@@ -267,7 +267,7 @@ src/components/RightSidebar.o: src/components/RightSidebar.cpp.o
 
 # target to build an object file
 src/components/RightSidebar.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/RightSidebar.cpp.o
 .PHONY : src/components/RightSidebar.cpp.o
 
 src/components/RightSidebar.i: src/components/RightSidebar.cpp.i
@@ -275,7 +275,7 @@ src/components/RightSidebar.i: src/components/RightSidebar.cpp.i
 
 # target to preprocess a source file
 src/components/RightSidebar.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/RightSidebar.cpp.i
 .PHONY : src/components/RightSidebar.cpp.i
 
 src/components/RightSidebar.s: src/components/RightSidebar.cpp.s
@@ -283,7 +283,7 @@ src/components/RightSidebar.s: src/components/RightSidebar.cpp.s
 
 # target to generate assembly for a file
 src/components/RightSidebar.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/RightSidebar.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/RightSidebar.cpp.s
 .PHONY : src/components/RightSidebar.cpp.s
 
 src/components/TopBar.o: src/components/TopBar.cpp.o
@@ -291,7 +291,7 @@ src/components/TopBar.o: src/components/TopBar.cpp.o
 
 # target to build an object file
 src/components/TopBar.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/TopBar.cpp.o
 .PHONY : src/components/TopBar.cpp.o
 
 src/components/TopBar.i: src/components/TopBar.cpp.i
@@ -299,7 +299,7 @@ src/components/TopBar.i: src/components/TopBar.cpp.i
 
 # target to preprocess a source file
 src/components/TopBar.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/TopBar.cpp.i
 .PHONY : src/components/TopBar.cpp.i
 
 src/components/TopBar.s: src/components/TopBar.cpp.s
@@ -307,7 +307,7 @@ src/components/TopBar.s: src/components/TopBar.cpp.s
 
 # target to generate assembly for a file
 src/components/TopBar.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/TopBar.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/TopBar.cpp.s
 .PHONY : src/components/TopBar.cpp.s
 
 src/components/VehicleInfoWidget.o: src/components/VehicleInfoWidget.cpp.o
@@ -315,7 +315,7 @@ src/components/VehicleInfoWidget.o: src/components/VehicleInfoWidget.cpp.o
 
 # target to build an object file
 src/components/VehicleInfoWidget.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/VehicleInfoWidget.cpp.o
 .PHONY : src/components/VehicleInfoWidget.cpp.o
 
 src/components/VehicleInfoWidget.i: src/components/VehicleInfoWidget.cpp.i
@@ -323,7 +323,7 @@ src/components/VehicleInfoWidget.i: src/components/VehicleInfoWidget.cpp.i
 
 # target to preprocess a source file
 src/components/VehicleInfoWidget.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/VehicleInfoWidget.cpp.i
 .PHONY : src/components/VehicleInfoWidget.cpp.i
 
 src/components/VehicleInfoWidget.s: src/components/VehicleInfoWidget.cpp.s
@@ -331,7 +331,7 @@ src/components/VehicleInfoWidget.s: src/components/VehicleInfoWidget.cpp.s
 
 # target to generate assembly for a file
 src/components/VehicleInfoWidget.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/components/VehicleInfoWidget.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/VehicleInfoWidget.cpp.s
 .PHONY : src/components/VehicleInfoWidget.cpp.s
 
 src/database/DatabaseManager.o: src/database/DatabaseManager.cpp.o
@@ -339,7 +339,7 @@ src/database/DatabaseManager.o: src/database/DatabaseManager.cpp.o
 
 # target to build an object file
 src/database/DatabaseManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/database/DatabaseManager.cpp.o
 .PHONY : src/database/DatabaseManager.cpp.o
 
 src/database/DatabaseManager.i: src/database/DatabaseManager.cpp.i
@@ -347,7 +347,7 @@ src/database/DatabaseManager.i: src/database/DatabaseManager.cpp.i
 
 # target to preprocess a source file
 src/database/DatabaseManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/database/DatabaseManager.cpp.i
 .PHONY : src/database/DatabaseManager.cpp.i
 
 src/database/DatabaseManager.s: src/database/DatabaseManager.cpp.s
@@ -355,7 +355,7 @@ src/database/DatabaseManager.s: src/database/DatabaseManager.cpp.s
 
 # target to generate assembly for a file
 src/database/DatabaseManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/database/DatabaseManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/database/DatabaseManager.cpp.s
 .PHONY : src/database/DatabaseManager.cpp.s
 
 src/dialogs/ResponseDialog.o: src/dialogs/ResponseDialog.cpp.o
@@ -363,7 +363,7 @@ src/dialogs/ResponseDialog.o: src/dialogs/ResponseDialog.cpp.o
 
 # target to build an object file
 src/dialogs/ResponseDialog.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/dialogs/ResponseDialog.cpp.o
 .PHONY : src/dialogs/ResponseDialog.cpp.o
 
 src/dialogs/ResponseDialog.i: src/dialogs/ResponseDialog.cpp.i
@@ -371,7 +371,7 @@ src/dialogs/ResponseDialog.i: src/dialogs/ResponseDialog.cpp.i
 
 # target to preprocess a source file
 src/dialogs/ResponseDialog.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/dialogs/ResponseDialog.cpp.i
 .PHONY : src/dialogs/ResponseDialog.cpp.i
 
 src/dialogs/ResponseDialog.s: src/dialogs/ResponseDialog.cpp.s
@@ -379,7 +379,7 @@ src/dialogs/ResponseDialog.s: src/dialogs/ResponseDialog.cpp.s
 
 # target to generate assembly for a file
 src/dialogs/ResponseDialog.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/dialogs/ResponseDialog.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/dialogs/ResponseDialog.cpp.s
 .PHONY : src/dialogs/ResponseDialog.cpp.s
 
 src/drone/DroneFunctions.o: src/drone/DroneFunctions.cpp.o
@@ -387,7 +387,7 @@ src/drone/DroneFunctions.o: src/drone/DroneFunctions.cpp.o
 
 # target to build an object file
 src/drone/DroneFunctions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/drone/DroneFunctions.cpp.o
 .PHONY : src/drone/DroneFunctions.cpp.o
 
 src/drone/DroneFunctions.i: src/drone/DroneFunctions.cpp.i
@@ -395,7 +395,7 @@ src/drone/DroneFunctions.i: src/drone/DroneFunctions.cpp.i
 
 # target to preprocess a source file
 src/drone/DroneFunctions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/drone/DroneFunctions.cpp.i
 .PHONY : src/drone/DroneFunctions.cpp.i
 
 src/drone/DroneFunctions.s: src/drone/DroneFunctions.cpp.s
@@ -403,7 +403,7 @@ src/drone/DroneFunctions.s: src/drone/DroneFunctions.cpp.s
 
 # target to generate assembly for a file
 src/drone/DroneFunctions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/drone/DroneFunctions.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/drone/DroneFunctions.cpp.s
 .PHONY : src/drone/DroneFunctions.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -411,7 +411,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -419,7 +419,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -427,7 +427,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/map.o: src/map.cpp.o
@@ -435,7 +435,7 @@ src/map.o: src/map.cpp.o
 
 # target to build an object file
 src/map.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/map.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map.cpp.o
 .PHONY : src/map.cpp.o
 
 src/map.i: src/map.cpp.i
@@ -443,7 +443,7 @@ src/map.i: src/map.cpp.i
 
 # target to preprocess a source file
 src/map.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/map.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map.cpp.i
 .PHONY : src/map.cpp.i
 
 src/map.s: src/map.cpp.s
@@ -451,7 +451,7 @@ src/map.s: src/map.cpp.s
 
 # target to generate assembly for a file
 src/map.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/map.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map.cpp.s
 .PHONY : src/map.cpp.s
 
 src/simulation/SimulationView.o: src/simulation/SimulationView.cpp.o
@@ -459,7 +459,7 @@ src/simulation/SimulationView.o: src/simulation/SimulationView.cpp.o
 
 # target to build an object file
 src/simulation/SimulationView.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/simulation/SimulationView.cpp.o
 .PHONY : src/simulation/SimulationView.cpp.o
 
 src/simulation/SimulationView.i: src/simulation/SimulationView.cpp.i
@@ -467,7 +467,7 @@ src/simulation/SimulationView.i: src/simulation/SimulationView.cpp.i
 
 # target to preprocess a source file
 src/simulation/SimulationView.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/simulation/SimulationView.cpp.i
 .PHONY : src/simulation/SimulationView.cpp.i
 
 src/simulation/SimulationView.s: src/simulation/SimulationView.cpp.s
@@ -475,7 +475,7 @@ src/simulation/SimulationView.s: src/simulation/SimulationView.cpp.s
 
 # target to generate assembly for a file
 src/simulation/SimulationView.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qt_simple_interface.dir/build.make CMakeFiles/qt_simple_interface.dir/src/simulation/SimulationView.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/simulation/SimulationView.cpp.s
 .PHONY : src/simulation/SimulationView.cpp.s
 
 # Help Target
@@ -486,11 +486,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... qt_simple_interface_autogen"
-	@echo "... qt_simple_interface"
-	@echo "... qt_simple_interface_autogen/mocs_compilation.o"
-	@echo "... qt_simple_interface_autogen/mocs_compilation.i"
-	@echo "... qt_simple_interface_autogen/mocs_compilation.s"
+	@echo "... aerialsystem_autogen"
+	@echo "... aerialsystem"
+	@echo "... aerialsystem_autogen/mocs_compilation.o"
+	@echo "... aerialsystem_autogen/mocs_compilation.i"
+	@echo "... aerialsystem_autogen/mocs_compilation.s"
 	@echo "... src/MainWindow.o"
 	@echo "... src/MainWindow.i"
 	@echo "... src/MainWindow.s"

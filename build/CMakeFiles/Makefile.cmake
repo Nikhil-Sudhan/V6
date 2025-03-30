@@ -117,12 +117,12 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/qt_simple_interface_autogen.dir/AutogenInfo.json"
+  "CMakeFiles/aerialsystem_autogen.dir/AutogenInfo.json"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/qt_simple_interface.dir/DependInfo.cmake"
-  "CMakeFiles/qt_simple_interface_autogen.dir/DependInfo.cmake"
+  "CMakeFiles/aerialsystem.dir/DependInfo.cmake"
+  "CMakeFiles/aerialsystem_autogen.dir/DependInfo.cmake"
   )

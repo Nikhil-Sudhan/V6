@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     
     
     // Set window properties
-    setWindowTitle("UAV Control System");
+    setWindowTitle("Aerial System");
     showMaximized();
     
     // Create central widget

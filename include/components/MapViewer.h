@@ -82,7 +82,7 @@ private:
     
     void setupUI();
     void loadMap();
-    void loadDroneModel(); 
+
 };
 
 #endif // MAPVIEWER_H
