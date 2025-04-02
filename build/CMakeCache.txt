@@ -22,13 +22,13 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=
+CMAKE_BUILD_TYPE:STRING=Release
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
+CMAKE_CXX_COMPILER:STRING=/usr/bin/c++
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -54,7 +54,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //C compiler
-CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+CMAKE_C_COMPILER:STRING=/usr/bin/cc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -259,15 +259,6 @@ aerialsystem_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 aerialsystem_SOURCE_DIR:STATIC=/home/sudhan/V6
-
-//Value Computed by CMake
-qt_simple_interface_BINARY_DIR:STATIC=/home/sudhan/V6/build
-
-//Value Computed by CMake
-qt_simple_interface_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-qt_simple_interface_SOURCE_DIR:STATIC=/home/sudhan/V6
 
 
 ########################

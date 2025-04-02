@@ -1,6 +1,7 @@
 #include "../../include/components/MapViewer.h"
-#include "../../include/components/mapfunctions.h"
-#include "../../include/components/mapbox.h"
+#include "../../include/map/mapfunctions.h"
+#include "../../include/map/mapbox.h"
+#include "../../include/map/geometry.h"
 #include "../../include/simulation/SimulationView.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -71,6 +72,10 @@ MapViewer::MapViewer(QWidget* parent) : QWidget(parent)
     m_mapbox = new Mapbox(m_webView, this);
     m_mapbox->loadMap();
     
+    // Create the Geometry instance and connect signals
+    m_geometry = new Geometry(m_webView, this);
+    connect(m_geometry, &Geometry::geometricShapeSaved, this, &MapViewer::geometricShapeSaved);
+    
     // Initial check for file changes
     QTimer::singleShot(500, this, &MapViewer::checkForFileChanges);
 }
@@ -95,26 +100,26 @@ void MapViewer::setActiveDrone(const QString& droneName)
 
 void MapViewer::saveGeometryData(const QString& geometryData)
 {
-    // Forward to MapFunctions
-    m_mapFunctions->saveGeometryData(geometryData);
+    // Forward to Geometry instead of MapFunctions
+    m_geometry->saveGeometryData(geometryData);
 }
 
 void MapViewer::updateGeometryData(const QString& geometryData)
 {
-    // Forward to MapFunctions
-    m_mapFunctions->updateGeometryData(geometryData);
+    // Forward to Geometry instead of MapFunctions
+    m_geometry->updateGeometryData(geometryData);
 }
 
 void MapViewer::saveGeometricShape(const QString& shapeData, const QString& shapeName)
 {
-    // Forward to MapFunctions
-    m_mapFunctions->saveGeometricShape(shapeData, shapeName);
+    // Forward to Geometry instead of MapFunctions
+    m_geometry->saveGeometricShape(shapeData, shapeName);
 }
 
 void MapViewer::loadGeometricShapes()
 {
-    // Forward to MapFunctions
-    m_mapFunctions->loadGeometricShapes();
+    // Forward to Geometry instead of MapFunctions
+    m_geometry->loadGeometricShapes();
 }
 
 void MapViewer::checkForFileChanges()
@@ -125,25 +130,18 @@ void MapViewer::checkForFileChanges()
 
 void MapViewer::deleteGeometricShape(const QString& shapeName)
 {
-    // Forward to MapFunctions
-    m_mapFunctions->deleteGeometricShape(shapeName);
+    // Forward to Geometry instead of MapFunctions
+    m_geometry->deleteGeometricShape(shapeName);
 }
 
 void MapViewer::clearDronePathsOnExit()
 {
     // Forward to MapFunctions
     m_mapFunctions->clearDronePathsOnExit();
+    
+    // Also clear all geometry data
+    m_geometry->clearAllGeometryOnExit();
 }
-
-
-
-void MapViewer::startDroneAnimation()
-{
-    // Forward to MapFunctions
-    m_mapFunctions->startDroneAnimation();
-}
-
-
 
 void MapViewer::confirmDroneTask(const QString& missionType, const QString& vehicle, const QString& prompt)
 {
@@ -156,4 +154,5 @@ MapViewer::~MapViewer()
     // The MapFunctions destructor will handle clearing drone paths
     delete m_mapFunctions;
     delete m_mapbox;
+    delete m_geometry;
 }

@@ -9,6 +9,7 @@
 #include <QJsonArray>
 #include <QString>
 #include <QDir>
+#include <QFile>
 
 class ChatGPTClient : public QObject
 {
@@ -32,9 +33,12 @@ private:
     ChatGPTClient(const ChatGPTClient&) = delete;
     ChatGPTClient& operator=(const ChatGPTClient&) = delete;
     
+    // Helper method to load geometric shapes data
+    QJsonObject loadGeometricShapesData();
+    
     QNetworkAccessManager* networkManager;
     QString apiKey;
     int currentMissionId;
 };
 
-#endif // CHATGPTCLIENT_H 
+#endif // CHATGPTCLIENT_H

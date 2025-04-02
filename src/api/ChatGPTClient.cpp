@@ -7,28 +7,30 @@
 #include <QTextStream>
 #include <QProcessEnvironment>
 #include <QCoreApplication>
+#include <QJsonDocument>
+#include <QFileInfo>
 
 QString loadApiKey() {
     // Direct path to .profile file
-    // QString profilePath = "home/sudhan/V6/.profile";
-    // QFile file(profilePath);
+    QString profilePath = "/home/sudhan/V6/.profile";
+    QFile file(profilePath);
 
-    // if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    //     QTextStream in(&file);
-    //     QString fileContents = in.readAll();
-    //     QStringList lines = fileContents.split('\n');
-    //     for (const QString& line : lines) {
-    //         if (line.startsWith("OPENAI_API_KEY=")) {
-    //             QString key = line.mid(15).trimmed();
-    //             qDebug() << "Found API key with length:" << key.length();
-    //             return key;
-    //         }
-    //     }
-    //     qDebug() << "No API key found in file contents";
-    // } else {
-    //     qDebug() << "Could not open .profile file:" << file.errorString();
-    // }
-    return "ADD THE OPENAI API KEY HERE";
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        QString fileContents = in.readAll();
+        QStringList lines = fileContents.split('\n');
+        for (const QString& line : lines) {
+            if (line.startsWith("OPENAI_API_KEY=")) {
+                QString key = line.mid(15).trimmed();
+                qDebug() << "Found API key with length:" << key.length();
+                return key;
+            }
+        }
+        qDebug() << "No API key found in file contents";
+    } else {
+        qDebug() << "Could not open .profile file:" << file.errorString();
+    }
+    return "";
 }
 
 ChatGPTClient& ChatGPTClient::instance()
@@ -82,6 +84,9 @@ void ChatGPTClient::sendPrompt(const QString& missionType, const QString& vehicl
     // Set up authorization header
     QString authHeader = QString("Bearer %1").arg(apiKey);
     request.setRawHeader("Authorization", authHeader.toUtf8());
+    
+    // Load geometric shapes data
+    QJsonObject geometricShapesData = loadGeometricShapesData();
     
     // Create the JSON payload
     QJsonObject payload;
@@ -151,6 +156,13 @@ Keep the response strictly in this format every time. No variations.
 - Include the drone name in the properties.)";
     messages.append(systemMessage);
     
+    // Add geometric shapes context message
+    QJsonObject geometricShapesMessage;
+    geometricShapesMessage["role"] = "system";
+    geometricShapesMessage["content"] = QString("The following geometric shapes are present in the area. Consider these when planning the drone path:\n%1")
+                                        .arg(QString(QJsonDocument(geometricShapesData).toJson(QJsonDocument::Indented)));
+    messages.append(geometricShapesMessage);
+    
     // User message with mission details
     QJsonObject userMessage;
     userMessage["role"] = "user";
@@ -163,6 +175,58 @@ Keep the response strictly in this format every time. No variations.
     // Send the request
     QJsonDocument doc(payload);
     networkManager->post(request, doc.toJson());
+}
+
+QJsonObject ChatGPTClient::loadGeometricShapesData()
+{
+    // Get application path
+    QString geojsonDir = QDir::currentPath() + "/drone_geojson";
+    
+    // Path to the geometric shapes file
+    QString shapesFilename = geojsonDir + "/geometric_shapes.geojson";
+    QFileInfo fileInfo(shapesFilename);
+    
+    // Create empty GeoJSON object as default
+    QJsonObject emptyGeoJson;
+    emptyGeoJson["type"] = "FeatureCollection";
+    emptyGeoJson["features"] = QJsonArray();
+    
+    // Check if file exists
+    if (!fileInfo.exists()) {
+        qDebug() << "Geometric shapes file does not exist, creating empty one for API call";
+        
+        // Ensure directory exists
+        QDir dir(geojsonDir);
+        if (!dir.exists()) {
+            dir.mkpath(".");
+        }
+        
+        // Create empty file
+        QFile file(shapesFilename);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QJsonDocument doc(emptyGeoJson);
+            file.write(doc.toJson());
+            file.close();
+        }
+        
+        return emptyGeoJson;
+    }
+    
+    // File exists, read it
+    QFile file(shapesFilename);
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+        
+        if (!doc.isNull() && doc.isObject()) {
+            qDebug() << "Successfully loaded geometric shapes data for API call";
+            return doc.object();
+        }
+    }
+    
+    // If we couldn't read the file or it was invalid, return empty GeoJSON
+    qDebug() << "Failed to read geometric shapes file, using empty data for API call";
+    return emptyGeoJson;
 }
 
 void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
@@ -219,6 +283,10 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
     // Get the Feature object
     QJsonObject feature = featureDoc.object();
     
+    // Extract mission details from the GeoJSON properties
+    QJsonObject properties = feature.value("properties").toObject();
+    QString missionTitle = properties.value("name").toString();
+    
     // Setup paths
     QString appPath = QCoreApplication::applicationDirPath();
     QString geojsonDir = appPath + "/drone_geojson";
@@ -229,17 +297,55 @@ void ChatGPTClient::handleNetworkReply(QNetworkReply* reply)
         dir.mkpath(".");
     }
     
-    // Get vehicle name from database
+    // Get vehicle name and mission type from database
     QSqlQuery query;
-    query.prepare("SELECT vehicle FROM missions WHERE id = ?");
+    query.prepare("SELECT mission_type, vehicle, prompt FROM missions WHERE id = ?");
     query.addBindValue(currentMissionId);
+    QString missionType = "";
     QString vehicleName = "drone";
+    QString prompt = "";
     if (query.exec() && query.next()) {
-        vehicleName = query.value(0).toString();
+        missionType = query.value(0).toString();
+        vehicleName = query.value(1).toString();
+        prompt = query.value(2).toString();
+    }
+    
+    // Extract asset objective from the prompt or use a default summary
+    QString assetObjective = prompt;
+    if (assetObjective.length() > 100) {
+        assetObjective = assetObjective.left(100) + "...";
+    }
+    
+    // Use the current system username or a default
+    QString userName = qgetenv("USER");
+    if (userName.isEmpty()) {
+        userName = "system";
+    }
+    
+    // Update mission data with enhanced information
+    if (currentMissionId > 0) {
+        // First delete the existing record
+        QSqlQuery deleteQuery;
+        deleteQuery.prepare("DELETE FROM missions WHERE id = ?");
+        deleteQuery.addBindValue(currentMissionId);
+        deleteQuery.exec();
+        
+        // Then save the enhanced data
+        if (!DatabaseManager::instance().saveEnhancedMissionData(
+                missionType, missionTitle, userName, vehicleName, prompt, assetObjective)) {
+            qDebug() << "Failed to update mission with enhanced data";
+        } else {
+            // Get the new mission ID
+            QSqlQuery newIdQuery;
+            newIdQuery.exec("SELECT last_insert_rowid()");
+            if (newIdQuery.next()) {
+                currentMissionId = newIdQuery.value(0).toInt();
+                qDebug() << "Updated mission with enhanced data. New ID:" << currentMissionId;
+            }
+        }
     }
     
     // Add the drone name and color to properties
-    QJsonObject properties = feature.value("properties").toObject();
     properties["name"] = vehicleName;
     properties["type"] = "path";
     

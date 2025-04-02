@@ -1,9 +1,14 @@
-#include "../../include/components/RightSidebar.h"
+#include "../../../include/components/RightSidebar.h"
+#include "../../../include/components/RightsideBar/taskdetails.h"
+#include "../../../include/database/DatabaseManager.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QFont>
 #include <QSizePolicy>
 #include <QIcon>
+#include <QPushButton>
+#include <QStandardPaths>
+#include <QDebug>
 
 RightSidebar::RightSidebar(QWidget* parent) : QObject(parent)
 {
@@ -21,17 +26,24 @@ void RightSidebar::createToolBar(QWidget* parent)
     rightToolBar->setMovable(false);
     rightToolBar->setOrientation(Qt::Vertical);
     
-    // Set toolbar width
-    rightToolBar->setMinimumWidth(50);
-    rightToolBar->setMaximumWidth(50);
+    // Set toolbar width to match LeftSidebar
+    rightToolBar->setMinimumWidth(90);
+    rightToolBar->setMaximumWidth(90);
     
     taskDetailsAction = new QAction(parent);
     taskDetailsAction->setIcon(QIcon("/home/sudhan/V6/assets/icons/tasks.png"));
     taskDetailsAction->setToolTip("Task Details");
     
-    rightToolBar->setIconSize(QSize(32, 32));
+    // Fallback for icon if it doesn't load
+    if (taskDetailsAction->icon().isNull()) {
+        qDebug() << "Warning: Task details icon failed to load, using fallback";
+        taskDetailsAction->setText("Tasks");
+    }
     
-    // Remove spacing between items
+    // Set icon size to match LeftSidebar
+    rightToolBar->setIconSize(QSize(42, 42));
+    
+    // Style to match LeftSidebar
     rightToolBar->setStyleSheet(R"(
         QToolBar {
             spacing: 0px;
@@ -54,7 +66,7 @@ void RightSidebar::createToolBar(QWidget* parent)
         }
     )");
     
-    // Add action directly without spacers
+    // Add action
     rightToolBar->addAction(taskDetailsAction);
 }
 
@@ -64,107 +76,90 @@ void RightSidebar::createDockWidget(QWidget* parent)
     rightPanelDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
     rightPanelDock->setAllowedAreas(Qt::RightDockWidgetArea);
     
-    // Set panel width
+    // Set panel dimensions to match LeftSidebar
     rightPanelDock->setMinimumWidth(350);
     rightPanelDock->setMaximumWidth(350);
+    rightPanelDock->setMinimumHeight(600);
+    
+    // Set panel styling
+    rightPanelDock->setStyleSheet(R"(
+        QDockWidget {
+            border: none;
+            background-color: #1a1a1a;
+        }
+        QWidget {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+    )");
+    
+    // Create a container widget for the dock
+    QWidget* dockContents = new QWidget(rightPanelDock);
+    rightPanelDock->setWidget(dockContents);
     
     rightPanelDock->hide(); // Hide by default
 }
 
 void RightSidebar::createPanel()
 {
-    QWidget* taskPanel = new QWidget();
-    QVBoxLayout* taskLayout = new QVBoxLayout(taskPanel);
-    taskLayout->setSpacing(20);
-    taskLayout->setContentsMargins(20, 20, 20, 20);
-
-    // Add title with icon
-    QWidget* titleContainer = new QWidget();
-    QHBoxLayout* titleLayout = new QHBoxLayout(titleContainer);
-    titleLayout->setContentsMargins(0, 0, 0, 0);
+    // Create the task details widget
+    TaskDetails* taskDetailsPanel = new TaskDetails();
     
-    QLabel* titleIcon = new QLabel("📋");
-    QFont iconFont = titleIcon->font();
-    iconFont.setPointSize(18);
-    titleIcon->setFont(iconFont);
+    // Connect signals
+    connect(taskDetailsPanel, &TaskDetails::assignTask, this, &RightSidebar::assignTask);
     
-    QLabel* titleLabel = new QLabel("Task Details");
-    QFont titleFont = titleLabel->font();
-    titleFont.setPointSize(16);
-    titleFont.setBold(true);
-    titleLabel->setFont(titleFont);
+    // Set as dock widget content
+    rightPanelDock->setWidget(taskDetailsPanel);
     
-    titleLayout->addWidget(titleIcon);
-    titleLayout->addWidget(titleLabel);
-    titleLayout->addStretch();
-    
-    taskLayout->addWidget(titleContainer);
-    
-    // Add separator
-    QFrame* separator = new QFrame();
-    separator->setFrameShape(QFrame::HLine);
-    separator->setFrameShadow(QFrame::Sunken);
-    separator->setStyleSheet("background-color: #00a6ff;");
-    taskLayout->addWidget(separator);
-
-    // Add content with styled sections
-    QLabel* currentTasksTitle = new QLabel("Current Tasks");
-    currentTasksTitle->setStyleSheet("font-weight: bold; color: #00a6ff; font-size: 14px;");
-    taskLayout->addWidget(currentTasksTitle);
-    
-    QLabel* currentTasksList = new QLabel(
-        "• <b>Surveillance Mission</b> - <span style='color:#4CAF50;'>In Progress</span>\n"
-        "• <b>Emergency Response</b> - <span style='color:#FFC107;'>Pending</span>"
-    );
-    currentTasksList->setStyleSheet("font-size: 12px; line-height: 1.5;");
-    taskLayout->addWidget(currentTasksList);
-    
-    taskLayout->addSpacing(10);
-    
-    QLabel* progressTitle = new QLabel("Task Progress");
-    progressTitle->setStyleSheet("font-weight: bold; color: #00a6ff; font-size: 14px;");
-    taskLayout->addWidget(progressTitle);
-    
-    QLabel* progressList = new QLabel(
-        "• <b>Mission Planning:</b> <span style='color:#4CAF50;'>100%</span>\n"
-        "• <b>Route Optimization:</b> <span style='color:#FFC107;'>75%</span>\n"
-        "• <b>Resource Allocation:</b> <span style='color:#FFC107;'>50%</span>"
-    );
-    progressList->setStyleSheet("font-size: 12px; line-height: 1.5;");
-    taskLayout->addWidget(progressList);
-    
-    taskLayout->addSpacing(10);
-    
-    QLabel* alertsTitle = new QLabel("Recent Alerts");
-    alertsTitle->setStyleSheet("font-weight: bold; color: #00a6ff; font-size: 14px;");
-    taskLayout->addWidget(alertsTitle);
-    
-    QLabel* alertsList = new QLabel(
-        "• <span style='color:#F44336;'>Low Battery Warning</span> - Atlas\n"
-        "• <span style='color:#FFC107;'>Weather Alert</span> - High Winds"
-    );
-    alertsList->setStyleSheet("font-size: 12px; line-height: 1.5;");
-    taskLayout->addWidget(alertsList);
-
-    // Add stretch to push everything to the top
-    taskLayout->addStretch();
-
-    // Set panel styles
-    taskPanel->setStyleSheet(R"(
-        QWidget {
-            background-color: #1a1a1a;
-        }
-        QLabel {
-            color: #e0e0e0;
-        }
-    )");
-
-    rightPanelDock->setWidget(taskPanel);
+    // Load mission list
+    taskDetailsPanel->loadMissionList();
 }
 
 void RightSidebar::handleButtonClick()
 {
-    bool newVisibility = !rightPanelDock->isVisible();
-    rightPanelDock->setVisible(newVisibility);
-    emit visibilityChanged(newVisibility);
-} 
+    // Toggle panel visibility
+    if (rightPanelDock->isVisible()) {
+        rightPanelDock->hide();
+    } else {
+        rightPanelDock->show();
+    }
+    
+    // Emit visibility changed signal
+    emit visibilityChanged(rightPanelDock->isVisible());
+}
+
+void RightSidebar::updateTaskList(const QString& missionType, const QString& vehicle, const QString& prompt)
+{
+    // Forward to the task details panel
+    TaskDetails* taskDetailsPanel = qobject_cast<TaskDetails*>(rightPanelDock->widget());
+    if (taskDetailsPanel) {
+        taskDetailsPanel->updateTaskList(missionType, vehicle, prompt);
+    }
+}
+
+void RightSidebar::loadMissionList()
+{
+    // Forward to the task details panel
+    TaskDetails* taskDetailsPanel = qobject_cast<TaskDetails*>(rightPanelDock->widget());
+    if (taskDetailsPanel) {
+        taskDetailsPanel->loadMissionList();
+    }
+}
+
+void RightSidebar::displayMissionDetails(int missionId)
+{
+    // Forward to the task details panel
+    TaskDetails* taskDetailsPanel = qobject_cast<TaskDetails*>(rightPanelDock->widget());
+    if (taskDetailsPanel) {
+        taskDetailsPanel->displayMissionDetails(missionId);
+    }
+}
+
+void RightSidebar::showAssignTaskDialog()
+{
+    // Forward to the task details panel
+    TaskDetails* taskDetailsPanel = qobject_cast<TaskDetails*>(rightPanelDock->widget());
+    if (taskDetailsPanel) {
+        taskDetailsPanel->showAssignTaskDialog();
+    }
+}

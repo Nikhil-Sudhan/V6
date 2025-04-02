@@ -2,5 +2,10 @@
 <RCC version="1.0">
     <qresource>
         <file>assets/icons/icons8-navigation-arrow-90.svg</file>
+        <file alias="icons/mission.png">assets/icons/mission.png</file>
+        <file alias="icons/config.png">assets/icons/config.png</file>
+        <file alias="icons/telemetry.png">assets/icons/telemetry.png</file>
+        <file alias="icons/settings.png">assets/icons/settings.png</file>
+        <file alias="icons/tasks.png">assets/icons/tasks.png</file>
     </qresource>
 </RCC>

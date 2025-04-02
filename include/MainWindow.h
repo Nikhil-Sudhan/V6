@@ -22,6 +22,7 @@ private slots:
     void handleLeftPanelChanged(int index);
     void handleAssignTask();
     void handleDroneAnimationCompleted();
+    void handleRightSidebarTaskAssignment(const QString& missionType, const QString& vehicle, const QString& prompt);
 
 private:
     void setupMainArea();
@@ -36,4 +37,4 @@ private:
     MapViewer* mapViewer;
 };
 
-#endif // MAINWINDOW_H 
+#endif // MAINWINDOW_H

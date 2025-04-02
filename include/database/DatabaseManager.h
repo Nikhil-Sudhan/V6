@@ -20,11 +20,15 @@ public:
     
     // Mission data operations
     bool saveMissionData(const QString& missionType, const QString& vehicle, const QString& prompt);
+    bool saveEnhancedMissionData(const QString& missionType, const QString& missionTitle, 
+                               const QString& userName, const QString& vehicle, 
+                               const QString& prompt, const QString& assetObjective);
     bool saveChatGPTResponse(int missionId, const QString& response, const QString& functions);
     
     // Query operations
     QSqlQuery getMissionHistory();
     QSqlQuery getMissionDetails(int missionId);
+    bool updateMissionStatus(int missionId, const QString& status);
 
 private:
     explicit DatabaseManager(QObject* parent = nullptr);

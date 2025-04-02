@@ -238,6 +238,78 @@ src/components/LeftSidebar.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftSidebar.cpp.s
 .PHONY : src/components/LeftSidebar.cpp.s
 
+src/components/LeftsideBar/missioncontrol.o: src/components/LeftsideBar/missioncontrol.cpp.o
+.PHONY : src/components/LeftsideBar/missioncontrol.o
+
+# target to build an object file
+src/components/LeftsideBar/missioncontrol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/missioncontrol.cpp.o
+.PHONY : src/components/LeftsideBar/missioncontrol.cpp.o
+
+src/components/LeftsideBar/missioncontrol.i: src/components/LeftsideBar/missioncontrol.cpp.i
+.PHONY : src/components/LeftsideBar/missioncontrol.i
+
+# target to preprocess a source file
+src/components/LeftsideBar/missioncontrol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/missioncontrol.cpp.i
+.PHONY : src/components/LeftsideBar/missioncontrol.cpp.i
+
+src/components/LeftsideBar/missioncontrol.s: src/components/LeftsideBar/missioncontrol.cpp.s
+.PHONY : src/components/LeftsideBar/missioncontrol.s
+
+# target to generate assembly for a file
+src/components/LeftsideBar/missioncontrol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/missioncontrol.cpp.s
+.PHONY : src/components/LeftsideBar/missioncontrol.cpp.s
+
+src/components/LeftsideBar/settings.o: src/components/LeftsideBar/settings.cpp.o
+.PHONY : src/components/LeftsideBar/settings.o
+
+# target to build an object file
+src/components/LeftsideBar/settings.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/settings.cpp.o
+.PHONY : src/components/LeftsideBar/settings.cpp.o
+
+src/components/LeftsideBar/settings.i: src/components/LeftsideBar/settings.cpp.i
+.PHONY : src/components/LeftsideBar/settings.i
+
+# target to preprocess a source file
+src/components/LeftsideBar/settings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/settings.cpp.i
+.PHONY : src/components/LeftsideBar/settings.cpp.i
+
+src/components/LeftsideBar/settings.s: src/components/LeftsideBar/settings.cpp.s
+.PHONY : src/components/LeftsideBar/settings.s
+
+# target to generate assembly for a file
+src/components/LeftsideBar/settings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/settings.cpp.s
+.PHONY : src/components/LeftsideBar/settings.cpp.s
+
+src/components/LeftsideBar/vechileconfiguration.o: src/components/LeftsideBar/vechileconfiguration.cpp.o
+.PHONY : src/components/LeftsideBar/vechileconfiguration.o
+
+# target to build an object file
+src/components/LeftsideBar/vechileconfiguration.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/vechileconfiguration.cpp.o
+.PHONY : src/components/LeftsideBar/vechileconfiguration.cpp.o
+
+src/components/LeftsideBar/vechileconfiguration.i: src/components/LeftsideBar/vechileconfiguration.cpp.i
+.PHONY : src/components/LeftsideBar/vechileconfiguration.i
+
+# target to preprocess a source file
+src/components/LeftsideBar/vechileconfiguration.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/vechileconfiguration.cpp.i
+.PHONY : src/components/LeftsideBar/vechileconfiguration.cpp.i
+
+src/components/LeftsideBar/vechileconfiguration.s: src/components/LeftsideBar/vechileconfiguration.cpp.s
+.PHONY : src/components/LeftsideBar/vechileconfiguration.s
+
+# target to generate assembly for a file
+src/components/LeftsideBar/vechileconfiguration.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/LeftsideBar/vechileconfiguration.cpp.s
+.PHONY : src/components/LeftsideBar/vechileconfiguration.cpp.s
+
 src/components/MapViewer.o: src/components/MapViewer.cpp.o
 .PHONY : src/components/MapViewer.o
 
@@ -286,6 +358,30 @@ src/components/RightSidebar.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/RightSidebar.cpp.s
 .PHONY : src/components/RightSidebar.cpp.s
 
+src/components/RightsideBar/taskdetails.o: src/components/RightsideBar/taskdetails.cpp.o
+.PHONY : src/components/RightsideBar/taskdetails.o
+
+# target to build an object file
+src/components/RightsideBar/taskdetails.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/RightsideBar/taskdetails.cpp.o
+.PHONY : src/components/RightsideBar/taskdetails.cpp.o
+
+src/components/RightsideBar/taskdetails.i: src/components/RightsideBar/taskdetails.cpp.i
+.PHONY : src/components/RightsideBar/taskdetails.i
+
+# target to preprocess a source file
+src/components/RightsideBar/taskdetails.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/RightsideBar/taskdetails.cpp.i
+.PHONY : src/components/RightsideBar/taskdetails.cpp.i
+
+src/components/RightsideBar/taskdetails.s: src/components/RightsideBar/taskdetails.cpp.s
+.PHONY : src/components/RightsideBar/taskdetails.s
+
+# target to generate assembly for a file
+src/components/RightsideBar/taskdetails.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/RightsideBar/taskdetails.cpp.s
+.PHONY : src/components/RightsideBar/taskdetails.cpp.s
+
 src/components/TopBar.o: src/components/TopBar.cpp.o
 .PHONY : src/components/TopBar.o
 
@@ -333,54 +429,6 @@ src/components/VehicleInfoWidget.s: src/components/VehicleInfoWidget.cpp.s
 src/components/VehicleInfoWidget.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/VehicleInfoWidget.cpp.s
 .PHONY : src/components/VehicleInfoWidget.cpp.s
-
-src/components/mapbox.o: src/components/mapbox.cpp.o
-.PHONY : src/components/mapbox.o
-
-# target to build an object file
-src/components/mapbox.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapbox.cpp.o
-.PHONY : src/components/mapbox.cpp.o
-
-src/components/mapbox.i: src/components/mapbox.cpp.i
-.PHONY : src/components/mapbox.i
-
-# target to preprocess a source file
-src/components/mapbox.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapbox.cpp.i
-.PHONY : src/components/mapbox.cpp.i
-
-src/components/mapbox.s: src/components/mapbox.cpp.s
-.PHONY : src/components/mapbox.s
-
-# target to generate assembly for a file
-src/components/mapbox.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapbox.cpp.s
-.PHONY : src/components/mapbox.cpp.s
-
-src/components/mapfunctions.o: src/components/mapfunctions.cpp.o
-.PHONY : src/components/mapfunctions.o
-
-# target to build an object file
-src/components/mapfunctions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapfunctions.cpp.o
-.PHONY : src/components/mapfunctions.cpp.o
-
-src/components/mapfunctions.i: src/components/mapfunctions.cpp.i
-.PHONY : src/components/mapfunctions.i
-
-# target to preprocess a source file
-src/components/mapfunctions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapfunctions.cpp.i
-.PHONY : src/components/mapfunctions.cpp.i
-
-src/components/mapfunctions.s: src/components/mapfunctions.cpp.s
-.PHONY : src/components/mapfunctions.s
-
-# target to generate assembly for a file
-src/components/mapfunctions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/components/mapfunctions.cpp.s
-.PHONY : src/components/mapfunctions.cpp.s
 
 src/database/DatabaseManager.o: src/database/DatabaseManager.cpp.o
 .PHONY : src/database/DatabaseManager.o
@@ -478,6 +526,78 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/map/geometry.o: src/map/geometry.cpp.o
+.PHONY : src/map/geometry.o
+
+# target to build an object file
+src/map/geometry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/geometry.cpp.o
+.PHONY : src/map/geometry.cpp.o
+
+src/map/geometry.i: src/map/geometry.cpp.i
+.PHONY : src/map/geometry.i
+
+# target to preprocess a source file
+src/map/geometry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/geometry.cpp.i
+.PHONY : src/map/geometry.cpp.i
+
+src/map/geometry.s: src/map/geometry.cpp.s
+.PHONY : src/map/geometry.s
+
+# target to generate assembly for a file
+src/map/geometry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/geometry.cpp.s
+.PHONY : src/map/geometry.cpp.s
+
+src/map/mapbox.o: src/map/mapbox.cpp.o
+.PHONY : src/map/mapbox.o
+
+# target to build an object file
+src/map/mapbox.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/mapbox.cpp.o
+.PHONY : src/map/mapbox.cpp.o
+
+src/map/mapbox.i: src/map/mapbox.cpp.i
+.PHONY : src/map/mapbox.i
+
+# target to preprocess a source file
+src/map/mapbox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/mapbox.cpp.i
+.PHONY : src/map/mapbox.cpp.i
+
+src/map/mapbox.s: src/map/mapbox.cpp.s
+.PHONY : src/map/mapbox.s
+
+# target to generate assembly for a file
+src/map/mapbox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/mapbox.cpp.s
+.PHONY : src/map/mapbox.cpp.s
+
+src/map/mapfunctions.o: src/map/mapfunctions.cpp.o
+.PHONY : src/map/mapfunctions.o
+
+# target to build an object file
+src/map/mapfunctions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/mapfunctions.cpp.o
+.PHONY : src/map/mapfunctions.cpp.o
+
+src/map/mapfunctions.i: src/map/mapfunctions.cpp.i
+.PHONY : src/map/mapfunctions.i
+
+# target to preprocess a source file
+src/map/mapfunctions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/mapfunctions.cpp.i
+.PHONY : src/map/mapfunctions.cpp.i
+
+src/map/mapfunctions.s: src/map/mapfunctions.cpp.s
+.PHONY : src/map/mapfunctions.s
+
+# target to generate assembly for a file
+src/map/mapfunctions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aerialsystem.dir/build.make CMakeFiles/aerialsystem.dir/src/map/mapfunctions.cpp.s
+.PHONY : src/map/mapfunctions.cpp.s
+
 src/simulation/SimulationView.o: src/simulation/SimulationView.cpp.o
 .PHONY : src/simulation/SimulationView.o
 
@@ -524,24 +644,30 @@ help:
 	@echo "... src/components/LeftSidebar.o"
 	@echo "... src/components/LeftSidebar.i"
 	@echo "... src/components/LeftSidebar.s"
+	@echo "... src/components/LeftsideBar/missioncontrol.o"
+	@echo "... src/components/LeftsideBar/missioncontrol.i"
+	@echo "... src/components/LeftsideBar/missioncontrol.s"
+	@echo "... src/components/LeftsideBar/settings.o"
+	@echo "... src/components/LeftsideBar/settings.i"
+	@echo "... src/components/LeftsideBar/settings.s"
+	@echo "... src/components/LeftsideBar/vechileconfiguration.o"
+	@echo "... src/components/LeftsideBar/vechileconfiguration.i"
+	@echo "... src/components/LeftsideBar/vechileconfiguration.s"
 	@echo "... src/components/MapViewer.o"
 	@echo "... src/components/MapViewer.i"
 	@echo "... src/components/MapViewer.s"
 	@echo "... src/components/RightSidebar.o"
 	@echo "... src/components/RightSidebar.i"
 	@echo "... src/components/RightSidebar.s"
+	@echo "... src/components/RightsideBar/taskdetails.o"
+	@echo "... src/components/RightsideBar/taskdetails.i"
+	@echo "... src/components/RightsideBar/taskdetails.s"
 	@echo "... src/components/TopBar.o"
 	@echo "... src/components/TopBar.i"
 	@echo "... src/components/TopBar.s"
 	@echo "... src/components/VehicleInfoWidget.o"
 	@echo "... src/components/VehicleInfoWidget.i"
 	@echo "... src/components/VehicleInfoWidget.s"
-	@echo "... src/components/mapbox.o"
-	@echo "... src/components/mapbox.i"
-	@echo "... src/components/mapbox.s"
-	@echo "... src/components/mapfunctions.o"
-	@echo "... src/components/mapfunctions.i"
-	@echo "... src/components/mapfunctions.s"
 	@echo "... src/database/DatabaseManager.o"
 	@echo "... src/database/DatabaseManager.i"
 	@echo "... src/database/DatabaseManager.s"
@@ -554,6 +680,15 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/map/geometry.o"
+	@echo "... src/map/geometry.i"
+	@echo "... src/map/geometry.s"
+	@echo "... src/map/mapbox.o"
+	@echo "... src/map/mapbox.i"
+	@echo "... src/map/mapbox.s"
+	@echo "... src/map/mapfunctions.o"
+	@echo "... src/map/mapfunctions.i"
+	@echo "... src/map/mapfunctions.s"
 	@echo "... src/simulation/SimulationView.o"
 	@echo "... src/simulation/SimulationView.i"
 	@echo "... src/simulation/SimulationView.s"

@@ -4,6 +4,7 @@
 #include "../include/components/RightSidebar.h"
 #include "../include/components/MapViewer.h"
 #include "../include/database/DatabaseManager.h"
+#include "../include/api/ChatGPTClient.h"
 #include <QDebug>
 #include <QApplication>
 #include <QScreen>
@@ -49,6 +50,22 @@ MainWindow::MainWindow(QWidget *parent)
     
     // Connect drone animation completed signal to handle completion
     connect(mapViewer, &MapViewer::droneAnimationCompleted, this, &MainWindow::handleDroneAnimationCompleted);
+    
+    // Connect right sidebar task assignment signal
+    connect(rightSidebar, &RightSidebar::assignTask, this, &MainWindow::handleRightSidebarTaskAssignment);
+    
+    // Connect ChatGPT response signal to update the right sidebar
+    connect(&ChatGPTClient::instance(), &ChatGPTClient::responseReceived, 
+            [this](int missionId, const QString& response, const QString& functions) {
+                // Update status bar with success message
+                statusBar()->showMessage("Mission data received successfully", 3000);
+            });
+    
+    // Connect ChatGPT error signal
+    connect(&ChatGPTClient::instance(), &ChatGPTClient::errorOccurred,
+            [this](const QString& errorMessage) {
+                QMessageBox::warning(this, "API Error", "Error processing mission: " + errorMessage);
+            });
 }
 
 MainWindow::~MainWindow()
@@ -151,4 +168,24 @@ void MainWindow::handleAssignTask()
 void MainWindow::handleDroneAnimationCompleted()
 {
     // TO DO: implement handling for drone animation completion
+}
+
+void MainWindow::handleRightSidebarTaskAssignment(const QString& missionType, const QString& vehicle, const QString& prompt)
+{
+    // Show status message
+    statusBar()->showMessage("Assigning task: " + missionType + " to " + vehicle, 3000);
+    
+    // Update the right sidebar task list
+    rightSidebar->updateTaskList(missionType, vehicle, prompt);
+    
+    // Make sure the right sidebar is visible
+    if (!rightSidebar->isPanelVisible()) {
+        rightSidebar->handleButtonClick();
+    }
+    
+    // Send the prompt to ChatGPT
+    ChatGPTClient::instance().sendPrompt(missionType, vehicle, prompt);
+    
+    // Notify map viewer (similar to the existing mission assigned signal)
+    mapViewer->confirmDroneTask(missionType, vehicle, prompt);
 }

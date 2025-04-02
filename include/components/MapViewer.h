@@ -16,6 +16,7 @@
 // Forward declarations
 class MapFunctions;
 class Mapbox;
+class Geometry;
 
 // Custom WebEnginePage for debugging
 class DebugWebEnginePage : public QWebEnginePage {
@@ -46,7 +47,6 @@ public slots:
     void loadGeometricShapes();
     void deleteGeometricShape(const QString& shapeName);
     void clearDronePathsOnExit();
-    void startDroneAnimation(); 
     void confirmDroneTask(const QString& missionType, const QString& vehicle, const QString& prompt); 
     
 signals:
@@ -64,7 +64,9 @@ private:
     
     // Mapbox handler
     Mapbox* m_mapbox;
-
+    
+    // Geometry handler
+    Geometry* m_geometry;
 };
 
 #endif // MAPVIEWER_H

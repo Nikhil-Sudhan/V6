@@ -65,8 +65,12 @@ bool DatabaseManager::createTables()
     QString createMissionsTable = "CREATE TABLE IF NOT EXISTS missions ("
                                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                                 "mission_type TEXT NOT NULL, "
+                                "mission_title TEXT, "
+                                "user_name TEXT, "
                                 "vehicle TEXT NOT NULL, "
                                 "prompt TEXT NOT NULL, "
+                                "asset_objective TEXT, "
+                                "status TEXT DEFAULT 'pending', "
                                 "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
                                 
     if (!query.exec(createMissionsTable)) {
@@ -116,6 +120,34 @@ bool DatabaseManager::saveMissionData(const QString& missionType, const QString&
     return true;
 }
 
+bool DatabaseManager::saveEnhancedMissionData(const QString& missionType, const QString& missionTitle, 
+                                           const QString& userName, const QString& vehicle, 
+                                           const QString& prompt, const QString& assetObjective)
+{
+    if (!initialized && !initialize()) {
+        qDebug() << "Database not initialized";
+        return false;
+    }
+    
+    QSqlQuery query;
+    query.prepare("INSERT INTO missions (mission_type, mission_title, user_name, vehicle, prompt, asset_objective) "
+                 "VALUES (:mission_type, :mission_title, :user_name, :vehicle, :prompt, :asset_objective)");
+    query.bindValue(":mission_type", missionType);
+    query.bindValue(":mission_title", missionTitle);
+    query.bindValue(":user_name", userName);
+    query.bindValue(":vehicle", vehicle);
+    query.bindValue(":prompt", prompt);
+    query.bindValue(":asset_objective", assetObjective);
+    
+    if (!query.exec()) {
+        qDebug() << "Error saving enhanced mission data:" << query.lastError().text();
+        return false;
+    }
+    
+    qDebug() << "Enhanced mission data saved successfully. ID:" << query.lastInsertId().toInt();
+    return true;
+}
+
 bool DatabaseManager::saveChatGPTResponse(int missionId, const QString& response, const QString& functions)
 {
     if (!initialized && !initialize()) {
@@ -162,7 +194,7 @@ QSqlQuery DatabaseManager::getMissionHistory()
 QSqlQuery DatabaseManager::getMissionDetails(int missionId)
 {
     QSqlQuery query;
-    query.prepare("SELECT m.id, m.mission_type, m.vehicle, m.prompt, m.timestamp, "
+    query.prepare("SELECT m.id, m.mission_type, m.vehicle, m.prompt, m.timestamp, m.status, "
                  "r.response, r.functions, r.timestamp as response_timestamp "
                  "FROM missions m "
                  "LEFT JOIN responses r ON m.id = r.mission_id "
@@ -174,4 +206,24 @@ QSqlQuery DatabaseManager::getMissionDetails(int missionId)
     }
     
     return query;
-} 
+}
+
+bool DatabaseManager::updateMissionStatus(int missionId, const QString& status)
+{
+    if (!initialized && !initialize()) {
+        qDebug() << "Database not initialized";
+        return false;
+    }
+    
+    QSqlQuery query;
+    query.prepare("UPDATE missions SET status = :status WHERE id = :id");
+    query.bindValue(":id", missionId);
+    query.bindValue(":status", status);
+    
+    if (!query.exec()) {
+        qDebug() << "Error updating mission status:" << query.lastError().text();
+        return false;
+    }
+    
+    return true;
+}

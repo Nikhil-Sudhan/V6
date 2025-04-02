@@ -21,15 +21,19 @@ set(SOURCES
     src/components/LeftSidebar.cpp
     src/components/RightSidebar.cpp
     src/components/MapViewer.cpp
-    src/components/mapfunctions.cpp
-    src/components/mapbox.cpp
+    src/map/mapfunctions.cpp
+    src/map/mapbox.cpp
+    src/map/geometry.cpp
     src/components/VehicleInfoWidget.cpp
     src/database/DatabaseManager.cpp
     src/api/ChatGPTClient.cpp
     src/dialogs/ResponseDialog.cpp
     src/drone/DroneFunctions.cpp
     src/simulation/SimulationView.cpp
-    
+    "src/components/LeftsideBar/missioncontrol.cpp"
+    "src/components/LeftsideBar/vechileconfiguration.cpp"
+    "src/components/LeftsideBar/settings.cpp"
+    "src/components/RightsideBar/taskdetails.cpp"
 )
 
 # Header files
@@ -39,15 +43,19 @@ set(HEADERS
     include/components/LeftSidebar.h
     include/components/RightSidebar.h
     include/components/MapViewer.h
-    include/components/mapfunctions.h
-    include/components/mapbox.h
+    include/map/mapfunctions.h
+    include/map/mapbox.h
+    include/map/geometry.h
     include/components/VehicleInfoWidget.h
     include/database/DatabaseManager.h
     include/api/ChatGPTClient.h
     include/dialogs/ResponseDialog.h
     include/drone/DroneFunctions.h
     include/simulation/SimulationView.h
-    
+    "include/components/LeftsideBar/missioncontrol.h"
+    "include/components/LeftsideBar/vechileconfiguration.h"
+    "include/components/LeftsideBar/settings.h"
+    "include/components/RightsideBar/taskdetails.h"
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})

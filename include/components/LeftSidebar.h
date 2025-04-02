@@ -5,11 +5,12 @@
 #include <QAction>
 #include <QStackedWidget>
 #include <QDockWidget>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QComboBox>
-#include <QTextEdit>
-#include <QPushButton>
+#include <QObject>
+
+// Forward declarations
+class MissionControl;
+class VehicleConfiguration;
+class Settings;
 
 class LeftSidebar : public QObject {
     Q_OBJECT
@@ -29,9 +30,6 @@ signals:
 public slots:
     void handleButtonClick(int index);
     void setTitle(const QString& title);
-    void handleAssignTask();
-    void handleChatGPTResponse(int missionId, const QString& response, const QString& functions);
-    void handleApiError(const QString& errorMessage);
 
 private:
     void createToolBar(QWidget* parent);
@@ -46,16 +44,14 @@ private:
     // Panel actions
     QAction* missionAction;
     QAction* configAction;
-    QAction* simulationAction;
     QAction* settingsAction;
     
-    // Mission panel controls
-    QComboBox* missionTypeCombo;
-    QComboBox* vehicleCombo;
-    QTextEdit* promptTextEdit;
-    QPushButton* assignTaskButton;
+    // Panel widgets
+    MissionControl* missionControlPanel;
+    VehicleConfiguration* vehicleConfigPanel;
+    Settings* settingsPanel;
     
     int currentPanelIndex;
 };
 
-#endif // LEFTSIDEBAR_H 
+#endif // LEFTSIDEBAR_H
